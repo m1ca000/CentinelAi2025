@@ -2,7 +2,7 @@
     "version": 2,
     "builds": [
         {
-            "src": "src/server.js",
+            "src": "src/index.js",
             "use": "@vercel/node",
             "config": { "includeFiles": ["dist/**"] }
         }
@@ -11,7 +11,7 @@
     "routes": [
         {
             "src": "/(.*)",
-            "dest": "src/server.ts",
+            "dest": "src/index.js",
             "methods": ["GET", "POST", "PUT", "DELETE", "PATCH", "OPTIONS"],
             "headers": {
                 "Access-Control-Allow-Credentials": "true",
