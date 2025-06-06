@@ -1,0 +1,78 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+  output   = "../src/generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Institution {
+  inst_ID String @id
+  name    String
+
+  admins   Admin[]
+  persons  Person[]
+  devices  Device[]
+  activity Activity[]
+}
+
+model Admin {
+  email         String      @id
+  name          String
+  password      String
+  institution   Institution @relation(fields: [institutionID], references: [inst_ID])
+  institutionID String
+}
+
+model Hierarchy {
+  hier_ID Int    @id @default(autoincrement())
+  name    String
+
+  persons Person[]
+}
+
+model Person {
+  person_ID     Int         @id @default(autoincrement())
+  name          String
+  surname       String
+  institution   Institution @relation(fields: [institutionID], references: [inst_ID])
+  institutionID String
+  hierarchy     Hierarchy   @relation(fields: [hierarchyID], references: [hier_ID])
+  hierarchyID   Int
+
+  activity Activity[]
+}
+
+model Type_Devices {
+  type_ID Int    @id @default(autoincrement())
+  name    String
+
+  devices Device[]
+}
+
+model Device {
+  device_ID     Int          @id @default(autoincrement())
+  name          String
+  type          Type_Devices @relation(fields: [typeID], references: [type_ID])
+  typeID        Int
+  institution   Institution  @relation(fields: [institutionID], references: [inst_ID])
+  institutionID String
+}
+
+model Activity {
+  activity_ID   Int         @id @default(autoincrement())
+  dateTime_in   DateTime
+  dateTime_out  DateTime
+  institution   Institution @relation(fields: [institutionID], references: [inst_ID])
+  institutionID String
+  person        Person      @relation(fields: [personID], references: [person_ID])
+  personID      Int
+}
