@@ -16,5 +16,6 @@ export const createDevice = async (req, res) => {
     res.status(201).json(device);
   } catch (err) {
     res.status(500).json({ error: 'Error al crear el dispositivo' });
+    throw err;
   }
 };

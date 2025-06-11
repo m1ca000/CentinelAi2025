@@ -66,6 +66,7 @@ model Device {
   typeID        Int
   institution   Institution  @relation(fields: [institutionID], references: [inst_ID])
   institutionID String
+  state         Boolean
 }
 
 model Activity {

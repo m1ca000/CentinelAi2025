@@ -21,4 +21,7 @@ app.get("/", (req, res) => {
 import deviceRoutes from './Routes/device.routes.js';
 app.use('/devices', deviceRoutes);
 
+import institutionRoutes from './Routes/institution.routes.js';
+app.use('/institution', institutionRoutes);
+
 export default app;

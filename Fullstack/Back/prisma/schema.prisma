@@ -60,12 +60,13 @@ model Type_Devices {
 }
 
 model Device {
-  device_ID     Int @id @default(autoincrement())
-  name          String
-  type          Type_Devices @relation(fields: [typeID], references: [type_ID])
-  typeID        Int
+  device_ID       Int @id @default(autoincrement())
+  name            String
+  type            Type_Devices @relation(fields: [typeID], references: [type_ID])
+  typeID          Int
   institution     Institution @relation(fields: [institutionID], references: [inst_ID])
   institutionID   String
+  state           Boolean
 }
 
 model Activity {

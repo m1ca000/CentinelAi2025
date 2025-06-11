@@ -154,7 +154,8 @@ exports.Prisma.DeviceScalarFieldEnum = {
   device_ID: 'device_ID',
   name: 'name',
   typeID: 'typeID',
-  institutionID: 'institutionID'
+  institutionID: 'institutionID',
+  state: 'state'
 };
 
 exports.Prisma.ActivityScalarFieldEnum = {
