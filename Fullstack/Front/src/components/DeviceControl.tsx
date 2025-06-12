@@ -3,6 +3,7 @@ import { Plus, Play, Square, RotateCw } from 'lucide-react';
 import { DeviceCard } from './DeviceCard';
 import { AddDeviceModal } from './AddDeviceModal';
 import type { Device } from '../types/index';
+import axios from 'axios'
 
 export const DeviceControl: React.FC = () => {
   const [showModal, setShowModal] = useState(false);
@@ -19,13 +20,31 @@ export const DeviceControl: React.FC = () => {
     );
   };
 
-  const handleAddDevice = (device: Omit<Device, 'id'>) => {
-    const newDevice: Device = {
-      ...device,
-      id: Math.max(0, ...devices.map((d) => d.id)) + 1,
-    };
-    setDevices([...devices, newDevice]);
-    setShowModal(false);
+  const handleAddDevice = async (device: Omit<Device, 'id'>) => {
+    try {
+      const payload = {
+        name: device.name,
+        typeID: device.type === 'camera' ? 1 : 2, 
+        institutionID: "0mrcyLbA",
+        state: device.active, 
+      };
+      
+      // Realiza la solicitud POST al backend
+      const response = await axios.post('https://centinel-ai2025.vercel.app/devices/', payload);
+      
+      const newDevice: Device = {
+        id: response.data.id,
+        name: response.data.name,
+        type: device.type,
+        active: response.data.state,
+      };
+      setDevices([...devices, newDevice]);
+      setShowModal(false);
+    } catch (err) {
+      console.error ('Error al agregar dispositivo')
+      throw err
+      alert('Error al agregar el dispositivo. Intente nuevamente.');
+    }
   };
 
   const cameras = devices.filter((device) => device.type === 'camera');

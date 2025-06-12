@@ -189,6 +189,10 @@ const config = {
       {
         "fromEnvVar": null,
         "value": "darwin-arm64"
+      },
+      {
+        "fromEnvVar": null,
+        "value": "rhel-openssl-3.0.x"
       }
     ],
     "previewFeatures": [],
@@ -206,6 +210,7 @@ const config = {
     "db"
   ],
   "activeProvider": "postgresql",
+  "postinstall": false,
   "inlineDatasources": {
     "db": {
       "url": {
@@ -214,8 +219,8 @@ const config = {
       }
     }
   },
-  "inlineSchema": "// This is your Prisma schema file,\n// learn more about it in the docs: https://pris.ly/d/prisma-schema\n\n// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?\n// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init\n\ngenerator client {\n  provider      = \"prisma-client-js\"\n  output        = \"../src/generated/prisma\"\n  binaryTargets = [\"native\", \"windows\", \"darwin-arm64\"]\n}\n\ndatasource db {\n  provider = \"postgresql\"\n  url      = env(\"DATABASE_URL\")\n}\n\nmodel Institution {\n  inst_ID String @id\n  name    String\n\n  admins   Admin[]\n  persons  Person[]\n  devices  Device[]\n  activity Activity[]\n}\n\nmodel Admin {\n  email         String      @id\n  name          String\n  password      String\n  institution   Institution @relation(fields: [institutionID], references: [inst_ID])\n  institutionID String\n}\n\nmodel Hierarchy {\n  hier_ID Int    @id @default(autoincrement())\n  name    String\n\n  persons Person[]\n}\n\nmodel Person {\n  person_ID     Int         @id @default(autoincrement())\n  name          String\n  surname       String\n  institution   Institution @relation(fields: [institutionID], references: [inst_ID])\n  institutionID String\n  hierarchy     Hierarchy   @relation(fields: [hierarchyID], references: [hier_ID])\n  hierarchyID   Int\n\n  activity Activity[]\n}\n\nmodel Type_Devices {\n  type_ID Int    @id @default(autoincrement())\n  name    String\n\n  devices Device[]\n}\n\nmodel Device {\n  device_ID     Int          @id @default(autoincrement())\n  name          String\n  type          Type_Devices @relation(fields: [typeID], references: [type_ID])\n  typeID        Int\n  institution   Institution  @relation(fields: [institutionID], references: [inst_ID])\n  institutionID String\n  state         Boolean\n}\n\nmodel Activity {\n  activity_ID   Int         @id @default(autoincrement())\n  dateTime_in   DateTime\n  dateTime_out  DateTime\n  institution   Institution @relation(fields: [institutionID], references: [inst_ID])\n  institutionID String\n  person        Person      @relation(fields: [personID], references: [person_ID])\n  personID      Int\n}\n",
-  "inlineSchemaHash": "0837a374c2234bcdafbabf25e7685134088f23741a996cc5398d03224a778b40",
+  "inlineSchema": "// This is your Prisma schema file,\n// learn more about it in the docs: https://pris.ly/d/prisma-schema\n\n// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?\n// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init\n\ngenerator client {\n  provider      = \"prisma-client-js\"\n  output        = \"../src/generated/prisma\"\n  binaryTargets = [\"native\", \"windows\", \"darwin-arm64\", \"rhel-openssl-3.0.x\"]\n}\n\ndatasource db {\n  provider = \"postgresql\"\n  url      = env(\"DATABASE_URL\")\n}\n\nmodel Institution {\n  inst_ID String @id\n  name    String\n\n  admins   Admin[]\n  persons  Person[]\n  devices  Device[]\n  activity Activity[]\n}\n\nmodel Admin {\n  email         String      @id\n  name          String\n  password      String\n  institution   Institution @relation(fields: [institutionID], references: [inst_ID])\n  institutionID String\n}\n\nmodel Hierarchy {\n  hier_ID Int    @id @default(autoincrement())\n  name    String\n\n  persons Person[]\n}\n\nmodel Person {\n  person_ID     Int         @id @default(autoincrement())\n  name          String\n  surname       String\n  institution   Institution @relation(fields: [institutionID], references: [inst_ID])\n  institutionID String\n  hierarchy     Hierarchy   @relation(fields: [hierarchyID], references: [hier_ID])\n  hierarchyID   Int\n\n  activity Activity[]\n}\n\nmodel Type_Devices {\n  type_ID Int    @id @default(autoincrement())\n  name    String\n\n  devices Device[]\n}\n\nmodel Device {\n  device_ID     Int          @id @default(autoincrement())\n  name          String\n  type          Type_Devices @relation(fields: [typeID], references: [type_ID])\n  typeID        Int\n  institution   Institution  @relation(fields: [institutionID], references: [inst_ID])\n  institutionID String\n  state         Boolean\n}\n\nmodel Activity {\n  activity_ID   Int         @id @default(autoincrement())\n  dateTime_in   DateTime\n  dateTime_out  DateTime\n  institution   Institution @relation(fields: [institutionID], references: [inst_ID])\n  institutionID String\n  person        Person      @relation(fields: [personID], references: [person_ID])\n  personID      Int\n}\n",
+  "inlineSchemaHash": "35ada454792004a7479163bf639f0d47abc92e5067f092747ce3a143c2e57767",
   "copyEngine": true
 }
 
@@ -260,6 +265,10 @@ path.join(process.cwd(), "src/generated/prisma/query_engine-windows.dll.node")
 // file annotations for bundling tools to include these files
 path.join(__dirname, "libquery_engine-darwin-arm64.dylib.node");
 path.join(process.cwd(), "src/generated/prisma/libquery_engine-darwin-arm64.dylib.node")
+
+// file annotations for bundling tools to include these files
+path.join(__dirname, "libquery_engine-rhel-openssl-3.0.x.so.node");
+path.join(process.cwd(), "src/generated/prisma/libquery_engine-rhel-openssl-3.0.x.so.node")
 // file annotations for bundling tools to include these files
 path.join(__dirname, "schema.prisma");
 path.join(process.cwd(), "src/generated/prisma/schema.prisma")
