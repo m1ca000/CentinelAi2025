@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Plus, Play, Square, RotateCw } from 'lucide-react';
 import { DeviceCard } from './DeviceCard';
 import { AddDeviceModal } from './AddDeviceModal';
@@ -7,10 +7,34 @@ import axios from 'axios'
 
 export const DeviceControl: React.FC = () => {
   const [showModal, setShowModal] = useState(false);
-  const [devices, setDevices] = useState<Device[]>([
-    { id: 1, name: 'Camara 1', type: 'camera', active: true },
-    { id: 2, name: 'Molinete 1', type: 'turnstile', active: false },
-  ]);
+  const [devices, setDevices] = useState<Device[]>([]);
+  const [loading, setLoading] = useState<boolean>(true)
+  const institutionID = "0mrcyLbA"; // Cambia esto según tu lógica para obtener el ID de la institución
+  // useEffect para obtener dispositivos al montar el componente
+  useEffect(() => {
+    const fetchDevices = async () => {
+      setLoading(true);
+      try {
+        const response = await axios.get(`https://centinel-ai2025.vercel.app/devices/${institutionID}`);
+        const formattedDevices: Device[] = response.data.map((device: any) => ({
+        id: device.device_ID,
+        name: device.name,
+        type: device.typeID === 1 ? 'camera' : 'turnstile',
+        active: device.state
+        }));
+
+        setDevices(formattedDevices);
+      } catch (error) {
+        console.error('Error al obtener dispositivos:', error);
+        throw error
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchDevices();
+  }, [institutionID]);
+
+  
 
   const toggleDeviceStatus = (id: number) => {
     setDevices(
@@ -33,7 +57,7 @@ export const DeviceControl: React.FC = () => {
       const response = await axios.post('https://centinel-ai2025.vercel.app/devices/', payload);
       
       const newDevice: Device = {
-        id: response.data.id,
+        id: response.data.device_ID,
         name: response.data.name,
         type: device.type,
         active: response.data.state,
@@ -43,13 +67,13 @@ export const DeviceControl: React.FC = () => {
     } catch (err) {
       console.error ('Error al agregar dispositivo')
       throw err
-      alert('Error al agregar el dispositivo. Intente nuevamente.');
     }
   };
 
   const cameras = devices.filter((device) => device.type === 'camera');
   const turnstiles = devices.filter((device) => device.type === 'turnstile');
 
+  
   return (
     <div className="p-6">
       <div className="flex justify-between items-center mb-6">
