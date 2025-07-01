@@ -1,19 +1,17 @@
 import React, { useState, useEffect } from 'react';
-import { Plus, Play, Square, RotateCw } from 'lucide-react';
-import { DeviceCard } from './DeviceCard';
-import { AddDeviceModal } from './AddDeviceModal';
+import { Plus } from 'lucide-react';
+import { DeviceCard } from '../components/DeviceCard';
+import { AddDeviceModal } from '../components/AddDeviceModal';
 import type { Device } from '../types/index';
 import axios from 'axios'
 
 export const DeviceControl: React.FC = () => {
   const [showModal, setShowModal] = useState(false);
   const [devices, setDevices] = useState<Device[]>([]);
-  const [loading, setLoading] = useState<boolean>(true)
   const institutionID = "0mrcyLbA"; // Cambia esto según tu lógica para obtener el ID de la institución
   // useEffect para obtener dispositivos al montar el componente
   useEffect(() => {
     const fetchDevices = async () => {
-      setLoading(true);
       try {
         const response = await axios.get(`https://centinel-ai2025.vercel.app/devices/${institutionID}`);
         const formattedDevices: Device[] = response.data.map((device: any) => ({
@@ -27,8 +25,6 @@ export const DeviceControl: React.FC = () => {
       } catch (error) {
         console.error('Error al obtener dispositivos:', error);
         throw error
-      } finally {
-        setLoading(false);
       }
     };
     fetchDevices();

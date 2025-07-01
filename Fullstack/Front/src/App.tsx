@@ -1,6 +1,5 @@
-import React from 'react';
 import { Sidebar } from './components/Sidebar';
-import { DeviceControl } from './components/DeviceControl';
+import { DeviceControl } from './pages/DeviceControl';
 
 function App() {
   return (

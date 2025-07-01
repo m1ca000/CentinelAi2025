@@ -2811,7 +2811,7 @@ export namespace Prisma {
     email: string
     name: string
     password: string
-    institutionID: string
+    institutionID: string | null
     _count: AdminCountAggregateOutputType | null
     _min: AdminMinAggregateOutputType | null
     _max: AdminMaxAggregateOutputType | null
@@ -2836,7 +2836,7 @@ export namespace Prisma {
     name?: boolean
     password?: boolean
     institutionID?: boolean
-    institution?: boolean | InstitutionDefaultArgs<ExtArgs>
+    institution?: boolean | Admin$institutionArgs<ExtArgs>
   }, ExtArgs["result"]["admin"]>
 
   export type AdminSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
@@ -2844,7 +2844,7 @@ export namespace Prisma {
     name?: boolean
     password?: boolean
     institutionID?: boolean
-    institution?: boolean | InstitutionDefaultArgs<ExtArgs>
+    institution?: boolean | Admin$institutionArgs<ExtArgs>
   }, ExtArgs["result"]["admin"]>
 
   export type AdminSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
@@ -2852,7 +2852,7 @@ export namespace Prisma {
     name?: boolean
     password?: boolean
     institutionID?: boolean
-    institution?: boolean | InstitutionDefaultArgs<ExtArgs>
+    institution?: boolean | Admin$institutionArgs<ExtArgs>
   }, ExtArgs["result"]["admin"]>
 
   export type AdminSelectScalar = {
@@ -2864,25 +2864,25 @@ export namespace Prisma {
 
   export type AdminOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"email" | "name" | "password" | "institutionID", ExtArgs["result"]["admin"]>
   export type AdminInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    institution?: boolean | InstitutionDefaultArgs<ExtArgs>
+    institution?: boolean | Admin$institutionArgs<ExtArgs>
   }
   export type AdminIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    institution?: boolean | InstitutionDefaultArgs<ExtArgs>
+    institution?: boolean | Admin$institutionArgs<ExtArgs>
   }
   export type AdminIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    institution?: boolean | InstitutionDefaultArgs<ExtArgs>
+    institution?: boolean | Admin$institutionArgs<ExtArgs>
   }
 
   export type $AdminPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "Admin"
     objects: {
-      institution: Prisma.$InstitutionPayload<ExtArgs>
+      institution: Prisma.$InstitutionPayload<ExtArgs> | null
     }
     scalars: $Extensions.GetPayloadResult<{
       email: string
       name: string
       password: string
-      institutionID: string
+      institutionID: string | null
     }, ExtArgs["result"]["admin"]>
     composites: {}
   }
@@ -3277,7 +3277,7 @@ export namespace Prisma {
    */
   export interface Prisma__AdminClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
-    institution<T extends InstitutionDefaultArgs<ExtArgs> = {}>(args?: Subset<T, InstitutionDefaultArgs<ExtArgs>>): Prisma__InstitutionClient<$Result.GetResult<Prisma.$InstitutionPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    institution<T extends Admin$institutionArgs<ExtArgs> = {}>(args?: Subset<T, Admin$institutionArgs<ExtArgs>>): Prisma__InstitutionClient<$Result.GetResult<Prisma.$InstitutionPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -3704,6 +3704,25 @@ export namespace Prisma {
      * Limit how many Admins to delete.
      */
     limit?: number
+  }
+
+  /**
+   * Admin.institution
+   */
+  export type Admin$institutionArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Institution
+     */
+    select?: InstitutionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Institution
+     */
+    omit?: InstitutionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: InstitutionInclude<ExtArgs> | null
+    where?: InstitutionWhereInput
   }
 
   /**
@@ -9294,6 +9313,14 @@ export namespace Prisma {
   export type QueryMode = (typeof QueryMode)[keyof typeof QueryMode]
 
 
+  export const NullsOrder: {
+    first: 'first',
+    last: 'last'
+  };
+
+  export type NullsOrder = (typeof NullsOrder)[keyof typeof NullsOrder]
+
+
   /**
    * Field references
    */
@@ -9421,15 +9448,15 @@ export namespace Prisma {
     email?: StringFilter<"Admin"> | string
     name?: StringFilter<"Admin"> | string
     password?: StringFilter<"Admin"> | string
-    institutionID?: StringFilter<"Admin"> | string
-    institution?: XOR<InstitutionScalarRelationFilter, InstitutionWhereInput>
+    institutionID?: StringNullableFilter<"Admin"> | string | null
+    institution?: XOR<InstitutionNullableScalarRelationFilter, InstitutionWhereInput> | null
   }
 
   export type AdminOrderByWithRelationInput = {
     email?: SortOrder
     name?: SortOrder
     password?: SortOrder
-    institutionID?: SortOrder
+    institutionID?: SortOrderInput | SortOrder
     institution?: InstitutionOrderByWithRelationInput
   }
 
@@ -9440,15 +9467,15 @@ export namespace Prisma {
     NOT?: AdminWhereInput | AdminWhereInput[]
     name?: StringFilter<"Admin"> | string
     password?: StringFilter<"Admin"> | string
-    institutionID?: StringFilter<"Admin"> | string
-    institution?: XOR<InstitutionScalarRelationFilter, InstitutionWhereInput>
+    institutionID?: StringNullableFilter<"Admin"> | string | null
+    institution?: XOR<InstitutionNullableScalarRelationFilter, InstitutionWhereInput> | null
   }, "email">
 
   export type AdminOrderByWithAggregationInput = {
     email?: SortOrder
     name?: SortOrder
     password?: SortOrder
-    institutionID?: SortOrder
+    institutionID?: SortOrderInput | SortOrder
     _count?: AdminCountOrderByAggregateInput
     _max?: AdminMaxOrderByAggregateInput
     _min?: AdminMinOrderByAggregateInput
@@ -9461,7 +9488,7 @@ export namespace Prisma {
     email?: StringWithAggregatesFilter<"Admin"> | string
     name?: StringWithAggregatesFilter<"Admin"> | string
     password?: StringWithAggregatesFilter<"Admin"> | string
-    institutionID?: StringWithAggregatesFilter<"Admin"> | string
+    institutionID?: StringNullableWithAggregatesFilter<"Admin"> | string | null
   }
 
   export type HierarchyWhereInput = {
@@ -9786,35 +9813,35 @@ export namespace Prisma {
     email: string
     name: string
     password: string
-    institution: InstitutionCreateNestedOneWithoutAdminsInput
+    institution?: InstitutionCreateNestedOneWithoutAdminsInput
   }
 
   export type AdminUncheckedCreateInput = {
     email: string
     name: string
     password: string
-    institutionID: string
+    institutionID?: string | null
   }
 
   export type AdminUpdateInput = {
     email?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
-    institution?: InstitutionUpdateOneRequiredWithoutAdminsNestedInput
+    institution?: InstitutionUpdateOneWithoutAdminsNestedInput
   }
 
   export type AdminUncheckedUpdateInput = {
     email?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
-    institutionID?: StringFieldUpdateOperationsInput | string
+    institutionID?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type AdminCreateManyInput = {
     email: string
     name: string
     password: string
-    institutionID: string
+    institutionID?: string | null
   }
 
   export type AdminUpdateManyMutationInput = {
@@ -9827,7 +9854,7 @@ export namespace Prisma {
     email?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
-    institutionID?: StringFieldUpdateOperationsInput | string
+    institutionID?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type HierarchyCreateInput = {
@@ -10147,9 +10174,29 @@ export namespace Prisma {
     _max?: NestedStringFilter<$PrismaModel>
   }
 
-  export type InstitutionScalarRelationFilter = {
-    is?: InstitutionWhereInput
-    isNot?: InstitutionWhereInput
+  export type StringNullableFilter<$PrismaModel = never> = {
+    equals?: string | StringFieldRefInput<$PrismaModel> | null
+    in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    notIn?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    lt?: string | StringFieldRefInput<$PrismaModel>
+    lte?: string | StringFieldRefInput<$PrismaModel>
+    gt?: string | StringFieldRefInput<$PrismaModel>
+    gte?: string | StringFieldRefInput<$PrismaModel>
+    contains?: string | StringFieldRefInput<$PrismaModel>
+    startsWith?: string | StringFieldRefInput<$PrismaModel>
+    endsWith?: string | StringFieldRefInput<$PrismaModel>
+    mode?: QueryMode
+    not?: NestedStringNullableFilter<$PrismaModel> | string | null
+  }
+
+  export type InstitutionNullableScalarRelationFilter = {
+    is?: InstitutionWhereInput | null
+    isNot?: InstitutionWhereInput | null
+  }
+
+  export type SortOrderInput = {
+    sort: SortOrder
+    nulls?: NullsOrder
   }
 
   export type AdminCountOrderByAggregateInput = {
@@ -10171,6 +10218,24 @@ export namespace Prisma {
     name?: SortOrder
     password?: SortOrder
     institutionID?: SortOrder
+  }
+
+  export type StringNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: string | StringFieldRefInput<$PrismaModel> | null
+    in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    notIn?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    lt?: string | StringFieldRefInput<$PrismaModel>
+    lte?: string | StringFieldRefInput<$PrismaModel>
+    gt?: string | StringFieldRefInput<$PrismaModel>
+    gte?: string | StringFieldRefInput<$PrismaModel>
+    contains?: string | StringFieldRefInput<$PrismaModel>
+    startsWith?: string | StringFieldRefInput<$PrismaModel>
+    endsWith?: string | StringFieldRefInput<$PrismaModel>
+    mode?: QueryMode
+    not?: NestedStringNullableWithAggregatesFilter<$PrismaModel> | string | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedStringNullableFilter<$PrismaModel>
+    _max?: NestedStringNullableFilter<$PrismaModel>
   }
 
   export type IntFilter<$PrismaModel = never> = {
@@ -10221,6 +10286,11 @@ export namespace Prisma {
     _sum?: NestedIntFilter<$PrismaModel>
     _min?: NestedIntFilter<$PrismaModel>
     _max?: NestedIntFilter<$PrismaModel>
+  }
+
+  export type InstitutionScalarRelationFilter = {
+    is?: InstitutionWhereInput
+    isNot?: InstitutionWhereInput
   }
 
   export type HierarchyScalarRelationFilter = {
@@ -10579,12 +10649,18 @@ export namespace Prisma {
     connect?: InstitutionWhereUniqueInput
   }
 
-  export type InstitutionUpdateOneRequiredWithoutAdminsNestedInput = {
+  export type InstitutionUpdateOneWithoutAdminsNestedInput = {
     create?: XOR<InstitutionCreateWithoutAdminsInput, InstitutionUncheckedCreateWithoutAdminsInput>
     connectOrCreate?: InstitutionCreateOrConnectWithoutAdminsInput
     upsert?: InstitutionUpsertWithoutAdminsInput
+    disconnect?: InstitutionWhereInput | boolean
+    delete?: InstitutionWhereInput | boolean
     connect?: InstitutionWhereUniqueInput
     update?: XOR<XOR<InstitutionUpdateToOneWithWhereWithoutAdminsInput, InstitutionUpdateWithoutAdminsInput>, InstitutionUncheckedUpdateWithoutAdminsInput>
+  }
+
+  export type NullableStringFieldUpdateOperationsInput = {
+    set?: string | null
   }
 
   export type PersonCreateNestedManyWithoutHierarchyInput = {
@@ -10855,6 +10931,48 @@ export namespace Prisma {
     not?: NestedIntFilter<$PrismaModel> | number
   }
 
+  export type NestedStringNullableFilter<$PrismaModel = never> = {
+    equals?: string | StringFieldRefInput<$PrismaModel> | null
+    in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    notIn?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    lt?: string | StringFieldRefInput<$PrismaModel>
+    lte?: string | StringFieldRefInput<$PrismaModel>
+    gt?: string | StringFieldRefInput<$PrismaModel>
+    gte?: string | StringFieldRefInput<$PrismaModel>
+    contains?: string | StringFieldRefInput<$PrismaModel>
+    startsWith?: string | StringFieldRefInput<$PrismaModel>
+    endsWith?: string | StringFieldRefInput<$PrismaModel>
+    not?: NestedStringNullableFilter<$PrismaModel> | string | null
+  }
+
+  export type NestedStringNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: string | StringFieldRefInput<$PrismaModel> | null
+    in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    notIn?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    lt?: string | StringFieldRefInput<$PrismaModel>
+    lte?: string | StringFieldRefInput<$PrismaModel>
+    gt?: string | StringFieldRefInput<$PrismaModel>
+    gte?: string | StringFieldRefInput<$PrismaModel>
+    contains?: string | StringFieldRefInput<$PrismaModel>
+    startsWith?: string | StringFieldRefInput<$PrismaModel>
+    endsWith?: string | StringFieldRefInput<$PrismaModel>
+    not?: NestedStringNullableWithAggregatesFilter<$PrismaModel> | string | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedStringNullableFilter<$PrismaModel>
+    _max?: NestedStringNullableFilter<$PrismaModel>
+  }
+
+  export type NestedIntNullableFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel> | null
+    in?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntNullableFilter<$PrismaModel> | number | null
+  }
+
   export type NestedIntWithAggregatesFilter<$PrismaModel = never> = {
     equals?: number | IntFieldRefInput<$PrismaModel>
     in?: number[] | ListIntFieldRefInput<$PrismaModel>
@@ -11036,7 +11154,7 @@ export namespace Prisma {
     email?: StringFilter<"Admin"> | string
     name?: StringFilter<"Admin"> | string
     password?: StringFilter<"Admin"> | string
-    institutionID?: StringFilter<"Admin"> | string
+    institutionID?: StringNullableFilter<"Admin"> | string | null
   }
 
   export type PersonUpsertWithWhereUniqueWithoutInstitutionInput = {

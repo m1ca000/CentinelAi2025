@@ -24,4 +24,7 @@ app.use('/devices', deviceRoutes);
 import institutionRoutes from './Routes/institution.routes.js';
 app.use('/institution', institutionRoutes);
 
+import adminRoutes from './Routes/admin.routes.js';
+app.use('/admin', adminRoutes)
+
 export default app;

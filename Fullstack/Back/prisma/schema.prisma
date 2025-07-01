@@ -29,8 +29,8 @@ model Admin {
   email          String @id
   name           String
   password       String
-  institution    Institution @relation(fields: [institutionID], references: [inst_ID])
-  institutionID  String
+  institution    Institution? @relation(fields: [institutionID], references: [inst_ID])
+  institutionID  String?
 }
 
 model Hierarchy {

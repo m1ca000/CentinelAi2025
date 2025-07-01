@@ -25,7 +25,7 @@ export const Sidebar: React.FC = () => {
   return (
     <div className="w-56 bg-white border-r border-gray-200 flex flex-col">
       <div className="p-4 border-b border-gray-200">
-        <h2 className="text-xl font-bold text-gray-800">DeviceControl</h2>
+        <h2 className="text-xl font-bold text-gray-800">CentinelAI</h2>
       </div>
       
       <div className="flex-1 p-4">
