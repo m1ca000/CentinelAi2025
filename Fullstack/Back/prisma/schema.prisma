@@ -71,8 +71,8 @@ model Device {
 
 model Activity {
   activity_ID     Int @id @default(autoincrement())
-  dateTime_in     DateTime
-  dateTime_out    DateTime
+  dateTime_in     DateTime?
+  dateTime_out    DateTime?
   institution     Institution @relation(fields: [institutionID], references: [inst_ID])
   institutionID   String
   person          Person @relation(fields: [personID], references: [person_ID])

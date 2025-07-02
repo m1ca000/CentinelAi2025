@@ -4,3 +4,10 @@ export interface Device {
   type: 'camera' | 'turnstile';
   active: boolean;
 }
+
+export interface ActivityEntry {
+  id: number;
+  personName: string;
+  timestamp: Date;
+  action: 'entry' | 'exit';
+}
