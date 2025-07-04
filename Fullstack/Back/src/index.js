@@ -27,4 +27,7 @@ app.use('/institution', institutionRoutes);
 import adminRoutes from './Routes/admin.routes.js';
 app.use('/admin', adminRoutes)
 
+import personRoutes from './Routes/person.routes.js'
+app.use('/person', personRoutes)
+
 export default app;

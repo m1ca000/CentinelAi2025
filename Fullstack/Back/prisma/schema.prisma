@@ -44,6 +44,7 @@ model Person {
   person_ID       Int @id @default(autoincrement())
   name            String
   surname         String
+  photo           String
   institution     Institution @relation(fields: [institutionID], references: [inst_ID])
   institutionID   String
   hierarchy       Hierarchy @relation(fields: [hierarchyID], references: [hier_ID])

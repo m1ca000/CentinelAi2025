@@ -141,6 +141,7 @@ exports.Prisma.PersonScalarFieldEnum = {
   person_ID: 'person_ID',
   name: 'name',
   surname: 'surname',
+  photo: 'photo',
   institutionID: 'institutionID',
   hierarchyID: 'hierarchyID'
 };

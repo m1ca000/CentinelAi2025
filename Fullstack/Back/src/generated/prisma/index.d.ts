@@ -4835,6 +4835,7 @@ export namespace Prisma {
     person_ID: number | null
     name: string | null
     surname: string | null
+    photo: string | null
     institutionID: string | null
     hierarchyID: number | null
   }
@@ -4843,6 +4844,7 @@ export namespace Prisma {
     person_ID: number | null
     name: string | null
     surname: string | null
+    photo: string | null
     institutionID: string | null
     hierarchyID: number | null
   }
@@ -4851,6 +4853,7 @@ export namespace Prisma {
     person_ID: number
     name: number
     surname: number
+    photo: number
     institutionID: number
     hierarchyID: number
     _all: number
@@ -4871,6 +4874,7 @@ export namespace Prisma {
     person_ID?: true
     name?: true
     surname?: true
+    photo?: true
     institutionID?: true
     hierarchyID?: true
   }
@@ -4879,6 +4883,7 @@ export namespace Prisma {
     person_ID?: true
     name?: true
     surname?: true
+    photo?: true
     institutionID?: true
     hierarchyID?: true
   }
@@ -4887,6 +4892,7 @@ export namespace Prisma {
     person_ID?: true
     name?: true
     surname?: true
+    photo?: true
     institutionID?: true
     hierarchyID?: true
     _all?: true
@@ -4982,6 +4988,7 @@ export namespace Prisma {
     person_ID: number
     name: string
     surname: string
+    photo: string
     institutionID: string
     hierarchyID: number
     _count: PersonCountAggregateOutputType | null
@@ -5009,6 +5016,7 @@ export namespace Prisma {
     person_ID?: boolean
     name?: boolean
     surname?: boolean
+    photo?: boolean
     institutionID?: boolean
     hierarchyID?: boolean
     institution?: boolean | InstitutionDefaultArgs<ExtArgs>
@@ -5021,6 +5029,7 @@ export namespace Prisma {
     person_ID?: boolean
     name?: boolean
     surname?: boolean
+    photo?: boolean
     institutionID?: boolean
     hierarchyID?: boolean
     institution?: boolean | InstitutionDefaultArgs<ExtArgs>
@@ -5031,6 +5040,7 @@ export namespace Prisma {
     person_ID?: boolean
     name?: boolean
     surname?: boolean
+    photo?: boolean
     institutionID?: boolean
     hierarchyID?: boolean
     institution?: boolean | InstitutionDefaultArgs<ExtArgs>
@@ -5041,11 +5051,12 @@ export namespace Prisma {
     person_ID?: boolean
     name?: boolean
     surname?: boolean
+    photo?: boolean
     institutionID?: boolean
     hierarchyID?: boolean
   }
 
-  export type PersonOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"person_ID" | "name" | "surname" | "institutionID" | "hierarchyID", ExtArgs["result"]["person"]>
+  export type PersonOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"person_ID" | "name" | "surname" | "photo" | "institutionID" | "hierarchyID", ExtArgs["result"]["person"]>
   export type PersonInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     institution?: boolean | InstitutionDefaultArgs<ExtArgs>
     hierarchy?: boolean | HierarchyDefaultArgs<ExtArgs>
@@ -5072,6 +5083,7 @@ export namespace Prisma {
       person_ID: number
       name: string
       surname: string
+      photo: string
       institutionID: string
       hierarchyID: number
     }, ExtArgs["result"]["person"]>
@@ -5503,6 +5515,7 @@ export namespace Prisma {
     readonly person_ID: FieldRef<"Person", 'Int'>
     readonly name: FieldRef<"Person", 'String'>
     readonly surname: FieldRef<"Person", 'String'>
+    readonly photo: FieldRef<"Person", 'String'>
     readonly institutionID: FieldRef<"Person", 'String'>
     readonly hierarchyID: FieldRef<"Person", 'Int'>
   }
@@ -8283,8 +8296,8 @@ export namespace Prisma {
 
   export type ActivityGroupByOutputType = {
     activity_ID: number
-    dateTime_in: Date
-    dateTime_out: Date
+    dateTime_in: Date | null
+    dateTime_out: Date | null
     institutionID: string
     personID: number
     _count: ActivityCountAggregateOutputType | null
@@ -8368,8 +8381,8 @@ export namespace Prisma {
     }
     scalars: $Extensions.GetPayloadResult<{
       activity_ID: number
-      dateTime_in: Date
-      dateTime_out: Date
+      dateTime_in: Date | null
+      dateTime_out: Date | null
       institutionID: string
       personID: number
     }, ExtArgs["result"]["activity"]>
@@ -9260,6 +9273,7 @@ export namespace Prisma {
     person_ID: 'person_ID',
     name: 'name',
     surname: 'surname',
+    photo: 'photo',
     institutionID: 'institutionID',
     hierarchyID: 'hierarchyID'
   };
@@ -9540,6 +9554,7 @@ export namespace Prisma {
     person_ID?: IntFilter<"Person"> | number
     name?: StringFilter<"Person"> | string
     surname?: StringFilter<"Person"> | string
+    photo?: StringFilter<"Person"> | string
     institutionID?: StringFilter<"Person"> | string
     hierarchyID?: IntFilter<"Person"> | number
     institution?: XOR<InstitutionScalarRelationFilter, InstitutionWhereInput>
@@ -9551,6 +9566,7 @@ export namespace Prisma {
     person_ID?: SortOrder
     name?: SortOrder
     surname?: SortOrder
+    photo?: SortOrder
     institutionID?: SortOrder
     hierarchyID?: SortOrder
     institution?: InstitutionOrderByWithRelationInput
@@ -9565,6 +9581,7 @@ export namespace Prisma {
     NOT?: PersonWhereInput | PersonWhereInput[]
     name?: StringFilter<"Person"> | string
     surname?: StringFilter<"Person"> | string
+    photo?: StringFilter<"Person"> | string
     institutionID?: StringFilter<"Person"> | string
     hierarchyID?: IntFilter<"Person"> | number
     institution?: XOR<InstitutionScalarRelationFilter, InstitutionWhereInput>
@@ -9576,6 +9593,7 @@ export namespace Prisma {
     person_ID?: SortOrder
     name?: SortOrder
     surname?: SortOrder
+    photo?: SortOrder
     institutionID?: SortOrder
     hierarchyID?: SortOrder
     _count?: PersonCountOrderByAggregateInput
@@ -9592,6 +9610,7 @@ export namespace Prisma {
     person_ID?: IntWithAggregatesFilter<"Person"> | number
     name?: StringWithAggregatesFilter<"Person"> | string
     surname?: StringWithAggregatesFilter<"Person"> | string
+    photo?: StringWithAggregatesFilter<"Person"> | string
     institutionID?: StringWithAggregatesFilter<"Person"> | string
     hierarchyID?: IntWithAggregatesFilter<"Person"> | number
   }
@@ -9703,8 +9722,8 @@ export namespace Prisma {
     OR?: ActivityWhereInput[]
     NOT?: ActivityWhereInput | ActivityWhereInput[]
     activity_ID?: IntFilter<"Activity"> | number
-    dateTime_in?: DateTimeFilter<"Activity"> | Date | string
-    dateTime_out?: DateTimeFilter<"Activity"> | Date | string
+    dateTime_in?: DateTimeNullableFilter<"Activity"> | Date | string | null
+    dateTime_out?: DateTimeNullableFilter<"Activity"> | Date | string | null
     institutionID?: StringFilter<"Activity"> | string
     personID?: IntFilter<"Activity"> | number
     institution?: XOR<InstitutionScalarRelationFilter, InstitutionWhereInput>
@@ -9713,8 +9732,8 @@ export namespace Prisma {
 
   export type ActivityOrderByWithRelationInput = {
     activity_ID?: SortOrder
-    dateTime_in?: SortOrder
-    dateTime_out?: SortOrder
+    dateTime_in?: SortOrderInput | SortOrder
+    dateTime_out?: SortOrderInput | SortOrder
     institutionID?: SortOrder
     personID?: SortOrder
     institution?: InstitutionOrderByWithRelationInput
@@ -9726,8 +9745,8 @@ export namespace Prisma {
     AND?: ActivityWhereInput | ActivityWhereInput[]
     OR?: ActivityWhereInput[]
     NOT?: ActivityWhereInput | ActivityWhereInput[]
-    dateTime_in?: DateTimeFilter<"Activity"> | Date | string
-    dateTime_out?: DateTimeFilter<"Activity"> | Date | string
+    dateTime_in?: DateTimeNullableFilter<"Activity"> | Date | string | null
+    dateTime_out?: DateTimeNullableFilter<"Activity"> | Date | string | null
     institutionID?: StringFilter<"Activity"> | string
     personID?: IntFilter<"Activity"> | number
     institution?: XOR<InstitutionScalarRelationFilter, InstitutionWhereInput>
@@ -9736,8 +9755,8 @@ export namespace Prisma {
 
   export type ActivityOrderByWithAggregationInput = {
     activity_ID?: SortOrder
-    dateTime_in?: SortOrder
-    dateTime_out?: SortOrder
+    dateTime_in?: SortOrderInput | SortOrder
+    dateTime_out?: SortOrderInput | SortOrder
     institutionID?: SortOrder
     personID?: SortOrder
     _count?: ActivityCountOrderByAggregateInput
@@ -9752,8 +9771,8 @@ export namespace Prisma {
     OR?: ActivityScalarWhereWithAggregatesInput[]
     NOT?: ActivityScalarWhereWithAggregatesInput | ActivityScalarWhereWithAggregatesInput[]
     activity_ID?: IntWithAggregatesFilter<"Activity"> | number
-    dateTime_in?: DateTimeWithAggregatesFilter<"Activity"> | Date | string
-    dateTime_out?: DateTimeWithAggregatesFilter<"Activity"> | Date | string
+    dateTime_in?: DateTimeNullableWithAggregatesFilter<"Activity"> | Date | string | null
+    dateTime_out?: DateTimeNullableWithAggregatesFilter<"Activity"> | Date | string | null
     institutionID?: StringWithAggregatesFilter<"Activity"> | string
     personID?: IntWithAggregatesFilter<"Activity"> | number
   }
@@ -9896,6 +9915,7 @@ export namespace Prisma {
   export type PersonCreateInput = {
     name: string
     surname: string
+    photo: string
     institution: InstitutionCreateNestedOneWithoutPersonsInput
     hierarchy: HierarchyCreateNestedOneWithoutPersonsInput
     activity?: ActivityCreateNestedManyWithoutPersonInput
@@ -9905,6 +9925,7 @@ export namespace Prisma {
     person_ID?: number
     name: string
     surname: string
+    photo: string
     institutionID: string
     hierarchyID: number
     activity?: ActivityUncheckedCreateNestedManyWithoutPersonInput
@@ -9913,6 +9934,7 @@ export namespace Prisma {
   export type PersonUpdateInput = {
     name?: StringFieldUpdateOperationsInput | string
     surname?: StringFieldUpdateOperationsInput | string
+    photo?: StringFieldUpdateOperationsInput | string
     institution?: InstitutionUpdateOneRequiredWithoutPersonsNestedInput
     hierarchy?: HierarchyUpdateOneRequiredWithoutPersonsNestedInput
     activity?: ActivityUpdateManyWithoutPersonNestedInput
@@ -9922,6 +9944,7 @@ export namespace Prisma {
     person_ID?: IntFieldUpdateOperationsInput | number
     name?: StringFieldUpdateOperationsInput | string
     surname?: StringFieldUpdateOperationsInput | string
+    photo?: StringFieldUpdateOperationsInput | string
     institutionID?: StringFieldUpdateOperationsInput | string
     hierarchyID?: IntFieldUpdateOperationsInput | number
     activity?: ActivityUncheckedUpdateManyWithoutPersonNestedInput
@@ -9931,6 +9954,7 @@ export namespace Prisma {
     person_ID?: number
     name: string
     surname: string
+    photo: string
     institutionID: string
     hierarchyID: number
   }
@@ -9938,12 +9962,14 @@ export namespace Prisma {
   export type PersonUpdateManyMutationInput = {
     name?: StringFieldUpdateOperationsInput | string
     surname?: StringFieldUpdateOperationsInput | string
+    photo?: StringFieldUpdateOperationsInput | string
   }
 
   export type PersonUncheckedUpdateManyInput = {
     person_ID?: IntFieldUpdateOperationsInput | number
     name?: StringFieldUpdateOperationsInput | string
     surname?: StringFieldUpdateOperationsInput | string
+    photo?: StringFieldUpdateOperationsInput | string
     institutionID?: StringFieldUpdateOperationsInput | string
     hierarchyID?: IntFieldUpdateOperationsInput | number
   }
@@ -10036,52 +10062,52 @@ export namespace Prisma {
   }
 
   export type ActivityCreateInput = {
-    dateTime_in: Date | string
-    dateTime_out: Date | string
+    dateTime_in?: Date | string | null
+    dateTime_out?: Date | string | null
     institution: InstitutionCreateNestedOneWithoutActivityInput
     person: PersonCreateNestedOneWithoutActivityInput
   }
 
   export type ActivityUncheckedCreateInput = {
     activity_ID?: number
-    dateTime_in: Date | string
-    dateTime_out: Date | string
+    dateTime_in?: Date | string | null
+    dateTime_out?: Date | string | null
     institutionID: string
     personID: number
   }
 
   export type ActivityUpdateInput = {
-    dateTime_in?: DateTimeFieldUpdateOperationsInput | Date | string
-    dateTime_out?: DateTimeFieldUpdateOperationsInput | Date | string
+    dateTime_in?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    dateTime_out?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     institution?: InstitutionUpdateOneRequiredWithoutActivityNestedInput
     person?: PersonUpdateOneRequiredWithoutActivityNestedInput
   }
 
   export type ActivityUncheckedUpdateInput = {
     activity_ID?: IntFieldUpdateOperationsInput | number
-    dateTime_in?: DateTimeFieldUpdateOperationsInput | Date | string
-    dateTime_out?: DateTimeFieldUpdateOperationsInput | Date | string
+    dateTime_in?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    dateTime_out?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     institutionID?: StringFieldUpdateOperationsInput | string
     personID?: IntFieldUpdateOperationsInput | number
   }
 
   export type ActivityCreateManyInput = {
     activity_ID?: number
-    dateTime_in: Date | string
-    dateTime_out: Date | string
+    dateTime_in?: Date | string | null
+    dateTime_out?: Date | string | null
     institutionID: string
     personID: number
   }
 
   export type ActivityUpdateManyMutationInput = {
-    dateTime_in?: DateTimeFieldUpdateOperationsInput | Date | string
-    dateTime_out?: DateTimeFieldUpdateOperationsInput | Date | string
+    dateTime_in?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    dateTime_out?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   }
 
   export type ActivityUncheckedUpdateManyInput = {
     activity_ID?: IntFieldUpdateOperationsInput | number
-    dateTime_in?: DateTimeFieldUpdateOperationsInput | Date | string
-    dateTime_out?: DateTimeFieldUpdateOperationsInput | Date | string
+    dateTime_in?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    dateTime_out?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     institutionID?: StringFieldUpdateOperationsInput | string
     personID?: IntFieldUpdateOperationsInput | number
   }
@@ -10302,6 +10328,7 @@ export namespace Prisma {
     person_ID?: SortOrder
     name?: SortOrder
     surname?: SortOrder
+    photo?: SortOrder
     institutionID?: SortOrder
     hierarchyID?: SortOrder
   }
@@ -10315,6 +10342,7 @@ export namespace Prisma {
     person_ID?: SortOrder
     name?: SortOrder
     surname?: SortOrder
+    photo?: SortOrder
     institutionID?: SortOrder
     hierarchyID?: SortOrder
   }
@@ -10323,6 +10351,7 @@ export namespace Prisma {
     person_ID?: SortOrder
     name?: SortOrder
     surname?: SortOrder
+    photo?: SortOrder
     institutionID?: SortOrder
     hierarchyID?: SortOrder
   }
@@ -10407,15 +10436,15 @@ export namespace Prisma {
     _max?: NestedBoolFilter<$PrismaModel>
   }
 
-  export type DateTimeFilter<$PrismaModel = never> = {
-    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
-    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
+  export type DateTimeNullableFilter<$PrismaModel = never> = {
+    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel> | null
+    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
+    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
     lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
     lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
     gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
     gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    not?: NestedDateTimeFilter<$PrismaModel> | Date | string
+    not?: NestedDateTimeNullableFilter<$PrismaModel> | Date | string | null
   }
 
   export type PersonScalarRelationFilter = {
@@ -10457,18 +10486,18 @@ export namespace Prisma {
     personID?: SortOrder
   }
 
-  export type DateTimeWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
-    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
+  export type DateTimeNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel> | null
+    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
+    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
     lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
     lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
     gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
     gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    not?: NestedDateTimeWithAggregatesFilter<$PrismaModel> | Date | string
-    _count?: NestedIntFilter<$PrismaModel>
-    _min?: NestedDateTimeFilter<$PrismaModel>
-    _max?: NestedDateTimeFilter<$PrismaModel>
+    not?: NestedDateTimeNullableWithAggregatesFilter<$PrismaModel> | Date | string | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedDateTimeNullableFilter<$PrismaModel>
+    _max?: NestedDateTimeNullableFilter<$PrismaModel>
   }
 
   export type AdminCreateNestedManyWithoutInstitutionInput = {
@@ -10869,8 +10898,8 @@ export namespace Prisma {
     connect?: PersonWhereUniqueInput
   }
 
-  export type DateTimeFieldUpdateOperationsInput = {
-    set?: Date | string
+  export type NullableDateTimeFieldUpdateOperationsInput = {
+    set?: Date | string | null
   }
 
   export type InstitutionUpdateOneRequiredWithoutActivityNestedInput = {
@@ -11013,29 +11042,29 @@ export namespace Prisma {
     _max?: NestedBoolFilter<$PrismaModel>
   }
 
-  export type NestedDateTimeFilter<$PrismaModel = never> = {
-    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
-    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
+  export type NestedDateTimeNullableFilter<$PrismaModel = never> = {
+    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel> | null
+    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
+    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
     lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
     lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
     gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
     gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    not?: NestedDateTimeFilter<$PrismaModel> | Date | string
+    not?: NestedDateTimeNullableFilter<$PrismaModel> | Date | string | null
   }
 
-  export type NestedDateTimeWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
-    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
+  export type NestedDateTimeNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel> | null
+    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
+    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
     lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
     lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
     gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
     gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    not?: NestedDateTimeWithAggregatesFilter<$PrismaModel> | Date | string
-    _count?: NestedIntFilter<$PrismaModel>
-    _min?: NestedDateTimeFilter<$PrismaModel>
-    _max?: NestedDateTimeFilter<$PrismaModel>
+    not?: NestedDateTimeNullableWithAggregatesFilter<$PrismaModel> | Date | string | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedDateTimeNullableFilter<$PrismaModel>
+    _max?: NestedDateTimeNullableFilter<$PrismaModel>
   }
 
   export type AdminCreateWithoutInstitutionInput = {
@@ -11063,6 +11092,7 @@ export namespace Prisma {
   export type PersonCreateWithoutInstitutionInput = {
     name: string
     surname: string
+    photo: string
     hierarchy: HierarchyCreateNestedOneWithoutPersonsInput
     activity?: ActivityCreateNestedManyWithoutPersonInput
   }
@@ -11071,6 +11101,7 @@ export namespace Prisma {
     person_ID?: number
     name: string
     surname: string
+    photo: string
     hierarchyID: number
     activity?: ActivityUncheckedCreateNestedManyWithoutPersonInput
   }
@@ -11109,15 +11140,15 @@ export namespace Prisma {
   }
 
   export type ActivityCreateWithoutInstitutionInput = {
-    dateTime_in: Date | string
-    dateTime_out: Date | string
+    dateTime_in?: Date | string | null
+    dateTime_out?: Date | string | null
     person: PersonCreateNestedOneWithoutActivityInput
   }
 
   export type ActivityUncheckedCreateWithoutInstitutionInput = {
     activity_ID?: number
-    dateTime_in: Date | string
-    dateTime_out: Date | string
+    dateTime_in?: Date | string | null
+    dateTime_out?: Date | string | null
     personID: number
   }
 
@@ -11180,6 +11211,7 @@ export namespace Prisma {
     person_ID?: IntFilter<"Person"> | number
     name?: StringFilter<"Person"> | string
     surname?: StringFilter<"Person"> | string
+    photo?: StringFilter<"Person"> | string
     institutionID?: StringFilter<"Person"> | string
     hierarchyID?: IntFilter<"Person"> | number
   }
@@ -11232,8 +11264,8 @@ export namespace Prisma {
     OR?: ActivityScalarWhereInput[]
     NOT?: ActivityScalarWhereInput | ActivityScalarWhereInput[]
     activity_ID?: IntFilter<"Activity"> | number
-    dateTime_in?: DateTimeFilter<"Activity"> | Date | string
-    dateTime_out?: DateTimeFilter<"Activity"> | Date | string
+    dateTime_in?: DateTimeNullableFilter<"Activity"> | Date | string | null
+    dateTime_out?: DateTimeNullableFilter<"Activity"> | Date | string | null
     institutionID?: StringFilter<"Activity"> | string
     personID?: IntFilter<"Activity"> | number
   }
@@ -11289,6 +11321,7 @@ export namespace Prisma {
   export type PersonCreateWithoutHierarchyInput = {
     name: string
     surname: string
+    photo: string
     institution: InstitutionCreateNestedOneWithoutPersonsInput
     activity?: ActivityCreateNestedManyWithoutPersonInput
   }
@@ -11297,6 +11330,7 @@ export namespace Prisma {
     person_ID?: number
     name: string
     surname: string
+    photo: string
     institutionID: string
     activity?: ActivityUncheckedCreateNestedManyWithoutPersonInput
   }
@@ -11363,15 +11397,15 @@ export namespace Prisma {
   }
 
   export type ActivityCreateWithoutPersonInput = {
-    dateTime_in: Date | string
-    dateTime_out: Date | string
+    dateTime_in?: Date | string | null
+    dateTime_out?: Date | string | null
     institution: InstitutionCreateNestedOneWithoutActivityInput
   }
 
   export type ActivityUncheckedCreateWithoutPersonInput = {
     activity_ID?: number
-    dateTime_in: Date | string
-    dateTime_out: Date | string
+    dateTime_in?: Date | string | null
+    dateTime_out?: Date | string | null
     institutionID: string
   }
 
@@ -11593,6 +11627,7 @@ export namespace Prisma {
   export type PersonCreateWithoutActivityInput = {
     name: string
     surname: string
+    photo: string
     institution: InstitutionCreateNestedOneWithoutPersonsInput
     hierarchy: HierarchyCreateNestedOneWithoutPersonsInput
   }
@@ -11601,6 +11636,7 @@ export namespace Prisma {
     person_ID?: number
     name: string
     surname: string
+    photo: string
     institutionID: string
     hierarchyID: number
   }
@@ -11651,6 +11687,7 @@ export namespace Prisma {
   export type PersonUpdateWithoutActivityInput = {
     name?: StringFieldUpdateOperationsInput | string
     surname?: StringFieldUpdateOperationsInput | string
+    photo?: StringFieldUpdateOperationsInput | string
     institution?: InstitutionUpdateOneRequiredWithoutPersonsNestedInput
     hierarchy?: HierarchyUpdateOneRequiredWithoutPersonsNestedInput
   }
@@ -11659,6 +11696,7 @@ export namespace Prisma {
     person_ID?: IntFieldUpdateOperationsInput | number
     name?: StringFieldUpdateOperationsInput | string
     surname?: StringFieldUpdateOperationsInput | string
+    photo?: StringFieldUpdateOperationsInput | string
     institutionID?: StringFieldUpdateOperationsInput | string
     hierarchyID?: IntFieldUpdateOperationsInput | number
   }
@@ -11673,6 +11711,7 @@ export namespace Prisma {
     person_ID?: number
     name: string
     surname: string
+    photo: string
     hierarchyID: number
   }
 
@@ -11685,8 +11724,8 @@ export namespace Prisma {
 
   export type ActivityCreateManyInstitutionInput = {
     activity_ID?: number
-    dateTime_in: Date | string
-    dateTime_out: Date | string
+    dateTime_in?: Date | string | null
+    dateTime_out?: Date | string | null
     personID: number
   }
 
@@ -11711,6 +11750,7 @@ export namespace Prisma {
   export type PersonUpdateWithoutInstitutionInput = {
     name?: StringFieldUpdateOperationsInput | string
     surname?: StringFieldUpdateOperationsInput | string
+    photo?: StringFieldUpdateOperationsInput | string
     hierarchy?: HierarchyUpdateOneRequiredWithoutPersonsNestedInput
     activity?: ActivityUpdateManyWithoutPersonNestedInput
   }
@@ -11719,6 +11759,7 @@ export namespace Prisma {
     person_ID?: IntFieldUpdateOperationsInput | number
     name?: StringFieldUpdateOperationsInput | string
     surname?: StringFieldUpdateOperationsInput | string
+    photo?: StringFieldUpdateOperationsInput | string
     hierarchyID?: IntFieldUpdateOperationsInput | number
     activity?: ActivityUncheckedUpdateManyWithoutPersonNestedInput
   }
@@ -11727,6 +11768,7 @@ export namespace Prisma {
     person_ID?: IntFieldUpdateOperationsInput | number
     name?: StringFieldUpdateOperationsInput | string
     surname?: StringFieldUpdateOperationsInput | string
+    photo?: StringFieldUpdateOperationsInput | string
     hierarchyID?: IntFieldUpdateOperationsInput | number
   }
 
@@ -11751,22 +11793,22 @@ export namespace Prisma {
   }
 
   export type ActivityUpdateWithoutInstitutionInput = {
-    dateTime_in?: DateTimeFieldUpdateOperationsInput | Date | string
-    dateTime_out?: DateTimeFieldUpdateOperationsInput | Date | string
+    dateTime_in?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    dateTime_out?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     person?: PersonUpdateOneRequiredWithoutActivityNestedInput
   }
 
   export type ActivityUncheckedUpdateWithoutInstitutionInput = {
     activity_ID?: IntFieldUpdateOperationsInput | number
-    dateTime_in?: DateTimeFieldUpdateOperationsInput | Date | string
-    dateTime_out?: DateTimeFieldUpdateOperationsInput | Date | string
+    dateTime_in?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    dateTime_out?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     personID?: IntFieldUpdateOperationsInput | number
   }
 
   export type ActivityUncheckedUpdateManyWithoutInstitutionInput = {
     activity_ID?: IntFieldUpdateOperationsInput | number
-    dateTime_in?: DateTimeFieldUpdateOperationsInput | Date | string
-    dateTime_out?: DateTimeFieldUpdateOperationsInput | Date | string
+    dateTime_in?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    dateTime_out?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     personID?: IntFieldUpdateOperationsInput | number
   }
 
@@ -11774,12 +11816,14 @@ export namespace Prisma {
     person_ID?: number
     name: string
     surname: string
+    photo: string
     institutionID: string
   }
 
   export type PersonUpdateWithoutHierarchyInput = {
     name?: StringFieldUpdateOperationsInput | string
     surname?: StringFieldUpdateOperationsInput | string
+    photo?: StringFieldUpdateOperationsInput | string
     institution?: InstitutionUpdateOneRequiredWithoutPersonsNestedInput
     activity?: ActivityUpdateManyWithoutPersonNestedInput
   }
@@ -11788,6 +11832,7 @@ export namespace Prisma {
     person_ID?: IntFieldUpdateOperationsInput | number
     name?: StringFieldUpdateOperationsInput | string
     surname?: StringFieldUpdateOperationsInput | string
+    photo?: StringFieldUpdateOperationsInput | string
     institutionID?: StringFieldUpdateOperationsInput | string
     activity?: ActivityUncheckedUpdateManyWithoutPersonNestedInput
   }
@@ -11796,33 +11841,34 @@ export namespace Prisma {
     person_ID?: IntFieldUpdateOperationsInput | number
     name?: StringFieldUpdateOperationsInput | string
     surname?: StringFieldUpdateOperationsInput | string
+    photo?: StringFieldUpdateOperationsInput | string
     institutionID?: StringFieldUpdateOperationsInput | string
   }
 
   export type ActivityCreateManyPersonInput = {
     activity_ID?: number
-    dateTime_in: Date | string
-    dateTime_out: Date | string
+    dateTime_in?: Date | string | null
+    dateTime_out?: Date | string | null
     institutionID: string
   }
 
   export type ActivityUpdateWithoutPersonInput = {
-    dateTime_in?: DateTimeFieldUpdateOperationsInput | Date | string
-    dateTime_out?: DateTimeFieldUpdateOperationsInput | Date | string
+    dateTime_in?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    dateTime_out?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     institution?: InstitutionUpdateOneRequiredWithoutActivityNestedInput
   }
 
   export type ActivityUncheckedUpdateWithoutPersonInput = {
     activity_ID?: IntFieldUpdateOperationsInput | number
-    dateTime_in?: DateTimeFieldUpdateOperationsInput | Date | string
-    dateTime_out?: DateTimeFieldUpdateOperationsInput | Date | string
+    dateTime_in?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    dateTime_out?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     institutionID?: StringFieldUpdateOperationsInput | string
   }
 
   export type ActivityUncheckedUpdateManyWithoutPersonInput = {
     activity_ID?: IntFieldUpdateOperationsInput | number
-    dateTime_in?: DateTimeFieldUpdateOperationsInput | Date | string
-    dateTime_out?: DateTimeFieldUpdateOperationsInput | Date | string
+    dateTime_in?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    dateTime_out?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     institutionID?: StringFieldUpdateOperationsInput | string
   }
 

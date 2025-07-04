@@ -44,6 +44,7 @@ model Person {
   person_ID     Int         @id @default(autoincrement())
   name          String
   surname       String
+  photo         String
   institution   Institution @relation(fields: [institutionID], references: [inst_ID])
   institutionID String
   hierarchy     Hierarchy   @relation(fields: [hierarchyID], references: [hier_ID])
@@ -71,8 +72,8 @@ model Device {
 
 model Activity {
   activity_ID   Int         @id @default(autoincrement())
-  dateTime_in   DateTime
-  dateTime_out  DateTime
+  dateTime_in   DateTime?
+  dateTime_out  DateTime?
   institution   Institution @relation(fields: [institutionID], references: [inst_ID])
   institutionID String
   person        Person      @relation(fields: [personID], references: [person_ID])
