@@ -27,3 +27,9 @@ export const savePersonRegister = async (name, surname, photo) => {
         }
     });
 }
+
+export const getPersonsByInstitution = async (institutionID) => {
+  return await prisma.person.findMany({
+    where: { institutionID },
+  })
+}

@@ -1,7 +1,9 @@
 import express from 'express';
-import { subirFoto } from '../Controllers/person.controller';
+import { getPersonsControllers, uploadPerson } from '../Controllers/person.controller.js'
 
 const router = express.Router();
 
-router.post('/subirFoto', subirFoto);
+router.post('/subirFoto', uploadPerson);
+router.get('/:institutionID', getPersonsControllers);
 
+export default router;
