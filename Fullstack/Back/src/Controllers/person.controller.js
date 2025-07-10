@@ -1,10 +1,13 @@
-import { uploadPhotoToCloudinary, getPersonsByInstitution } from "../Services/person.service.js";
+import { uploadPhotoToCloudinary, savePersonRegister, getPersonsByInstitution } from "../Services/person.service.js";
 
 export const uploadPerson = async (req, res) => {
     try {
         const file = req.file.buffer;
         const photo = await uploadPhotoToCloudinary(file);
-        return res.status(201).json({ message: 'Persona registrada con exito', photo });
+        console.log(photo)
+        const person = await savePersonRegister(req.body.name, req.body.surname, photo);
+        
+        return res.status(201).json({ message: 'Persona registrada con exito' });
     } catch(err) {
         throw err
     }

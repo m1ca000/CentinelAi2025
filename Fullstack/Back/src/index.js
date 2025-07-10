@@ -30,4 +30,20 @@ app.use('/admin', adminRoutes)
 import personRoutes from './Routes/person.routes.js'
 app.use('/person', personRoutes)
 
+let ledState
+
+app.get('/led', (req, res) => {
+  res.send(ledState)
+});
+
+app.post('/led', (req, res) => {
+  const { state } = req.body;
+  if (state === "1" || state === "0") {
+    ledState = state;
+    res.send('LED state set')
+  } else {
+    res.status(400).send('Invalid State')
+  }
+});
+
 export default app;

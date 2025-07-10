@@ -68,7 +68,6 @@ export const DeviceControl: React.FC = () => {
 
   const cameras = devices.filter((device) => device.type === 'camera');
   const turnstiles = devices.filter((device) => device.type === 'turnstile');
-
   
   return (
     <div className="p-6">

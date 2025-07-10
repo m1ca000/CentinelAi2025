@@ -1,5 +1,17 @@
 import { PrismaClient } from '../generated/prisma/client.js';
 const prisma = new PrismaClient();
+import cloudinary from 'cloudinary'
+import dotenv from 'dotenv';
+
+cloudinary.config({
+  secure: true
+});
+
+cloudinary.config({
+    cloud_name: process.env.CLOUD_NAME,
+    api_key: process.env.API_KEY,
+    api_secret: process.env.API_SECRET
+});
 
 export const uploadPhotoToCloudinary = async (fileBuffer) => {
     try {
