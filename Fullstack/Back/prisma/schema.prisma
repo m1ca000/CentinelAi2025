@@ -47,8 +47,8 @@ model Person {
   photo           String
   institution     Institution @relation(fields: [institutionID], references: [inst_ID])
   institutionID   String
-  hierarchy       Hierarchy @relation(fields: [hierarchyID], references: [hier_ID])
-  hierarchyID     Int
+  hierarchy       Hierarchy? @relation(fields: [hierarchyID], references: [hier_ID])
+  hierarchyID     Int?
 
   activity        Activity[]
 }

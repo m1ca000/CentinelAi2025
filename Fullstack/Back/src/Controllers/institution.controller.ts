@@ -1,6 +1,7 @@
 import {getInstitutionsService, createInstitutionService} from '../Services/institution.service.js'
+import { Request, Response } from 'express'
 
-export const getInstitutionController = async (req, res) => {
+export const getInstitutionController = async (req: Request, res: Response) => {
   try {
       const institution = await getInstitutionsService();
       res.json(institution);
@@ -9,7 +10,7 @@ export const getInstitutionController = async (req, res) => {
       throw err;
     }
 };
-export const createInstitution = async (req, res) => {
+export const createInstitution = async (req: Request, res: Response) => {
   const {name} = req.body
   try {
     const createInst = await createInstitutionService(name)

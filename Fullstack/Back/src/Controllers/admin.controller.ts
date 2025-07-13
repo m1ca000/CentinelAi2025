@@ -1,11 +1,12 @@
 import { createAdminService, getAdminByEmailService } from "../Services/admin.service.js";
 import bcrypt from 'bcrypt';
+import { Request, Response } from 'express';
 
-export const createAdminController = async (req, res) => {
+export const createAdminController = async (req: Request, res: Response) => {
     try {
         const { email, name, password } = req.body;
         const emailExistente = await getAdminByEmailService(email);
-        if (emailExistente == "") {
+        if (!emailExistente) {
             const saltRounds = 10;
             const hashedPassword = await bcrypt.hash(password, saltRounds);
 

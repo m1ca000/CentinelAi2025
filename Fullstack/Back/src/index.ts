@@ -18,19 +18,19 @@ app.get("/", (req, res) => {
   res.json({ message: "CentinelAi funcionaa" });
 });
 
-import deviceRoutes from './Routes/device.routes.js';
+import deviceRoutes from './Routes/device.routes';
 app.use('/devices', deviceRoutes);
 
-import institutionRoutes from './Routes/institution.routes.js';
+import institutionRoutes from './Routes/institution.routes';
 app.use('/institution', institutionRoutes);
 
-import adminRoutes from './Routes/admin.routes.js';
+import adminRoutes from './Routes/admin.routes';
 app.use('/admin', adminRoutes)
 
-import personRoutes from './Routes/person.routes.js'
+import personRoutes from './Routes/person.routes'
 app.use('/person', personRoutes)
 
-let ledState
+let ledState: number = 0
 
 app.get('/led', (req, res) => {
   res.send(ledState)

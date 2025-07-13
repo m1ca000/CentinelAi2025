@@ -1,0 +1,22 @@
+import { savePersonRegister, getPersonsByInstitution } from "../Services/person.service.js";
+import { Request, Response } from "express";
+
+export const uploadPerson = async (req: Request, res: Response) => {
+    try {
+        const person = await savePersonRegister(req.body.name, req.body.surname, req.body.file.buffer, req.body.institutionID, req.body.hierarchyID );
+        
+        return res.status(201).json({ message: 'Persona registrada con exito' });
+    } catch(err) {
+        throw err
+    }
+}
+
+export const getPersonsControllers = async (req: Request, res: Response) => {
+    try {
+        const Persons = getPersonsByInstitution(req.params.institutionID)
+        res.json(Persons);
+    } catch(err) {
+        res.status(500).json({ error: 'Error al obtener las personas' });
+        throw err
+    }
+}

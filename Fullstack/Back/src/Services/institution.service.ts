@@ -14,7 +14,7 @@ function institutionID (longitud = 8) {
     return codigo;
 };
 
-export const createInstitutionService = async (name) => {
+export const createInstitutionService = async (name: string) => {
   const inst_ID = institutionID();
   return await prisma.institution.create({
     data: {
