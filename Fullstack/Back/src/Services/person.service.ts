@@ -9,7 +9,7 @@ export const savePersonRegister = async (name: string, surname: string, photo: s
       name,
       surname,
       photo,
-      hierarchyID,
+      hierarchyID: 1,
       institutionID
     }
   });

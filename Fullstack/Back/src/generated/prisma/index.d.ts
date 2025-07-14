@@ -4990,7 +4990,7 @@ export namespace Prisma {
     surname: string
     photo: string
     institutionID: string
-    hierarchyID: number
+    hierarchyID: number | null
     _count: PersonCountAggregateOutputType | null
     _avg: PersonAvgAggregateOutputType | null
     _sum: PersonSumAggregateOutputType | null
@@ -5020,7 +5020,7 @@ export namespace Prisma {
     institutionID?: boolean
     hierarchyID?: boolean
     institution?: boolean | InstitutionDefaultArgs<ExtArgs>
-    hierarchy?: boolean | HierarchyDefaultArgs<ExtArgs>
+    hierarchy?: boolean | Person$hierarchyArgs<ExtArgs>
     activity?: boolean | Person$activityArgs<ExtArgs>
     _count?: boolean | PersonCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["person"]>
@@ -5033,7 +5033,7 @@ export namespace Prisma {
     institutionID?: boolean
     hierarchyID?: boolean
     institution?: boolean | InstitutionDefaultArgs<ExtArgs>
-    hierarchy?: boolean | HierarchyDefaultArgs<ExtArgs>
+    hierarchy?: boolean | Person$hierarchyArgs<ExtArgs>
   }, ExtArgs["result"]["person"]>
 
   export type PersonSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
@@ -5044,7 +5044,7 @@ export namespace Prisma {
     institutionID?: boolean
     hierarchyID?: boolean
     institution?: boolean | InstitutionDefaultArgs<ExtArgs>
-    hierarchy?: boolean | HierarchyDefaultArgs<ExtArgs>
+    hierarchy?: boolean | Person$hierarchyArgs<ExtArgs>
   }, ExtArgs["result"]["person"]>
 
   export type PersonSelectScalar = {
@@ -5059,24 +5059,24 @@ export namespace Prisma {
   export type PersonOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"person_ID" | "name" | "surname" | "photo" | "institutionID" | "hierarchyID", ExtArgs["result"]["person"]>
   export type PersonInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     institution?: boolean | InstitutionDefaultArgs<ExtArgs>
-    hierarchy?: boolean | HierarchyDefaultArgs<ExtArgs>
+    hierarchy?: boolean | Person$hierarchyArgs<ExtArgs>
     activity?: boolean | Person$activityArgs<ExtArgs>
     _count?: boolean | PersonCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type PersonIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     institution?: boolean | InstitutionDefaultArgs<ExtArgs>
-    hierarchy?: boolean | HierarchyDefaultArgs<ExtArgs>
+    hierarchy?: boolean | Person$hierarchyArgs<ExtArgs>
   }
   export type PersonIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     institution?: boolean | InstitutionDefaultArgs<ExtArgs>
-    hierarchy?: boolean | HierarchyDefaultArgs<ExtArgs>
+    hierarchy?: boolean | Person$hierarchyArgs<ExtArgs>
   }
 
   export type $PersonPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "Person"
     objects: {
       institution: Prisma.$InstitutionPayload<ExtArgs>
-      hierarchy: Prisma.$HierarchyPayload<ExtArgs>
+      hierarchy: Prisma.$HierarchyPayload<ExtArgs> | null
       activity: Prisma.$ActivityPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
@@ -5085,7 +5085,7 @@ export namespace Prisma {
       surname: string
       photo: string
       institutionID: string
-      hierarchyID: number
+      hierarchyID: number | null
     }, ExtArgs["result"]["person"]>
     composites: {}
   }
@@ -5481,7 +5481,7 @@ export namespace Prisma {
   export interface Prisma__PersonClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
     institution<T extends InstitutionDefaultArgs<ExtArgs> = {}>(args?: Subset<T, InstitutionDefaultArgs<ExtArgs>>): Prisma__InstitutionClient<$Result.GetResult<Prisma.$InstitutionPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
-    hierarchy<T extends HierarchyDefaultArgs<ExtArgs> = {}>(args?: Subset<T, HierarchyDefaultArgs<ExtArgs>>): Prisma__HierarchyClient<$Result.GetResult<Prisma.$HierarchyPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    hierarchy<T extends Person$hierarchyArgs<ExtArgs> = {}>(args?: Subset<T, Person$hierarchyArgs<ExtArgs>>): Prisma__HierarchyClient<$Result.GetResult<Prisma.$HierarchyPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     activity<T extends Person$activityArgs<ExtArgs> = {}>(args?: Subset<T, Person$activityArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ActivityPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
@@ -5911,6 +5911,25 @@ export namespace Prisma {
      * Limit how many People to delete.
      */
     limit?: number
+  }
+
+  /**
+   * Person.hierarchy
+   */
+  export type Person$hierarchyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Hierarchy
+     */
+    select?: HierarchySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Hierarchy
+     */
+    omit?: HierarchyOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: HierarchyInclude<ExtArgs> | null
+    where?: HierarchyWhereInput
   }
 
   /**
@@ -9556,9 +9575,9 @@ export namespace Prisma {
     surname?: StringFilter<"Person"> | string
     photo?: StringFilter<"Person"> | string
     institutionID?: StringFilter<"Person"> | string
-    hierarchyID?: IntFilter<"Person"> | number
+    hierarchyID?: IntNullableFilter<"Person"> | number | null
     institution?: XOR<InstitutionScalarRelationFilter, InstitutionWhereInput>
-    hierarchy?: XOR<HierarchyScalarRelationFilter, HierarchyWhereInput>
+    hierarchy?: XOR<HierarchyNullableScalarRelationFilter, HierarchyWhereInput> | null
     activity?: ActivityListRelationFilter
   }
 
@@ -9568,7 +9587,7 @@ export namespace Prisma {
     surname?: SortOrder
     photo?: SortOrder
     institutionID?: SortOrder
-    hierarchyID?: SortOrder
+    hierarchyID?: SortOrderInput | SortOrder
     institution?: InstitutionOrderByWithRelationInput
     hierarchy?: HierarchyOrderByWithRelationInput
     activity?: ActivityOrderByRelationAggregateInput
@@ -9583,9 +9602,9 @@ export namespace Prisma {
     surname?: StringFilter<"Person"> | string
     photo?: StringFilter<"Person"> | string
     institutionID?: StringFilter<"Person"> | string
-    hierarchyID?: IntFilter<"Person"> | number
+    hierarchyID?: IntNullableFilter<"Person"> | number | null
     institution?: XOR<InstitutionScalarRelationFilter, InstitutionWhereInput>
-    hierarchy?: XOR<HierarchyScalarRelationFilter, HierarchyWhereInput>
+    hierarchy?: XOR<HierarchyNullableScalarRelationFilter, HierarchyWhereInput> | null
     activity?: ActivityListRelationFilter
   }, "person_ID">
 
@@ -9595,7 +9614,7 @@ export namespace Prisma {
     surname?: SortOrder
     photo?: SortOrder
     institutionID?: SortOrder
-    hierarchyID?: SortOrder
+    hierarchyID?: SortOrderInput | SortOrder
     _count?: PersonCountOrderByAggregateInput
     _avg?: PersonAvgOrderByAggregateInput
     _max?: PersonMaxOrderByAggregateInput
@@ -9612,7 +9631,7 @@ export namespace Prisma {
     surname?: StringWithAggregatesFilter<"Person"> | string
     photo?: StringWithAggregatesFilter<"Person"> | string
     institutionID?: StringWithAggregatesFilter<"Person"> | string
-    hierarchyID?: IntWithAggregatesFilter<"Person"> | number
+    hierarchyID?: IntNullableWithAggregatesFilter<"Person"> | number | null
   }
 
   export type Type_DevicesWhereInput = {
@@ -9917,7 +9936,7 @@ export namespace Prisma {
     surname: string
     photo: string
     institution: InstitutionCreateNestedOneWithoutPersonsInput
-    hierarchy: HierarchyCreateNestedOneWithoutPersonsInput
+    hierarchy?: HierarchyCreateNestedOneWithoutPersonsInput
     activity?: ActivityCreateNestedManyWithoutPersonInput
   }
 
@@ -9927,7 +9946,7 @@ export namespace Prisma {
     surname: string
     photo: string
     institutionID: string
-    hierarchyID: number
+    hierarchyID?: number | null
     activity?: ActivityUncheckedCreateNestedManyWithoutPersonInput
   }
 
@@ -9936,7 +9955,7 @@ export namespace Prisma {
     surname?: StringFieldUpdateOperationsInput | string
     photo?: StringFieldUpdateOperationsInput | string
     institution?: InstitutionUpdateOneRequiredWithoutPersonsNestedInput
-    hierarchy?: HierarchyUpdateOneRequiredWithoutPersonsNestedInput
+    hierarchy?: HierarchyUpdateOneWithoutPersonsNestedInput
     activity?: ActivityUpdateManyWithoutPersonNestedInput
   }
 
@@ -9946,7 +9965,7 @@ export namespace Prisma {
     surname?: StringFieldUpdateOperationsInput | string
     photo?: StringFieldUpdateOperationsInput | string
     institutionID?: StringFieldUpdateOperationsInput | string
-    hierarchyID?: IntFieldUpdateOperationsInput | number
+    hierarchyID?: NullableIntFieldUpdateOperationsInput | number | null
     activity?: ActivityUncheckedUpdateManyWithoutPersonNestedInput
   }
 
@@ -9956,7 +9975,7 @@ export namespace Prisma {
     surname: string
     photo: string
     institutionID: string
-    hierarchyID: number
+    hierarchyID?: number | null
   }
 
   export type PersonUpdateManyMutationInput = {
@@ -9971,7 +9990,7 @@ export namespace Prisma {
     surname?: StringFieldUpdateOperationsInput | string
     photo?: StringFieldUpdateOperationsInput | string
     institutionID?: StringFieldUpdateOperationsInput | string
-    hierarchyID?: IntFieldUpdateOperationsInput | number
+    hierarchyID?: NullableIntFieldUpdateOperationsInput | number | null
   }
 
   export type Type_DevicesCreateInput = {
@@ -10314,14 +10333,25 @@ export namespace Prisma {
     _max?: NestedIntFilter<$PrismaModel>
   }
 
+  export type IntNullableFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel> | null
+    in?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntNullableFilter<$PrismaModel> | number | null
+  }
+
   export type InstitutionScalarRelationFilter = {
     is?: InstitutionWhereInput
     isNot?: InstitutionWhereInput
   }
 
-  export type HierarchyScalarRelationFilter = {
-    is?: HierarchyWhereInput
-    isNot?: HierarchyWhereInput
+  export type HierarchyNullableScalarRelationFilter = {
+    is?: HierarchyWhereInput | null
+    isNot?: HierarchyWhereInput | null
   }
 
   export type PersonCountOrderByAggregateInput = {
@@ -10359,6 +10389,22 @@ export namespace Prisma {
   export type PersonSumOrderByAggregateInput = {
     person_ID?: SortOrder
     hierarchyID?: SortOrder
+  }
+
+  export type IntNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel> | null
+    in?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntNullableWithAggregatesFilter<$PrismaModel> | number | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _avg?: NestedFloatNullableFilter<$PrismaModel>
+    _sum?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedIntNullableFilter<$PrismaModel>
+    _max?: NestedIntNullableFilter<$PrismaModel>
   }
 
   export type Type_DevicesCountOrderByAggregateInput = {
@@ -10776,10 +10822,12 @@ export namespace Prisma {
     update?: XOR<XOR<InstitutionUpdateToOneWithWhereWithoutPersonsInput, InstitutionUpdateWithoutPersonsInput>, InstitutionUncheckedUpdateWithoutPersonsInput>
   }
 
-  export type HierarchyUpdateOneRequiredWithoutPersonsNestedInput = {
+  export type HierarchyUpdateOneWithoutPersonsNestedInput = {
     create?: XOR<HierarchyCreateWithoutPersonsInput, HierarchyUncheckedCreateWithoutPersonsInput>
     connectOrCreate?: HierarchyCreateOrConnectWithoutPersonsInput
     upsert?: HierarchyUpsertWithoutPersonsInput
+    disconnect?: HierarchyWhereInput | boolean
+    delete?: HierarchyWhereInput | boolean
     connect?: HierarchyWhereUniqueInput
     update?: XOR<XOR<HierarchyUpdateToOneWithWhereWithoutPersonsInput, HierarchyUpdateWithoutPersonsInput>, HierarchyUncheckedUpdateWithoutPersonsInput>
   }
@@ -10796,6 +10844,14 @@ export namespace Prisma {
     update?: ActivityUpdateWithWhereUniqueWithoutPersonInput | ActivityUpdateWithWhereUniqueWithoutPersonInput[]
     updateMany?: ActivityUpdateManyWithWhereWithoutPersonInput | ActivityUpdateManyWithWhereWithoutPersonInput[]
     deleteMany?: ActivityScalarWhereInput | ActivityScalarWhereInput[]
+  }
+
+  export type NullableIntFieldUpdateOperationsInput = {
+    set?: number | null
+    increment?: number
+    decrement?: number
+    multiply?: number
+    divide?: number
   }
 
   export type ActivityUncheckedUpdateManyWithoutPersonNestedInput = {
@@ -11029,6 +11085,33 @@ export namespace Prisma {
     not?: NestedFloatFilter<$PrismaModel> | number
   }
 
+  export type NestedIntNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel> | null
+    in?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntNullableWithAggregatesFilter<$PrismaModel> | number | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _avg?: NestedFloatNullableFilter<$PrismaModel>
+    _sum?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedIntNullableFilter<$PrismaModel>
+    _max?: NestedIntNullableFilter<$PrismaModel>
+  }
+
+  export type NestedFloatNullableFilter<$PrismaModel = never> = {
+    equals?: number | FloatFieldRefInput<$PrismaModel> | null
+    in?: number[] | ListFloatFieldRefInput<$PrismaModel> | null
+    notIn?: number[] | ListFloatFieldRefInput<$PrismaModel> | null
+    lt?: number | FloatFieldRefInput<$PrismaModel>
+    lte?: number | FloatFieldRefInput<$PrismaModel>
+    gt?: number | FloatFieldRefInput<$PrismaModel>
+    gte?: number | FloatFieldRefInput<$PrismaModel>
+    not?: NestedFloatNullableFilter<$PrismaModel> | number | null
+  }
+
   export type NestedBoolFilter<$PrismaModel = never> = {
     equals?: boolean | BooleanFieldRefInput<$PrismaModel>
     not?: NestedBoolFilter<$PrismaModel> | boolean
@@ -11093,7 +11176,7 @@ export namespace Prisma {
     name: string
     surname: string
     photo: string
-    hierarchy: HierarchyCreateNestedOneWithoutPersonsInput
+    hierarchy?: HierarchyCreateNestedOneWithoutPersonsInput
     activity?: ActivityCreateNestedManyWithoutPersonInput
   }
 
@@ -11102,7 +11185,7 @@ export namespace Prisma {
     name: string
     surname: string
     photo: string
-    hierarchyID: number
+    hierarchyID?: number | null
     activity?: ActivityUncheckedCreateNestedManyWithoutPersonInput
   }
 
@@ -11213,7 +11296,7 @@ export namespace Prisma {
     surname?: StringFilter<"Person"> | string
     photo?: StringFilter<"Person"> | string
     institutionID?: StringFilter<"Person"> | string
-    hierarchyID?: IntFilter<"Person"> | number
+    hierarchyID?: IntNullableFilter<"Person"> | number | null
   }
 
   export type DeviceUpsertWithWhereUniqueWithoutInstitutionInput = {
@@ -11629,7 +11712,7 @@ export namespace Prisma {
     surname: string
     photo: string
     institution: InstitutionCreateNestedOneWithoutPersonsInput
-    hierarchy: HierarchyCreateNestedOneWithoutPersonsInput
+    hierarchy?: HierarchyCreateNestedOneWithoutPersonsInput
   }
 
   export type PersonUncheckedCreateWithoutActivityInput = {
@@ -11638,7 +11721,7 @@ export namespace Prisma {
     surname: string
     photo: string
     institutionID: string
-    hierarchyID: number
+    hierarchyID?: number | null
   }
 
   export type PersonCreateOrConnectWithoutActivityInput = {
@@ -11689,7 +11772,7 @@ export namespace Prisma {
     surname?: StringFieldUpdateOperationsInput | string
     photo?: StringFieldUpdateOperationsInput | string
     institution?: InstitutionUpdateOneRequiredWithoutPersonsNestedInput
-    hierarchy?: HierarchyUpdateOneRequiredWithoutPersonsNestedInput
+    hierarchy?: HierarchyUpdateOneWithoutPersonsNestedInput
   }
 
   export type PersonUncheckedUpdateWithoutActivityInput = {
@@ -11698,7 +11781,7 @@ export namespace Prisma {
     surname?: StringFieldUpdateOperationsInput | string
     photo?: StringFieldUpdateOperationsInput | string
     institutionID?: StringFieldUpdateOperationsInput | string
-    hierarchyID?: IntFieldUpdateOperationsInput | number
+    hierarchyID?: NullableIntFieldUpdateOperationsInput | number | null
   }
 
   export type AdminCreateManyInstitutionInput = {
@@ -11712,7 +11795,7 @@ export namespace Prisma {
     name: string
     surname: string
     photo: string
-    hierarchyID: number
+    hierarchyID?: number | null
   }
 
   export type DeviceCreateManyInstitutionInput = {
@@ -11751,7 +11834,7 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     surname?: StringFieldUpdateOperationsInput | string
     photo?: StringFieldUpdateOperationsInput | string
-    hierarchy?: HierarchyUpdateOneRequiredWithoutPersonsNestedInput
+    hierarchy?: HierarchyUpdateOneWithoutPersonsNestedInput
     activity?: ActivityUpdateManyWithoutPersonNestedInput
   }
 
@@ -11760,7 +11843,7 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     surname?: StringFieldUpdateOperationsInput | string
     photo?: StringFieldUpdateOperationsInput | string
-    hierarchyID?: IntFieldUpdateOperationsInput | number
+    hierarchyID?: NullableIntFieldUpdateOperationsInput | number | null
     activity?: ActivityUncheckedUpdateManyWithoutPersonNestedInput
   }
 
@@ -11769,7 +11852,7 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     surname?: StringFieldUpdateOperationsInput | string
     photo?: StringFieldUpdateOperationsInput | string
-    hierarchyID?: IntFieldUpdateOperationsInput | number
+    hierarchyID?: NullableIntFieldUpdateOperationsInput | number | null
   }
 
   export type DeviceUpdateWithoutInstitutionInput = {
