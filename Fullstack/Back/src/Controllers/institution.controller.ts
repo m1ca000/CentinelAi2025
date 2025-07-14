@@ -14,6 +14,7 @@ export const createInstitution = async (req: Request, res: Response) => {
   const {name} = req.body
   try {
     const createInst = await createInstitutionService(name)
+    return res.status(201).json({ message: 'Institución creada con exito', createInst });
   } catch (err) {
     res.status(500).json({ error: 'Error de db'});
     throw err;
