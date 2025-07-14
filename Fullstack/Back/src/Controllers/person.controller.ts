@@ -1,4 +1,4 @@
-import { savePersonRegister, getPersonsByInstitution } from "../Services/person.service.js";
+import { savePersonRegister, getPersonsByInstitution } from "../Services/person.service";
 import { Request, Response } from "express";
 
 export const uploadPerson = async (req: Request, res: Response) => {

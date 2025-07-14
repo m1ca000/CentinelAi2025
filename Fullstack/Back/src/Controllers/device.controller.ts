@@ -1,4 +1,4 @@
-import { getDevicesService, createDeviceService } from '../Services/device.service.js';
+import { getDevicesService, createDeviceService } from '../Services/device.service';
 import { Request, Response } from 'express';
 
 export const getDevicesByInstitution = async (req: Request, res: Response) => {

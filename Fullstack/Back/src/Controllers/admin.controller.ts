@@ -1,4 +1,4 @@
-import { createAdminService, getAdminByEmailService } from "../Services/admin.service.js";
+import { createAdminService, getAdminByEmailService } from "../Services/admin.service";
 import bcrypt from 'bcrypt';
 import { Request, Response } from 'express';
 

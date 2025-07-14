@@ -1,4 +1,4 @@
-import {getInstitutionsService, createInstitutionService} from '../Services/institution.service.js'
+import {getInstitutionsService, createInstitutionService} from '../Services/institution.service'
 import { Request, Response } from 'express'
 
 export const getInstitutionController = async (req: Request, res: Response) => {

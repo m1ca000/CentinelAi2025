@@ -1,5 +1,5 @@
 import express from 'express';
-import { getPersonsControllers, uploadPerson } from '../Controllers/person.controller.js'
+import { getPersonsControllers, uploadPerson } from '../Controllers/person.controller'
 import multer from 'multer'
 
 const router = express.Router();
