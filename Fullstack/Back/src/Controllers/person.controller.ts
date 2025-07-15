@@ -1,9 +1,9 @@
-import { savePersonRegister, getPersonsByInstitution } from "../Services/person.service";
+import { savePersonRegister, getPersonsByInstitution,uploadImage } from "../Services/person.service";
 import { Request, Response } from "express";
 
 export const uploadPerson = async (req: Request, res: Response) => {
     try {
-        const person = await savePersonRegister(req.body.name, req.body.surname, req.body.file.buffer, req.body.institutionID, req.body.hierarchyID );
+        const person = await savePersonRegister(req.body.name, req.body.surname, req.body.file.buffer, req.body.institutionID);
         
         return res.status(201).json({ message: 'Persona registrada con exito' });
     } catch(err) {

@@ -24,11 +24,6 @@ export type Institution = $Result.DefaultSelection<Prisma.$InstitutionPayload>
  */
 export type Admin = $Result.DefaultSelection<Prisma.$AdminPayload>
 /**
- * Model Hierarchy
- * 
- */
-export type Hierarchy = $Result.DefaultSelection<Prisma.$HierarchyPayload>
-/**
  * Model Person
  * 
  */
@@ -193,16 +188,6 @@ export class PrismaClient<
     * ```
     */
   get admin(): Prisma.AdminDelegate<ExtArgs, ClientOptions>;
-
-  /**
-   * `prisma.hierarchy`: Exposes CRUD operations for the **Hierarchy** model.
-    * Example usage:
-    * ```ts
-    * // Fetch zero or more Hierarchies
-    * const hierarchies = await prisma.hierarchy.findMany()
-    * ```
-    */
-  get hierarchy(): Prisma.HierarchyDelegate<ExtArgs, ClientOptions>;
 
   /**
    * `prisma.person`: Exposes CRUD operations for the **Person** model.
@@ -685,7 +670,6 @@ export namespace Prisma {
   export const ModelName: {
     Institution: 'Institution',
     Admin: 'Admin',
-    Hierarchy: 'Hierarchy',
     Person: 'Person',
     Type_Devices: 'Type_Devices',
     Device: 'Device',
@@ -708,7 +692,7 @@ export namespace Prisma {
       omit: GlobalOmitOptions
     }
     meta: {
-      modelProps: "institution" | "admin" | "hierarchy" | "person" | "type_Devices" | "device" | "activity"
+      modelProps: "institution" | "admin" | "person" | "type_Devices" | "device" | "activity"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -857,80 +841,6 @@ export namespace Prisma {
           count: {
             args: Prisma.AdminCountArgs<ExtArgs>
             result: $Utils.Optional<AdminCountAggregateOutputType> | number
-          }
-        }
-      }
-      Hierarchy: {
-        payload: Prisma.$HierarchyPayload<ExtArgs>
-        fields: Prisma.HierarchyFieldRefs
-        operations: {
-          findUnique: {
-            args: Prisma.HierarchyFindUniqueArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$HierarchyPayload> | null
-          }
-          findUniqueOrThrow: {
-            args: Prisma.HierarchyFindUniqueOrThrowArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$HierarchyPayload>
-          }
-          findFirst: {
-            args: Prisma.HierarchyFindFirstArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$HierarchyPayload> | null
-          }
-          findFirstOrThrow: {
-            args: Prisma.HierarchyFindFirstOrThrowArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$HierarchyPayload>
-          }
-          findMany: {
-            args: Prisma.HierarchyFindManyArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$HierarchyPayload>[]
-          }
-          create: {
-            args: Prisma.HierarchyCreateArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$HierarchyPayload>
-          }
-          createMany: {
-            args: Prisma.HierarchyCreateManyArgs<ExtArgs>
-            result: BatchPayload
-          }
-          createManyAndReturn: {
-            args: Prisma.HierarchyCreateManyAndReturnArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$HierarchyPayload>[]
-          }
-          delete: {
-            args: Prisma.HierarchyDeleteArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$HierarchyPayload>
-          }
-          update: {
-            args: Prisma.HierarchyUpdateArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$HierarchyPayload>
-          }
-          deleteMany: {
-            args: Prisma.HierarchyDeleteManyArgs<ExtArgs>
-            result: BatchPayload
-          }
-          updateMany: {
-            args: Prisma.HierarchyUpdateManyArgs<ExtArgs>
-            result: BatchPayload
-          }
-          updateManyAndReturn: {
-            args: Prisma.HierarchyUpdateManyAndReturnArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$HierarchyPayload>[]
-          }
-          upsert: {
-            args: Prisma.HierarchyUpsertArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$HierarchyPayload>
-          }
-          aggregate: {
-            args: Prisma.HierarchyAggregateArgs<ExtArgs>
-            result: $Utils.Optional<AggregateHierarchy>
-          }
-          groupBy: {
-            args: Prisma.HierarchyGroupByArgs<ExtArgs>
-            result: $Utils.Optional<HierarchyGroupByOutputType>[]
-          }
-          count: {
-            args: Prisma.HierarchyCountArgs<ExtArgs>
-            result: $Utils.Optional<HierarchyCountAggregateOutputType> | number
           }
         }
       }
@@ -1316,7 +1226,6 @@ export namespace Prisma {
   export type GlobalOmitConfig = {
     institution?: InstitutionOmit
     admin?: AdminOmit
-    hierarchy?: HierarchyOmit
     person?: PersonOmit
     type_Devices?: Type_DevicesOmit
     device?: DeviceOmit
@@ -1465,37 +1374,6 @@ export namespace Prisma {
    */
   export type InstitutionCountOutputTypeCountActivityArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: ActivityWhereInput
-  }
-
-
-  /**
-   * Count Type HierarchyCountOutputType
-   */
-
-  export type HierarchyCountOutputType = {
-    persons: number
-  }
-
-  export type HierarchyCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    persons?: boolean | HierarchyCountOutputTypeCountPersonsArgs
-  }
-
-  // Custom InputTypes
-  /**
-   * HierarchyCountOutputType without action
-   */
-  export type HierarchyCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the HierarchyCountOutputType
-     */
-    select?: HierarchyCountOutputTypeSelect<ExtArgs> | null
-  }
-
-  /**
-   * HierarchyCountOutputType without action
-   */
-  export type HierarchyCountOutputTypeCountPersonsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: PersonWhereInput
   }
 
 
@@ -3745,1071 +3623,6 @@ export namespace Prisma {
 
 
   /**
-   * Model Hierarchy
-   */
-
-  export type AggregateHierarchy = {
-    _count: HierarchyCountAggregateOutputType | null
-    _avg: HierarchyAvgAggregateOutputType | null
-    _sum: HierarchySumAggregateOutputType | null
-    _min: HierarchyMinAggregateOutputType | null
-    _max: HierarchyMaxAggregateOutputType | null
-  }
-
-  export type HierarchyAvgAggregateOutputType = {
-    hier_ID: number | null
-  }
-
-  export type HierarchySumAggregateOutputType = {
-    hier_ID: number | null
-  }
-
-  export type HierarchyMinAggregateOutputType = {
-    hier_ID: number | null
-    name: string | null
-  }
-
-  export type HierarchyMaxAggregateOutputType = {
-    hier_ID: number | null
-    name: string | null
-  }
-
-  export type HierarchyCountAggregateOutputType = {
-    hier_ID: number
-    name: number
-    _all: number
-  }
-
-
-  export type HierarchyAvgAggregateInputType = {
-    hier_ID?: true
-  }
-
-  export type HierarchySumAggregateInputType = {
-    hier_ID?: true
-  }
-
-  export type HierarchyMinAggregateInputType = {
-    hier_ID?: true
-    name?: true
-  }
-
-  export type HierarchyMaxAggregateInputType = {
-    hier_ID?: true
-    name?: true
-  }
-
-  export type HierarchyCountAggregateInputType = {
-    hier_ID?: true
-    name?: true
-    _all?: true
-  }
-
-  export type HierarchyAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Filter which Hierarchy to aggregate.
-     */
-    where?: HierarchyWhereInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     * 
-     * Determine the order of Hierarchies to fetch.
-     */
-    orderBy?: HierarchyOrderByWithRelationInput | HierarchyOrderByWithRelationInput[]
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     * 
-     * Sets the start position
-     */
-    cursor?: HierarchyWhereUniqueInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Take `±n` Hierarchies from the position of the cursor.
-     */
-    take?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Skip the first `n` Hierarchies.
-     */
-    skip?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
-     * Count returned Hierarchies
-    **/
-    _count?: true | HierarchyCountAggregateInputType
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
-     * Select which fields to average
-    **/
-    _avg?: HierarchyAvgAggregateInputType
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
-     * Select which fields to sum
-    **/
-    _sum?: HierarchySumAggregateInputType
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
-     * Select which fields to find the minimum value
-    **/
-    _min?: HierarchyMinAggregateInputType
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
-     * Select which fields to find the maximum value
-    **/
-    _max?: HierarchyMaxAggregateInputType
-  }
-
-  export type GetHierarchyAggregateType<T extends HierarchyAggregateArgs> = {
-        [P in keyof T & keyof AggregateHierarchy]: P extends '_count' | 'count'
-      ? T[P] extends true
-        ? number
-        : GetScalarType<T[P], AggregateHierarchy[P]>
-      : GetScalarType<T[P], AggregateHierarchy[P]>
-  }
-
-
-
-
-  export type HierarchyGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: HierarchyWhereInput
-    orderBy?: HierarchyOrderByWithAggregationInput | HierarchyOrderByWithAggregationInput[]
-    by: HierarchyScalarFieldEnum[] | HierarchyScalarFieldEnum
-    having?: HierarchyScalarWhereWithAggregatesInput
-    take?: number
-    skip?: number
-    _count?: HierarchyCountAggregateInputType | true
-    _avg?: HierarchyAvgAggregateInputType
-    _sum?: HierarchySumAggregateInputType
-    _min?: HierarchyMinAggregateInputType
-    _max?: HierarchyMaxAggregateInputType
-  }
-
-  export type HierarchyGroupByOutputType = {
-    hier_ID: number
-    name: string
-    _count: HierarchyCountAggregateOutputType | null
-    _avg: HierarchyAvgAggregateOutputType | null
-    _sum: HierarchySumAggregateOutputType | null
-    _min: HierarchyMinAggregateOutputType | null
-    _max: HierarchyMaxAggregateOutputType | null
-  }
-
-  type GetHierarchyGroupByPayload<T extends HierarchyGroupByArgs> = Prisma.PrismaPromise<
-    Array<
-      PickEnumerable<HierarchyGroupByOutputType, T['by']> &
-        {
-          [P in ((keyof T) & (keyof HierarchyGroupByOutputType))]: P extends '_count'
-            ? T[P] extends boolean
-              ? number
-              : GetScalarType<T[P], HierarchyGroupByOutputType[P]>
-            : GetScalarType<T[P], HierarchyGroupByOutputType[P]>
-        }
-      >
-    >
-
-
-  export type HierarchySelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
-    hier_ID?: boolean
-    name?: boolean
-    persons?: boolean | Hierarchy$personsArgs<ExtArgs>
-    _count?: boolean | HierarchyCountOutputTypeDefaultArgs<ExtArgs>
-  }, ExtArgs["result"]["hierarchy"]>
-
-  export type HierarchySelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
-    hier_ID?: boolean
-    name?: boolean
-  }, ExtArgs["result"]["hierarchy"]>
-
-  export type HierarchySelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
-    hier_ID?: boolean
-    name?: boolean
-  }, ExtArgs["result"]["hierarchy"]>
-
-  export type HierarchySelectScalar = {
-    hier_ID?: boolean
-    name?: boolean
-  }
-
-  export type HierarchyOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"hier_ID" | "name", ExtArgs["result"]["hierarchy"]>
-  export type HierarchyInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    persons?: boolean | Hierarchy$personsArgs<ExtArgs>
-    _count?: boolean | HierarchyCountOutputTypeDefaultArgs<ExtArgs>
-  }
-  export type HierarchyIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
-  export type HierarchyIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
-
-  export type $HierarchyPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    name: "Hierarchy"
-    objects: {
-      persons: Prisma.$PersonPayload<ExtArgs>[]
-    }
-    scalars: $Extensions.GetPayloadResult<{
-      hier_ID: number
-      name: string
-    }, ExtArgs["result"]["hierarchy"]>
-    composites: {}
-  }
-
-  type HierarchyGetPayload<S extends boolean | null | undefined | HierarchyDefaultArgs> = $Result.GetResult<Prisma.$HierarchyPayload, S>
-
-  type HierarchyCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
-    Omit<HierarchyFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
-      select?: HierarchyCountAggregateInputType | true
-    }
-
-  export interface HierarchyDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
-    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['Hierarchy'], meta: { name: 'Hierarchy' } }
-    /**
-     * Find zero or one Hierarchy that matches the filter.
-     * @param {HierarchyFindUniqueArgs} args - Arguments to find a Hierarchy
-     * @example
-     * // Get one Hierarchy
-     * const hierarchy = await prisma.hierarchy.findUnique({
-     *   where: {
-     *     // ... provide filter here
-     *   }
-     * })
-     */
-    findUnique<T extends HierarchyFindUniqueArgs>(args: SelectSubset<T, HierarchyFindUniqueArgs<ExtArgs>>): Prisma__HierarchyClient<$Result.GetResult<Prisma.$HierarchyPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Find one Hierarchy that matches the filter or throw an error with `error.code='P2025'`
-     * if no matches were found.
-     * @param {HierarchyFindUniqueOrThrowArgs} args - Arguments to find a Hierarchy
-     * @example
-     * // Get one Hierarchy
-     * const hierarchy = await prisma.hierarchy.findUniqueOrThrow({
-     *   where: {
-     *     // ... provide filter here
-     *   }
-     * })
-     */
-    findUniqueOrThrow<T extends HierarchyFindUniqueOrThrowArgs>(args: SelectSubset<T, HierarchyFindUniqueOrThrowArgs<ExtArgs>>): Prisma__HierarchyClient<$Result.GetResult<Prisma.$HierarchyPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Find the first Hierarchy that matches the filter.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {HierarchyFindFirstArgs} args - Arguments to find a Hierarchy
-     * @example
-     * // Get one Hierarchy
-     * const hierarchy = await prisma.hierarchy.findFirst({
-     *   where: {
-     *     // ... provide filter here
-     *   }
-     * })
-     */
-    findFirst<T extends HierarchyFindFirstArgs>(args?: SelectSubset<T, HierarchyFindFirstArgs<ExtArgs>>): Prisma__HierarchyClient<$Result.GetResult<Prisma.$HierarchyPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Find the first Hierarchy that matches the filter or
-     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {HierarchyFindFirstOrThrowArgs} args - Arguments to find a Hierarchy
-     * @example
-     * // Get one Hierarchy
-     * const hierarchy = await prisma.hierarchy.findFirstOrThrow({
-     *   where: {
-     *     // ... provide filter here
-     *   }
-     * })
-     */
-    findFirstOrThrow<T extends HierarchyFindFirstOrThrowArgs>(args?: SelectSubset<T, HierarchyFindFirstOrThrowArgs<ExtArgs>>): Prisma__HierarchyClient<$Result.GetResult<Prisma.$HierarchyPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Find zero or more Hierarchies that matches the filter.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {HierarchyFindManyArgs} args - Arguments to filter and select certain fields only.
-     * @example
-     * // Get all Hierarchies
-     * const hierarchies = await prisma.hierarchy.findMany()
-     * 
-     * // Get first 10 Hierarchies
-     * const hierarchies = await prisma.hierarchy.findMany({ take: 10 })
-     * 
-     * // Only select the `hier_ID`
-     * const hierarchyWithHier_IDOnly = await prisma.hierarchy.findMany({ select: { hier_ID: true } })
-     * 
-     */
-    findMany<T extends HierarchyFindManyArgs>(args?: SelectSubset<T, HierarchyFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$HierarchyPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
-
-    /**
-     * Create a Hierarchy.
-     * @param {HierarchyCreateArgs} args - Arguments to create a Hierarchy.
-     * @example
-     * // Create one Hierarchy
-     * const Hierarchy = await prisma.hierarchy.create({
-     *   data: {
-     *     // ... data to create a Hierarchy
-     *   }
-     * })
-     * 
-     */
-    create<T extends HierarchyCreateArgs>(args: SelectSubset<T, HierarchyCreateArgs<ExtArgs>>): Prisma__HierarchyClient<$Result.GetResult<Prisma.$HierarchyPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Create many Hierarchies.
-     * @param {HierarchyCreateManyArgs} args - Arguments to create many Hierarchies.
-     * @example
-     * // Create many Hierarchies
-     * const hierarchy = await prisma.hierarchy.createMany({
-     *   data: [
-     *     // ... provide data here
-     *   ]
-     * })
-     *     
-     */
-    createMany<T extends HierarchyCreateManyArgs>(args?: SelectSubset<T, HierarchyCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
-
-    /**
-     * Create many Hierarchies and returns the data saved in the database.
-     * @param {HierarchyCreateManyAndReturnArgs} args - Arguments to create many Hierarchies.
-     * @example
-     * // Create many Hierarchies
-     * const hierarchy = await prisma.hierarchy.createManyAndReturn({
-     *   data: [
-     *     // ... provide data here
-     *   ]
-     * })
-     * 
-     * // Create many Hierarchies and only return the `hier_ID`
-     * const hierarchyWithHier_IDOnly = await prisma.hierarchy.createManyAndReturn({
-     *   select: { hier_ID: true },
-     *   data: [
-     *     // ... provide data here
-     *   ]
-     * })
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * 
-     */
-    createManyAndReturn<T extends HierarchyCreateManyAndReturnArgs>(args?: SelectSubset<T, HierarchyCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$HierarchyPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
-
-    /**
-     * Delete a Hierarchy.
-     * @param {HierarchyDeleteArgs} args - Arguments to delete one Hierarchy.
-     * @example
-     * // Delete one Hierarchy
-     * const Hierarchy = await prisma.hierarchy.delete({
-     *   where: {
-     *     // ... filter to delete one Hierarchy
-     *   }
-     * })
-     * 
-     */
-    delete<T extends HierarchyDeleteArgs>(args: SelectSubset<T, HierarchyDeleteArgs<ExtArgs>>): Prisma__HierarchyClient<$Result.GetResult<Prisma.$HierarchyPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Update one Hierarchy.
-     * @param {HierarchyUpdateArgs} args - Arguments to update one Hierarchy.
-     * @example
-     * // Update one Hierarchy
-     * const hierarchy = await prisma.hierarchy.update({
-     *   where: {
-     *     // ... provide filter here
-     *   },
-     *   data: {
-     *     // ... provide data here
-     *   }
-     * })
-     * 
-     */
-    update<T extends HierarchyUpdateArgs>(args: SelectSubset<T, HierarchyUpdateArgs<ExtArgs>>): Prisma__HierarchyClient<$Result.GetResult<Prisma.$HierarchyPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Delete zero or more Hierarchies.
-     * @param {HierarchyDeleteManyArgs} args - Arguments to filter Hierarchies to delete.
-     * @example
-     * // Delete a few Hierarchies
-     * const { count } = await prisma.hierarchy.deleteMany({
-     *   where: {
-     *     // ... provide filter here
-     *   }
-     * })
-     * 
-     */
-    deleteMany<T extends HierarchyDeleteManyArgs>(args?: SelectSubset<T, HierarchyDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
-
-    /**
-     * Update zero or more Hierarchies.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {HierarchyUpdateManyArgs} args - Arguments to update one or more rows.
-     * @example
-     * // Update many Hierarchies
-     * const hierarchy = await prisma.hierarchy.updateMany({
-     *   where: {
-     *     // ... provide filter here
-     *   },
-     *   data: {
-     *     // ... provide data here
-     *   }
-     * })
-     * 
-     */
-    updateMany<T extends HierarchyUpdateManyArgs>(args: SelectSubset<T, HierarchyUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
-
-    /**
-     * Update zero or more Hierarchies and returns the data updated in the database.
-     * @param {HierarchyUpdateManyAndReturnArgs} args - Arguments to update many Hierarchies.
-     * @example
-     * // Update many Hierarchies
-     * const hierarchy = await prisma.hierarchy.updateManyAndReturn({
-     *   where: {
-     *     // ... provide filter here
-     *   },
-     *   data: [
-     *     // ... provide data here
-     *   ]
-     * })
-     * 
-     * // Update zero or more Hierarchies and only return the `hier_ID`
-     * const hierarchyWithHier_IDOnly = await prisma.hierarchy.updateManyAndReturn({
-     *   select: { hier_ID: true },
-     *   where: {
-     *     // ... provide filter here
-     *   },
-     *   data: [
-     *     // ... provide data here
-     *   ]
-     * })
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * 
-     */
-    updateManyAndReturn<T extends HierarchyUpdateManyAndReturnArgs>(args: SelectSubset<T, HierarchyUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$HierarchyPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
-
-    /**
-     * Create or update one Hierarchy.
-     * @param {HierarchyUpsertArgs} args - Arguments to update or create a Hierarchy.
-     * @example
-     * // Update or create a Hierarchy
-     * const hierarchy = await prisma.hierarchy.upsert({
-     *   create: {
-     *     // ... data to create a Hierarchy
-     *   },
-     *   update: {
-     *     // ... in case it already exists, update
-     *   },
-     *   where: {
-     *     // ... the filter for the Hierarchy we want to update
-     *   }
-     * })
-     */
-    upsert<T extends HierarchyUpsertArgs>(args: SelectSubset<T, HierarchyUpsertArgs<ExtArgs>>): Prisma__HierarchyClient<$Result.GetResult<Prisma.$HierarchyPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
-
-
-    /**
-     * Count the number of Hierarchies.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {HierarchyCountArgs} args - Arguments to filter Hierarchies to count.
-     * @example
-     * // Count the number of Hierarchies
-     * const count = await prisma.hierarchy.count({
-     *   where: {
-     *     // ... the filter for the Hierarchies we want to count
-     *   }
-     * })
-    **/
-    count<T extends HierarchyCountArgs>(
-      args?: Subset<T, HierarchyCountArgs>,
-    ): Prisma.PrismaPromise<
-      T extends $Utils.Record<'select', any>
-        ? T['select'] extends true
-          ? number
-          : GetScalarType<T['select'], HierarchyCountAggregateOutputType>
-        : number
-    >
-
-    /**
-     * Allows you to perform aggregations operations on a Hierarchy.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {HierarchyAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
-     * @example
-     * // Ordered by age ascending
-     * // Where email contains prisma.io
-     * // Limited to the 10 users
-     * const aggregations = await prisma.user.aggregate({
-     *   _avg: {
-     *     age: true,
-     *   },
-     *   where: {
-     *     email: {
-     *       contains: "prisma.io",
-     *     },
-     *   },
-     *   orderBy: {
-     *     age: "asc",
-     *   },
-     *   take: 10,
-     * })
-    **/
-    aggregate<T extends HierarchyAggregateArgs>(args: Subset<T, HierarchyAggregateArgs>): Prisma.PrismaPromise<GetHierarchyAggregateType<T>>
-
-    /**
-     * Group by Hierarchy.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {HierarchyGroupByArgs} args - Group by arguments.
-     * @example
-     * // Group by city, order by createdAt, get count
-     * const result = await prisma.user.groupBy({
-     *   by: ['city', 'createdAt'],
-     *   orderBy: {
-     *     createdAt: true
-     *   },
-     *   _count: {
-     *     _all: true
-     *   },
-     * })
-     * 
-    **/
-    groupBy<
-      T extends HierarchyGroupByArgs,
-      HasSelectOrTake extends Or<
-        Extends<'skip', Keys<T>>,
-        Extends<'take', Keys<T>>
-      >,
-      OrderByArg extends True extends HasSelectOrTake
-        ? { orderBy: HierarchyGroupByArgs['orderBy'] }
-        : { orderBy?: HierarchyGroupByArgs['orderBy'] },
-      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
-      ByFields extends MaybeTupleToUnion<T['by']>,
-      ByValid extends Has<ByFields, OrderFields>,
-      HavingFields extends GetHavingFields<T['having']>,
-      HavingValid extends Has<ByFields, HavingFields>,
-      ByEmpty extends T['by'] extends never[] ? True : False,
-      InputErrors extends ByEmpty extends True
-      ? `Error: "by" must not be empty.`
-      : HavingValid extends False
-      ? {
-          [P in HavingFields]: P extends ByFields
-            ? never
-            : P extends string
-            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
-            : [
-                Error,
-                'Field ',
-                P,
-                ` in "having" needs to be provided in "by"`,
-              ]
-        }[HavingFields]
-      : 'take' extends Keys<T>
-      ? 'orderBy' extends Keys<T>
-        ? ByValid extends True
-          ? {}
-          : {
-              [P in OrderFields]: P extends ByFields
-                ? never
-                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
-            }[OrderFields]
-        : 'Error: If you provide "take", you also need to provide "orderBy"'
-      : 'skip' extends Keys<T>
-      ? 'orderBy' extends Keys<T>
-        ? ByValid extends True
-          ? {}
-          : {
-              [P in OrderFields]: P extends ByFields
-                ? never
-                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
-            }[OrderFields]
-        : 'Error: If you provide "skip", you also need to provide "orderBy"'
-      : ByValid extends True
-      ? {}
-      : {
-          [P in OrderFields]: P extends ByFields
-            ? never
-            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
-        }[OrderFields]
-    >(args: SubsetIntersection<T, HierarchyGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetHierarchyGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
-  /**
-   * Fields of the Hierarchy model
-   */
-  readonly fields: HierarchyFieldRefs;
-  }
-
-  /**
-   * The delegate class that acts as a "Promise-like" for Hierarchy.
-   * Why is this prefixed with `Prisma__`?
-   * Because we want to prevent naming conflicts as mentioned in
-   * https://github.com/prisma/prisma-client-js/issues/707
-   */
-  export interface Prisma__HierarchyClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
-    readonly [Symbol.toStringTag]: "PrismaPromise"
-    persons<T extends Hierarchy$personsArgs<ExtArgs> = {}>(args?: Subset<T, Hierarchy$personsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PersonPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-    /**
-     * Attaches callbacks for the resolution and/or rejection of the Promise.
-     * @param onfulfilled The callback to execute when the Promise is resolved.
-     * @param onrejected The callback to execute when the Promise is rejected.
-     * @returns A Promise for the completion of which ever callback is executed.
-     */
-    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
-    /**
-     * Attaches a callback for only the rejection of the Promise.
-     * @param onrejected The callback to execute when the Promise is rejected.
-     * @returns A Promise for the completion of the callback.
-     */
-    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
-    /**
-     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
-     * resolved value cannot be modified from the callback.
-     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
-     * @returns A Promise for the completion of the callback.
-     */
-    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
-  }
-
-
-
-
-  /**
-   * Fields of the Hierarchy model
-   */
-  interface HierarchyFieldRefs {
-    readonly hier_ID: FieldRef<"Hierarchy", 'Int'>
-    readonly name: FieldRef<"Hierarchy", 'String'>
-  }
-    
-
-  // Custom InputTypes
-  /**
-   * Hierarchy findUnique
-   */
-  export type HierarchyFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the Hierarchy
-     */
-    select?: HierarchySelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the Hierarchy
-     */
-    omit?: HierarchyOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: HierarchyInclude<ExtArgs> | null
-    /**
-     * Filter, which Hierarchy to fetch.
-     */
-    where: HierarchyWhereUniqueInput
-  }
-
-  /**
-   * Hierarchy findUniqueOrThrow
-   */
-  export type HierarchyFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the Hierarchy
-     */
-    select?: HierarchySelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the Hierarchy
-     */
-    omit?: HierarchyOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: HierarchyInclude<ExtArgs> | null
-    /**
-     * Filter, which Hierarchy to fetch.
-     */
-    where: HierarchyWhereUniqueInput
-  }
-
-  /**
-   * Hierarchy findFirst
-   */
-  export type HierarchyFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the Hierarchy
-     */
-    select?: HierarchySelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the Hierarchy
-     */
-    omit?: HierarchyOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: HierarchyInclude<ExtArgs> | null
-    /**
-     * Filter, which Hierarchy to fetch.
-     */
-    where?: HierarchyWhereInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     * 
-     * Determine the order of Hierarchies to fetch.
-     */
-    orderBy?: HierarchyOrderByWithRelationInput | HierarchyOrderByWithRelationInput[]
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     * 
-     * Sets the position for searching for Hierarchies.
-     */
-    cursor?: HierarchyWhereUniqueInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Take `±n` Hierarchies from the position of the cursor.
-     */
-    take?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Skip the first `n` Hierarchies.
-     */
-    skip?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
-     * 
-     * Filter by unique combinations of Hierarchies.
-     */
-    distinct?: HierarchyScalarFieldEnum | HierarchyScalarFieldEnum[]
-  }
-
-  /**
-   * Hierarchy findFirstOrThrow
-   */
-  export type HierarchyFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the Hierarchy
-     */
-    select?: HierarchySelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the Hierarchy
-     */
-    omit?: HierarchyOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: HierarchyInclude<ExtArgs> | null
-    /**
-     * Filter, which Hierarchy to fetch.
-     */
-    where?: HierarchyWhereInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     * 
-     * Determine the order of Hierarchies to fetch.
-     */
-    orderBy?: HierarchyOrderByWithRelationInput | HierarchyOrderByWithRelationInput[]
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     * 
-     * Sets the position for searching for Hierarchies.
-     */
-    cursor?: HierarchyWhereUniqueInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Take `±n` Hierarchies from the position of the cursor.
-     */
-    take?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Skip the first `n` Hierarchies.
-     */
-    skip?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
-     * 
-     * Filter by unique combinations of Hierarchies.
-     */
-    distinct?: HierarchyScalarFieldEnum | HierarchyScalarFieldEnum[]
-  }
-
-  /**
-   * Hierarchy findMany
-   */
-  export type HierarchyFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the Hierarchy
-     */
-    select?: HierarchySelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the Hierarchy
-     */
-    omit?: HierarchyOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: HierarchyInclude<ExtArgs> | null
-    /**
-     * Filter, which Hierarchies to fetch.
-     */
-    where?: HierarchyWhereInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     * 
-     * Determine the order of Hierarchies to fetch.
-     */
-    orderBy?: HierarchyOrderByWithRelationInput | HierarchyOrderByWithRelationInput[]
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     * 
-     * Sets the position for listing Hierarchies.
-     */
-    cursor?: HierarchyWhereUniqueInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Take `±n` Hierarchies from the position of the cursor.
-     */
-    take?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Skip the first `n` Hierarchies.
-     */
-    skip?: number
-    distinct?: HierarchyScalarFieldEnum | HierarchyScalarFieldEnum[]
-  }
-
-  /**
-   * Hierarchy create
-   */
-  export type HierarchyCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the Hierarchy
-     */
-    select?: HierarchySelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the Hierarchy
-     */
-    omit?: HierarchyOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: HierarchyInclude<ExtArgs> | null
-    /**
-     * The data needed to create a Hierarchy.
-     */
-    data: XOR<HierarchyCreateInput, HierarchyUncheckedCreateInput>
-  }
-
-  /**
-   * Hierarchy createMany
-   */
-  export type HierarchyCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * The data used to create many Hierarchies.
-     */
-    data: HierarchyCreateManyInput | HierarchyCreateManyInput[]
-    skipDuplicates?: boolean
-  }
-
-  /**
-   * Hierarchy createManyAndReturn
-   */
-  export type HierarchyCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the Hierarchy
-     */
-    select?: HierarchySelectCreateManyAndReturn<ExtArgs> | null
-    /**
-     * Omit specific fields from the Hierarchy
-     */
-    omit?: HierarchyOmit<ExtArgs> | null
-    /**
-     * The data used to create many Hierarchies.
-     */
-    data: HierarchyCreateManyInput | HierarchyCreateManyInput[]
-    skipDuplicates?: boolean
-  }
-
-  /**
-   * Hierarchy update
-   */
-  export type HierarchyUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the Hierarchy
-     */
-    select?: HierarchySelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the Hierarchy
-     */
-    omit?: HierarchyOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: HierarchyInclude<ExtArgs> | null
-    /**
-     * The data needed to update a Hierarchy.
-     */
-    data: XOR<HierarchyUpdateInput, HierarchyUncheckedUpdateInput>
-    /**
-     * Choose, which Hierarchy to update.
-     */
-    where: HierarchyWhereUniqueInput
-  }
-
-  /**
-   * Hierarchy updateMany
-   */
-  export type HierarchyUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * The data used to update Hierarchies.
-     */
-    data: XOR<HierarchyUpdateManyMutationInput, HierarchyUncheckedUpdateManyInput>
-    /**
-     * Filter which Hierarchies to update
-     */
-    where?: HierarchyWhereInput
-    /**
-     * Limit how many Hierarchies to update.
-     */
-    limit?: number
-  }
-
-  /**
-   * Hierarchy updateManyAndReturn
-   */
-  export type HierarchyUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the Hierarchy
-     */
-    select?: HierarchySelectUpdateManyAndReturn<ExtArgs> | null
-    /**
-     * Omit specific fields from the Hierarchy
-     */
-    omit?: HierarchyOmit<ExtArgs> | null
-    /**
-     * The data used to update Hierarchies.
-     */
-    data: XOR<HierarchyUpdateManyMutationInput, HierarchyUncheckedUpdateManyInput>
-    /**
-     * Filter which Hierarchies to update
-     */
-    where?: HierarchyWhereInput
-    /**
-     * Limit how many Hierarchies to update.
-     */
-    limit?: number
-  }
-
-  /**
-   * Hierarchy upsert
-   */
-  export type HierarchyUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the Hierarchy
-     */
-    select?: HierarchySelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the Hierarchy
-     */
-    omit?: HierarchyOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: HierarchyInclude<ExtArgs> | null
-    /**
-     * The filter to search for the Hierarchy to update in case it exists.
-     */
-    where: HierarchyWhereUniqueInput
-    /**
-     * In case the Hierarchy found by the `where` argument doesn't exist, create a new Hierarchy with this data.
-     */
-    create: XOR<HierarchyCreateInput, HierarchyUncheckedCreateInput>
-    /**
-     * In case the Hierarchy was found with the provided `where` argument, update it with this data.
-     */
-    update: XOR<HierarchyUpdateInput, HierarchyUncheckedUpdateInput>
-  }
-
-  /**
-   * Hierarchy delete
-   */
-  export type HierarchyDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the Hierarchy
-     */
-    select?: HierarchySelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the Hierarchy
-     */
-    omit?: HierarchyOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: HierarchyInclude<ExtArgs> | null
-    /**
-     * Filter which Hierarchy to delete.
-     */
-    where: HierarchyWhereUniqueInput
-  }
-
-  /**
-   * Hierarchy deleteMany
-   */
-  export type HierarchyDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Filter which Hierarchies to delete
-     */
-    where?: HierarchyWhereInput
-    /**
-     * Limit how many Hierarchies to delete.
-     */
-    limit?: number
-  }
-
-  /**
-   * Hierarchy.persons
-   */
-  export type Hierarchy$personsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the Person
-     */
-    select?: PersonSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the Person
-     */
-    omit?: PersonOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: PersonInclude<ExtArgs> | null
-    where?: PersonWhereInput
-    orderBy?: PersonOrderByWithRelationInput | PersonOrderByWithRelationInput[]
-    cursor?: PersonWhereUniqueInput
-    take?: number
-    skip?: number
-    distinct?: PersonScalarFieldEnum | PersonScalarFieldEnum[]
-  }
-
-  /**
-   * Hierarchy without action
-   */
-  export type HierarchyDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the Hierarchy
-     */
-    select?: HierarchySelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the Hierarchy
-     */
-    omit?: HierarchyOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: HierarchyInclude<ExtArgs> | null
-  }
-
-
-  /**
    * Model Person
    */
 
@@ -4823,12 +3636,10 @@ export namespace Prisma {
 
   export type PersonAvgAggregateOutputType = {
     person_ID: number | null
-    hierarchyID: number | null
   }
 
   export type PersonSumAggregateOutputType = {
     person_ID: number | null
-    hierarchyID: number | null
   }
 
   export type PersonMinAggregateOutputType = {
@@ -4837,7 +3648,6 @@ export namespace Prisma {
     surname: string | null
     photo: string | null
     institutionID: string | null
-    hierarchyID: number | null
   }
 
   export type PersonMaxAggregateOutputType = {
@@ -4846,7 +3656,6 @@ export namespace Prisma {
     surname: string | null
     photo: string | null
     institutionID: string | null
-    hierarchyID: number | null
   }
 
   export type PersonCountAggregateOutputType = {
@@ -4855,19 +3664,16 @@ export namespace Prisma {
     surname: number
     photo: number
     institutionID: number
-    hierarchyID: number
     _all: number
   }
 
 
   export type PersonAvgAggregateInputType = {
     person_ID?: true
-    hierarchyID?: true
   }
 
   export type PersonSumAggregateInputType = {
     person_ID?: true
-    hierarchyID?: true
   }
 
   export type PersonMinAggregateInputType = {
@@ -4876,7 +3682,6 @@ export namespace Prisma {
     surname?: true
     photo?: true
     institutionID?: true
-    hierarchyID?: true
   }
 
   export type PersonMaxAggregateInputType = {
@@ -4885,7 +3690,6 @@ export namespace Prisma {
     surname?: true
     photo?: true
     institutionID?: true
-    hierarchyID?: true
   }
 
   export type PersonCountAggregateInputType = {
@@ -4894,7 +3698,6 @@ export namespace Prisma {
     surname?: true
     photo?: true
     institutionID?: true
-    hierarchyID?: true
     _all?: true
   }
 
@@ -4990,7 +3793,6 @@ export namespace Prisma {
     surname: string
     photo: string
     institutionID: string
-    hierarchyID: number | null
     _count: PersonCountAggregateOutputType | null
     _avg: PersonAvgAggregateOutputType | null
     _sum: PersonSumAggregateOutputType | null
@@ -5018,9 +3820,7 @@ export namespace Prisma {
     surname?: boolean
     photo?: boolean
     institutionID?: boolean
-    hierarchyID?: boolean
     institution?: boolean | InstitutionDefaultArgs<ExtArgs>
-    hierarchy?: boolean | Person$hierarchyArgs<ExtArgs>
     activity?: boolean | Person$activityArgs<ExtArgs>
     _count?: boolean | PersonCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["person"]>
@@ -5031,9 +3831,7 @@ export namespace Prisma {
     surname?: boolean
     photo?: boolean
     institutionID?: boolean
-    hierarchyID?: boolean
     institution?: boolean | InstitutionDefaultArgs<ExtArgs>
-    hierarchy?: boolean | Person$hierarchyArgs<ExtArgs>
   }, ExtArgs["result"]["person"]>
 
   export type PersonSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
@@ -5042,9 +3840,7 @@ export namespace Prisma {
     surname?: boolean
     photo?: boolean
     institutionID?: boolean
-    hierarchyID?: boolean
     institution?: boolean | InstitutionDefaultArgs<ExtArgs>
-    hierarchy?: boolean | Person$hierarchyArgs<ExtArgs>
   }, ExtArgs["result"]["person"]>
 
   export type PersonSelectScalar = {
@@ -5053,30 +3849,25 @@ export namespace Prisma {
     surname?: boolean
     photo?: boolean
     institutionID?: boolean
-    hierarchyID?: boolean
   }
 
-  export type PersonOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"person_ID" | "name" | "surname" | "photo" | "institutionID" | "hierarchyID", ExtArgs["result"]["person"]>
+  export type PersonOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"person_ID" | "name" | "surname" | "photo" | "institutionID", ExtArgs["result"]["person"]>
   export type PersonInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     institution?: boolean | InstitutionDefaultArgs<ExtArgs>
-    hierarchy?: boolean | Person$hierarchyArgs<ExtArgs>
     activity?: boolean | Person$activityArgs<ExtArgs>
     _count?: boolean | PersonCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type PersonIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     institution?: boolean | InstitutionDefaultArgs<ExtArgs>
-    hierarchy?: boolean | Person$hierarchyArgs<ExtArgs>
   }
   export type PersonIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     institution?: boolean | InstitutionDefaultArgs<ExtArgs>
-    hierarchy?: boolean | Person$hierarchyArgs<ExtArgs>
   }
 
   export type $PersonPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "Person"
     objects: {
       institution: Prisma.$InstitutionPayload<ExtArgs>
-      hierarchy: Prisma.$HierarchyPayload<ExtArgs> | null
       activity: Prisma.$ActivityPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
@@ -5085,7 +3876,6 @@ export namespace Prisma {
       surname: string
       photo: string
       institutionID: string
-      hierarchyID: number | null
     }, ExtArgs["result"]["person"]>
     composites: {}
   }
@@ -5481,7 +4271,6 @@ export namespace Prisma {
   export interface Prisma__PersonClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
     institution<T extends InstitutionDefaultArgs<ExtArgs> = {}>(args?: Subset<T, InstitutionDefaultArgs<ExtArgs>>): Prisma__InstitutionClient<$Result.GetResult<Prisma.$InstitutionPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
-    hierarchy<T extends Person$hierarchyArgs<ExtArgs> = {}>(args?: Subset<T, Person$hierarchyArgs<ExtArgs>>): Prisma__HierarchyClient<$Result.GetResult<Prisma.$HierarchyPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     activity<T extends Person$activityArgs<ExtArgs> = {}>(args?: Subset<T, Person$activityArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ActivityPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
@@ -5517,7 +4306,6 @@ export namespace Prisma {
     readonly surname: FieldRef<"Person", 'String'>
     readonly photo: FieldRef<"Person", 'String'>
     readonly institutionID: FieldRef<"Person", 'String'>
-    readonly hierarchyID: FieldRef<"Person", 'Int'>
   }
     
 
@@ -5911,25 +4699,6 @@ export namespace Prisma {
      * Limit how many People to delete.
      */
     limit?: number
-  }
-
-  /**
-   * Person.hierarchy
-   */
-  export type Person$hierarchyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the Hierarchy
-     */
-    select?: HierarchySelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the Hierarchy
-     */
-    omit?: HierarchyOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: HierarchyInclude<ExtArgs> | null
-    where?: HierarchyWhereInput
   }
 
   /**
@@ -9280,21 +8049,12 @@ export namespace Prisma {
   export type AdminScalarFieldEnum = (typeof AdminScalarFieldEnum)[keyof typeof AdminScalarFieldEnum]
 
 
-  export const HierarchyScalarFieldEnum: {
-    hier_ID: 'hier_ID',
-    name: 'name'
-  };
-
-  export type HierarchyScalarFieldEnum = (typeof HierarchyScalarFieldEnum)[keyof typeof HierarchyScalarFieldEnum]
-
-
   export const PersonScalarFieldEnum: {
     person_ID: 'person_ID',
     name: 'name',
     surname: 'surname',
     photo: 'photo',
-    institutionID: 'institutionID',
-    hierarchyID: 'hierarchyID'
+    institutionID: 'institutionID'
   };
 
   export type PersonScalarFieldEnum = (typeof PersonScalarFieldEnum)[keyof typeof PersonScalarFieldEnum]
@@ -9524,48 +8284,6 @@ export namespace Prisma {
     institutionID?: StringNullableWithAggregatesFilter<"Admin"> | string | null
   }
 
-  export type HierarchyWhereInput = {
-    AND?: HierarchyWhereInput | HierarchyWhereInput[]
-    OR?: HierarchyWhereInput[]
-    NOT?: HierarchyWhereInput | HierarchyWhereInput[]
-    hier_ID?: IntFilter<"Hierarchy"> | number
-    name?: StringFilter<"Hierarchy"> | string
-    persons?: PersonListRelationFilter
-  }
-
-  export type HierarchyOrderByWithRelationInput = {
-    hier_ID?: SortOrder
-    name?: SortOrder
-    persons?: PersonOrderByRelationAggregateInput
-  }
-
-  export type HierarchyWhereUniqueInput = Prisma.AtLeast<{
-    hier_ID?: number
-    AND?: HierarchyWhereInput | HierarchyWhereInput[]
-    OR?: HierarchyWhereInput[]
-    NOT?: HierarchyWhereInput | HierarchyWhereInput[]
-    name?: StringFilter<"Hierarchy"> | string
-    persons?: PersonListRelationFilter
-  }, "hier_ID">
-
-  export type HierarchyOrderByWithAggregationInput = {
-    hier_ID?: SortOrder
-    name?: SortOrder
-    _count?: HierarchyCountOrderByAggregateInput
-    _avg?: HierarchyAvgOrderByAggregateInput
-    _max?: HierarchyMaxOrderByAggregateInput
-    _min?: HierarchyMinOrderByAggregateInput
-    _sum?: HierarchySumOrderByAggregateInput
-  }
-
-  export type HierarchyScalarWhereWithAggregatesInput = {
-    AND?: HierarchyScalarWhereWithAggregatesInput | HierarchyScalarWhereWithAggregatesInput[]
-    OR?: HierarchyScalarWhereWithAggregatesInput[]
-    NOT?: HierarchyScalarWhereWithAggregatesInput | HierarchyScalarWhereWithAggregatesInput[]
-    hier_ID?: IntWithAggregatesFilter<"Hierarchy"> | number
-    name?: StringWithAggregatesFilter<"Hierarchy"> | string
-  }
-
   export type PersonWhereInput = {
     AND?: PersonWhereInput | PersonWhereInput[]
     OR?: PersonWhereInput[]
@@ -9575,9 +8293,7 @@ export namespace Prisma {
     surname?: StringFilter<"Person"> | string
     photo?: StringFilter<"Person"> | string
     institutionID?: StringFilter<"Person"> | string
-    hierarchyID?: IntNullableFilter<"Person"> | number | null
     institution?: XOR<InstitutionScalarRelationFilter, InstitutionWhereInput>
-    hierarchy?: XOR<HierarchyNullableScalarRelationFilter, HierarchyWhereInput> | null
     activity?: ActivityListRelationFilter
   }
 
@@ -9587,9 +8303,7 @@ export namespace Prisma {
     surname?: SortOrder
     photo?: SortOrder
     institutionID?: SortOrder
-    hierarchyID?: SortOrderInput | SortOrder
     institution?: InstitutionOrderByWithRelationInput
-    hierarchy?: HierarchyOrderByWithRelationInput
     activity?: ActivityOrderByRelationAggregateInput
   }
 
@@ -9602,9 +8316,7 @@ export namespace Prisma {
     surname?: StringFilter<"Person"> | string
     photo?: StringFilter<"Person"> | string
     institutionID?: StringFilter<"Person"> | string
-    hierarchyID?: IntNullableFilter<"Person"> | number | null
     institution?: XOR<InstitutionScalarRelationFilter, InstitutionWhereInput>
-    hierarchy?: XOR<HierarchyNullableScalarRelationFilter, HierarchyWhereInput> | null
     activity?: ActivityListRelationFilter
   }, "person_ID">
 
@@ -9614,7 +8326,6 @@ export namespace Prisma {
     surname?: SortOrder
     photo?: SortOrder
     institutionID?: SortOrder
-    hierarchyID?: SortOrderInput | SortOrder
     _count?: PersonCountOrderByAggregateInput
     _avg?: PersonAvgOrderByAggregateInput
     _max?: PersonMaxOrderByAggregateInput
@@ -9631,7 +8342,6 @@ export namespace Prisma {
     surname?: StringWithAggregatesFilter<"Person"> | string
     photo?: StringWithAggregatesFilter<"Person"> | string
     institutionID?: StringWithAggregatesFilter<"Person"> | string
-    hierarchyID?: IntNullableWithAggregatesFilter<"Person"> | number | null
   }
 
   export type Type_DevicesWhereInput = {
@@ -9895,48 +8605,11 @@ export namespace Prisma {
     institutionID?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
-  export type HierarchyCreateInput = {
-    name: string
-    persons?: PersonCreateNestedManyWithoutHierarchyInput
-  }
-
-  export type HierarchyUncheckedCreateInput = {
-    hier_ID?: number
-    name: string
-    persons?: PersonUncheckedCreateNestedManyWithoutHierarchyInput
-  }
-
-  export type HierarchyUpdateInput = {
-    name?: StringFieldUpdateOperationsInput | string
-    persons?: PersonUpdateManyWithoutHierarchyNestedInput
-  }
-
-  export type HierarchyUncheckedUpdateInput = {
-    hier_ID?: IntFieldUpdateOperationsInput | number
-    name?: StringFieldUpdateOperationsInput | string
-    persons?: PersonUncheckedUpdateManyWithoutHierarchyNestedInput
-  }
-
-  export type HierarchyCreateManyInput = {
-    hier_ID?: number
-    name: string
-  }
-
-  export type HierarchyUpdateManyMutationInput = {
-    name?: StringFieldUpdateOperationsInput | string
-  }
-
-  export type HierarchyUncheckedUpdateManyInput = {
-    hier_ID?: IntFieldUpdateOperationsInput | number
-    name?: StringFieldUpdateOperationsInput | string
-  }
-
   export type PersonCreateInput = {
     name: string
     surname: string
     photo: string
     institution: InstitutionCreateNestedOneWithoutPersonsInput
-    hierarchy?: HierarchyCreateNestedOneWithoutPersonsInput
     activity?: ActivityCreateNestedManyWithoutPersonInput
   }
 
@@ -9946,7 +8619,6 @@ export namespace Prisma {
     surname: string
     photo: string
     institutionID: string
-    hierarchyID?: number | null
     activity?: ActivityUncheckedCreateNestedManyWithoutPersonInput
   }
 
@@ -9955,7 +8627,6 @@ export namespace Prisma {
     surname?: StringFieldUpdateOperationsInput | string
     photo?: StringFieldUpdateOperationsInput | string
     institution?: InstitutionUpdateOneRequiredWithoutPersonsNestedInput
-    hierarchy?: HierarchyUpdateOneWithoutPersonsNestedInput
     activity?: ActivityUpdateManyWithoutPersonNestedInput
   }
 
@@ -9965,7 +8636,6 @@ export namespace Prisma {
     surname?: StringFieldUpdateOperationsInput | string
     photo?: StringFieldUpdateOperationsInput | string
     institutionID?: StringFieldUpdateOperationsInput | string
-    hierarchyID?: NullableIntFieldUpdateOperationsInput | number | null
     activity?: ActivityUncheckedUpdateManyWithoutPersonNestedInput
   }
 
@@ -9975,7 +8645,6 @@ export namespace Prisma {
     surname: string
     photo: string
     institutionID: string
-    hierarchyID?: number | null
   }
 
   export type PersonUpdateManyMutationInput = {
@@ -9990,7 +8659,6 @@ export namespace Prisma {
     surname?: StringFieldUpdateOperationsInput | string
     photo?: StringFieldUpdateOperationsInput | string
     institutionID?: StringFieldUpdateOperationsInput | string
-    hierarchyID?: NullableIntFieldUpdateOperationsInput | number | null
   }
 
   export type Type_DevicesCreateInput = {
@@ -10294,27 +8962,41 @@ export namespace Prisma {
     not?: NestedIntFilter<$PrismaModel> | number
   }
 
-  export type HierarchyCountOrderByAggregateInput = {
-    hier_ID?: SortOrder
+  export type InstitutionScalarRelationFilter = {
+    is?: InstitutionWhereInput
+    isNot?: InstitutionWhereInput
+  }
+
+  export type PersonCountOrderByAggregateInput = {
+    person_ID?: SortOrder
     name?: SortOrder
+    surname?: SortOrder
+    photo?: SortOrder
+    institutionID?: SortOrder
   }
 
-  export type HierarchyAvgOrderByAggregateInput = {
-    hier_ID?: SortOrder
+  export type PersonAvgOrderByAggregateInput = {
+    person_ID?: SortOrder
   }
 
-  export type HierarchyMaxOrderByAggregateInput = {
-    hier_ID?: SortOrder
+  export type PersonMaxOrderByAggregateInput = {
+    person_ID?: SortOrder
     name?: SortOrder
+    surname?: SortOrder
+    photo?: SortOrder
+    institutionID?: SortOrder
   }
 
-  export type HierarchyMinOrderByAggregateInput = {
-    hier_ID?: SortOrder
+  export type PersonMinOrderByAggregateInput = {
+    person_ID?: SortOrder
     name?: SortOrder
+    surname?: SortOrder
+    photo?: SortOrder
+    institutionID?: SortOrder
   }
 
-  export type HierarchySumOrderByAggregateInput = {
-    hier_ID?: SortOrder
+  export type PersonSumOrderByAggregateInput = {
+    person_ID?: SortOrder
   }
 
   export type IntWithAggregatesFilter<$PrismaModel = never> = {
@@ -10331,80 +9013,6 @@ export namespace Prisma {
     _sum?: NestedIntFilter<$PrismaModel>
     _min?: NestedIntFilter<$PrismaModel>
     _max?: NestedIntFilter<$PrismaModel>
-  }
-
-  export type IntNullableFilter<$PrismaModel = never> = {
-    equals?: number | IntFieldRefInput<$PrismaModel> | null
-    in?: number[] | ListIntFieldRefInput<$PrismaModel> | null
-    notIn?: number[] | ListIntFieldRefInput<$PrismaModel> | null
-    lt?: number | IntFieldRefInput<$PrismaModel>
-    lte?: number | IntFieldRefInput<$PrismaModel>
-    gt?: number | IntFieldRefInput<$PrismaModel>
-    gte?: number | IntFieldRefInput<$PrismaModel>
-    not?: NestedIntNullableFilter<$PrismaModel> | number | null
-  }
-
-  export type InstitutionScalarRelationFilter = {
-    is?: InstitutionWhereInput
-    isNot?: InstitutionWhereInput
-  }
-
-  export type HierarchyNullableScalarRelationFilter = {
-    is?: HierarchyWhereInput | null
-    isNot?: HierarchyWhereInput | null
-  }
-
-  export type PersonCountOrderByAggregateInput = {
-    person_ID?: SortOrder
-    name?: SortOrder
-    surname?: SortOrder
-    photo?: SortOrder
-    institutionID?: SortOrder
-    hierarchyID?: SortOrder
-  }
-
-  export type PersonAvgOrderByAggregateInput = {
-    person_ID?: SortOrder
-    hierarchyID?: SortOrder
-  }
-
-  export type PersonMaxOrderByAggregateInput = {
-    person_ID?: SortOrder
-    name?: SortOrder
-    surname?: SortOrder
-    photo?: SortOrder
-    institutionID?: SortOrder
-    hierarchyID?: SortOrder
-  }
-
-  export type PersonMinOrderByAggregateInput = {
-    person_ID?: SortOrder
-    name?: SortOrder
-    surname?: SortOrder
-    photo?: SortOrder
-    institutionID?: SortOrder
-    hierarchyID?: SortOrder
-  }
-
-  export type PersonSumOrderByAggregateInput = {
-    person_ID?: SortOrder
-    hierarchyID?: SortOrder
-  }
-
-  export type IntNullableWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: number | IntFieldRefInput<$PrismaModel> | null
-    in?: number[] | ListIntFieldRefInput<$PrismaModel> | null
-    notIn?: number[] | ListIntFieldRefInput<$PrismaModel> | null
-    lt?: number | IntFieldRefInput<$PrismaModel>
-    lte?: number | IntFieldRefInput<$PrismaModel>
-    gt?: number | IntFieldRefInput<$PrismaModel>
-    gte?: number | IntFieldRefInput<$PrismaModel>
-    not?: NestedIntNullableWithAggregatesFilter<$PrismaModel> | number | null
-    _count?: NestedIntNullableFilter<$PrismaModel>
-    _avg?: NestedFloatNullableFilter<$PrismaModel>
-    _sum?: NestedIntNullableFilter<$PrismaModel>
-    _min?: NestedIntNullableFilter<$PrismaModel>
-    _max?: NestedIntNullableFilter<$PrismaModel>
   }
 
   export type Type_DevicesCountOrderByAggregateInput = {
@@ -10738,66 +9346,10 @@ export namespace Prisma {
     set?: string | null
   }
 
-  export type PersonCreateNestedManyWithoutHierarchyInput = {
-    create?: XOR<PersonCreateWithoutHierarchyInput, PersonUncheckedCreateWithoutHierarchyInput> | PersonCreateWithoutHierarchyInput[] | PersonUncheckedCreateWithoutHierarchyInput[]
-    connectOrCreate?: PersonCreateOrConnectWithoutHierarchyInput | PersonCreateOrConnectWithoutHierarchyInput[]
-    createMany?: PersonCreateManyHierarchyInputEnvelope
-    connect?: PersonWhereUniqueInput | PersonWhereUniqueInput[]
-  }
-
-  export type PersonUncheckedCreateNestedManyWithoutHierarchyInput = {
-    create?: XOR<PersonCreateWithoutHierarchyInput, PersonUncheckedCreateWithoutHierarchyInput> | PersonCreateWithoutHierarchyInput[] | PersonUncheckedCreateWithoutHierarchyInput[]
-    connectOrCreate?: PersonCreateOrConnectWithoutHierarchyInput | PersonCreateOrConnectWithoutHierarchyInput[]
-    createMany?: PersonCreateManyHierarchyInputEnvelope
-    connect?: PersonWhereUniqueInput | PersonWhereUniqueInput[]
-  }
-
-  export type PersonUpdateManyWithoutHierarchyNestedInput = {
-    create?: XOR<PersonCreateWithoutHierarchyInput, PersonUncheckedCreateWithoutHierarchyInput> | PersonCreateWithoutHierarchyInput[] | PersonUncheckedCreateWithoutHierarchyInput[]
-    connectOrCreate?: PersonCreateOrConnectWithoutHierarchyInput | PersonCreateOrConnectWithoutHierarchyInput[]
-    upsert?: PersonUpsertWithWhereUniqueWithoutHierarchyInput | PersonUpsertWithWhereUniqueWithoutHierarchyInput[]
-    createMany?: PersonCreateManyHierarchyInputEnvelope
-    set?: PersonWhereUniqueInput | PersonWhereUniqueInput[]
-    disconnect?: PersonWhereUniqueInput | PersonWhereUniqueInput[]
-    delete?: PersonWhereUniqueInput | PersonWhereUniqueInput[]
-    connect?: PersonWhereUniqueInput | PersonWhereUniqueInput[]
-    update?: PersonUpdateWithWhereUniqueWithoutHierarchyInput | PersonUpdateWithWhereUniqueWithoutHierarchyInput[]
-    updateMany?: PersonUpdateManyWithWhereWithoutHierarchyInput | PersonUpdateManyWithWhereWithoutHierarchyInput[]
-    deleteMany?: PersonScalarWhereInput | PersonScalarWhereInput[]
-  }
-
-  export type IntFieldUpdateOperationsInput = {
-    set?: number
-    increment?: number
-    decrement?: number
-    multiply?: number
-    divide?: number
-  }
-
-  export type PersonUncheckedUpdateManyWithoutHierarchyNestedInput = {
-    create?: XOR<PersonCreateWithoutHierarchyInput, PersonUncheckedCreateWithoutHierarchyInput> | PersonCreateWithoutHierarchyInput[] | PersonUncheckedCreateWithoutHierarchyInput[]
-    connectOrCreate?: PersonCreateOrConnectWithoutHierarchyInput | PersonCreateOrConnectWithoutHierarchyInput[]
-    upsert?: PersonUpsertWithWhereUniqueWithoutHierarchyInput | PersonUpsertWithWhereUniqueWithoutHierarchyInput[]
-    createMany?: PersonCreateManyHierarchyInputEnvelope
-    set?: PersonWhereUniqueInput | PersonWhereUniqueInput[]
-    disconnect?: PersonWhereUniqueInput | PersonWhereUniqueInput[]
-    delete?: PersonWhereUniqueInput | PersonWhereUniqueInput[]
-    connect?: PersonWhereUniqueInput | PersonWhereUniqueInput[]
-    update?: PersonUpdateWithWhereUniqueWithoutHierarchyInput | PersonUpdateWithWhereUniqueWithoutHierarchyInput[]
-    updateMany?: PersonUpdateManyWithWhereWithoutHierarchyInput | PersonUpdateManyWithWhereWithoutHierarchyInput[]
-    deleteMany?: PersonScalarWhereInput | PersonScalarWhereInput[]
-  }
-
   export type InstitutionCreateNestedOneWithoutPersonsInput = {
     create?: XOR<InstitutionCreateWithoutPersonsInput, InstitutionUncheckedCreateWithoutPersonsInput>
     connectOrCreate?: InstitutionCreateOrConnectWithoutPersonsInput
     connect?: InstitutionWhereUniqueInput
-  }
-
-  export type HierarchyCreateNestedOneWithoutPersonsInput = {
-    create?: XOR<HierarchyCreateWithoutPersonsInput, HierarchyUncheckedCreateWithoutPersonsInput>
-    connectOrCreate?: HierarchyCreateOrConnectWithoutPersonsInput
-    connect?: HierarchyWhereUniqueInput
   }
 
   export type ActivityCreateNestedManyWithoutPersonInput = {
@@ -10822,16 +9374,6 @@ export namespace Prisma {
     update?: XOR<XOR<InstitutionUpdateToOneWithWhereWithoutPersonsInput, InstitutionUpdateWithoutPersonsInput>, InstitutionUncheckedUpdateWithoutPersonsInput>
   }
 
-  export type HierarchyUpdateOneWithoutPersonsNestedInput = {
-    create?: XOR<HierarchyCreateWithoutPersonsInput, HierarchyUncheckedCreateWithoutPersonsInput>
-    connectOrCreate?: HierarchyCreateOrConnectWithoutPersonsInput
-    upsert?: HierarchyUpsertWithoutPersonsInput
-    disconnect?: HierarchyWhereInput | boolean
-    delete?: HierarchyWhereInput | boolean
-    connect?: HierarchyWhereUniqueInput
-    update?: XOR<XOR<HierarchyUpdateToOneWithWhereWithoutPersonsInput, HierarchyUpdateWithoutPersonsInput>, HierarchyUncheckedUpdateWithoutPersonsInput>
-  }
-
   export type ActivityUpdateManyWithoutPersonNestedInput = {
     create?: XOR<ActivityCreateWithoutPersonInput, ActivityUncheckedCreateWithoutPersonInput> | ActivityCreateWithoutPersonInput[] | ActivityUncheckedCreateWithoutPersonInput[]
     connectOrCreate?: ActivityCreateOrConnectWithoutPersonInput | ActivityCreateOrConnectWithoutPersonInput[]
@@ -10846,8 +9388,8 @@ export namespace Prisma {
     deleteMany?: ActivityScalarWhereInput | ActivityScalarWhereInput[]
   }
 
-  export type NullableIntFieldUpdateOperationsInput = {
-    set?: number | null
+  export type IntFieldUpdateOperationsInput = {
+    set?: number
     increment?: number
     decrement?: number
     multiply?: number
@@ -11085,33 +9627,6 @@ export namespace Prisma {
     not?: NestedFloatFilter<$PrismaModel> | number
   }
 
-  export type NestedIntNullableWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: number | IntFieldRefInput<$PrismaModel> | null
-    in?: number[] | ListIntFieldRefInput<$PrismaModel> | null
-    notIn?: number[] | ListIntFieldRefInput<$PrismaModel> | null
-    lt?: number | IntFieldRefInput<$PrismaModel>
-    lte?: number | IntFieldRefInput<$PrismaModel>
-    gt?: number | IntFieldRefInput<$PrismaModel>
-    gte?: number | IntFieldRefInput<$PrismaModel>
-    not?: NestedIntNullableWithAggregatesFilter<$PrismaModel> | number | null
-    _count?: NestedIntNullableFilter<$PrismaModel>
-    _avg?: NestedFloatNullableFilter<$PrismaModel>
-    _sum?: NestedIntNullableFilter<$PrismaModel>
-    _min?: NestedIntNullableFilter<$PrismaModel>
-    _max?: NestedIntNullableFilter<$PrismaModel>
-  }
-
-  export type NestedFloatNullableFilter<$PrismaModel = never> = {
-    equals?: number | FloatFieldRefInput<$PrismaModel> | null
-    in?: number[] | ListFloatFieldRefInput<$PrismaModel> | null
-    notIn?: number[] | ListFloatFieldRefInput<$PrismaModel> | null
-    lt?: number | FloatFieldRefInput<$PrismaModel>
-    lte?: number | FloatFieldRefInput<$PrismaModel>
-    gt?: number | FloatFieldRefInput<$PrismaModel>
-    gte?: number | FloatFieldRefInput<$PrismaModel>
-    not?: NestedFloatNullableFilter<$PrismaModel> | number | null
-  }
-
   export type NestedBoolFilter<$PrismaModel = never> = {
     equals?: boolean | BooleanFieldRefInput<$PrismaModel>
     not?: NestedBoolFilter<$PrismaModel> | boolean
@@ -11176,7 +9691,6 @@ export namespace Prisma {
     name: string
     surname: string
     photo: string
-    hierarchy?: HierarchyCreateNestedOneWithoutPersonsInput
     activity?: ActivityCreateNestedManyWithoutPersonInput
   }
 
@@ -11185,7 +9699,6 @@ export namespace Prisma {
     name: string
     surname: string
     photo: string
-    hierarchyID?: number | null
     activity?: ActivityUncheckedCreateNestedManyWithoutPersonInput
   }
 
@@ -11296,7 +9809,6 @@ export namespace Prisma {
     surname?: StringFilter<"Person"> | string
     photo?: StringFilter<"Person"> | string
     institutionID?: StringFilter<"Person"> | string
-    hierarchyID?: IntNullableFilter<"Person"> | number | null
   }
 
   export type DeviceUpsertWithWhereUniqueWithoutInstitutionInput = {
@@ -11401,49 +9913,6 @@ export namespace Prisma {
     activity?: ActivityUncheckedUpdateManyWithoutInstitutionNestedInput
   }
 
-  export type PersonCreateWithoutHierarchyInput = {
-    name: string
-    surname: string
-    photo: string
-    institution: InstitutionCreateNestedOneWithoutPersonsInput
-    activity?: ActivityCreateNestedManyWithoutPersonInput
-  }
-
-  export type PersonUncheckedCreateWithoutHierarchyInput = {
-    person_ID?: number
-    name: string
-    surname: string
-    photo: string
-    institutionID: string
-    activity?: ActivityUncheckedCreateNestedManyWithoutPersonInput
-  }
-
-  export type PersonCreateOrConnectWithoutHierarchyInput = {
-    where: PersonWhereUniqueInput
-    create: XOR<PersonCreateWithoutHierarchyInput, PersonUncheckedCreateWithoutHierarchyInput>
-  }
-
-  export type PersonCreateManyHierarchyInputEnvelope = {
-    data: PersonCreateManyHierarchyInput | PersonCreateManyHierarchyInput[]
-    skipDuplicates?: boolean
-  }
-
-  export type PersonUpsertWithWhereUniqueWithoutHierarchyInput = {
-    where: PersonWhereUniqueInput
-    update: XOR<PersonUpdateWithoutHierarchyInput, PersonUncheckedUpdateWithoutHierarchyInput>
-    create: XOR<PersonCreateWithoutHierarchyInput, PersonUncheckedCreateWithoutHierarchyInput>
-  }
-
-  export type PersonUpdateWithWhereUniqueWithoutHierarchyInput = {
-    where: PersonWhereUniqueInput
-    data: XOR<PersonUpdateWithoutHierarchyInput, PersonUncheckedUpdateWithoutHierarchyInput>
-  }
-
-  export type PersonUpdateManyWithWhereWithoutHierarchyInput = {
-    where: PersonScalarWhereInput
-    data: XOR<PersonUpdateManyMutationInput, PersonUncheckedUpdateManyWithoutHierarchyInput>
-  }
-
   export type InstitutionCreateWithoutPersonsInput = {
     inst_ID: string
     name: string
@@ -11463,20 +9932,6 @@ export namespace Prisma {
   export type InstitutionCreateOrConnectWithoutPersonsInput = {
     where: InstitutionWhereUniqueInput
     create: XOR<InstitutionCreateWithoutPersonsInput, InstitutionUncheckedCreateWithoutPersonsInput>
-  }
-
-  export type HierarchyCreateWithoutPersonsInput = {
-    name: string
-  }
-
-  export type HierarchyUncheckedCreateWithoutPersonsInput = {
-    hier_ID?: number
-    name: string
-  }
-
-  export type HierarchyCreateOrConnectWithoutPersonsInput = {
-    where: HierarchyWhereUniqueInput
-    create: XOR<HierarchyCreateWithoutPersonsInput, HierarchyUncheckedCreateWithoutPersonsInput>
   }
 
   export type ActivityCreateWithoutPersonInput = {
@@ -11527,26 +9982,6 @@ export namespace Prisma {
     admins?: AdminUncheckedUpdateManyWithoutInstitutionNestedInput
     devices?: DeviceUncheckedUpdateManyWithoutInstitutionNestedInput
     activity?: ActivityUncheckedUpdateManyWithoutInstitutionNestedInput
-  }
-
-  export type HierarchyUpsertWithoutPersonsInput = {
-    update: XOR<HierarchyUpdateWithoutPersonsInput, HierarchyUncheckedUpdateWithoutPersonsInput>
-    create: XOR<HierarchyCreateWithoutPersonsInput, HierarchyUncheckedCreateWithoutPersonsInput>
-    where?: HierarchyWhereInput
-  }
-
-  export type HierarchyUpdateToOneWithWhereWithoutPersonsInput = {
-    where?: HierarchyWhereInput
-    data: XOR<HierarchyUpdateWithoutPersonsInput, HierarchyUncheckedUpdateWithoutPersonsInput>
-  }
-
-  export type HierarchyUpdateWithoutPersonsInput = {
-    name?: StringFieldUpdateOperationsInput | string
-  }
-
-  export type HierarchyUncheckedUpdateWithoutPersonsInput = {
-    hier_ID?: IntFieldUpdateOperationsInput | number
-    name?: StringFieldUpdateOperationsInput | string
   }
 
   export type ActivityUpsertWithWhereUniqueWithoutPersonInput = {
@@ -11712,7 +10147,6 @@ export namespace Prisma {
     surname: string
     photo: string
     institution: InstitutionCreateNestedOneWithoutPersonsInput
-    hierarchy?: HierarchyCreateNestedOneWithoutPersonsInput
   }
 
   export type PersonUncheckedCreateWithoutActivityInput = {
@@ -11721,7 +10155,6 @@ export namespace Prisma {
     surname: string
     photo: string
     institutionID: string
-    hierarchyID?: number | null
   }
 
   export type PersonCreateOrConnectWithoutActivityInput = {
@@ -11772,7 +10205,6 @@ export namespace Prisma {
     surname?: StringFieldUpdateOperationsInput | string
     photo?: StringFieldUpdateOperationsInput | string
     institution?: InstitutionUpdateOneRequiredWithoutPersonsNestedInput
-    hierarchy?: HierarchyUpdateOneWithoutPersonsNestedInput
   }
 
   export type PersonUncheckedUpdateWithoutActivityInput = {
@@ -11781,7 +10213,6 @@ export namespace Prisma {
     surname?: StringFieldUpdateOperationsInput | string
     photo?: StringFieldUpdateOperationsInput | string
     institutionID?: StringFieldUpdateOperationsInput | string
-    hierarchyID?: NullableIntFieldUpdateOperationsInput | number | null
   }
 
   export type AdminCreateManyInstitutionInput = {
@@ -11795,7 +10226,6 @@ export namespace Prisma {
     name: string
     surname: string
     photo: string
-    hierarchyID?: number | null
   }
 
   export type DeviceCreateManyInstitutionInput = {
@@ -11834,7 +10264,6 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     surname?: StringFieldUpdateOperationsInput | string
     photo?: StringFieldUpdateOperationsInput | string
-    hierarchy?: HierarchyUpdateOneWithoutPersonsNestedInput
     activity?: ActivityUpdateManyWithoutPersonNestedInput
   }
 
@@ -11843,7 +10272,6 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     surname?: StringFieldUpdateOperationsInput | string
     photo?: StringFieldUpdateOperationsInput | string
-    hierarchyID?: NullableIntFieldUpdateOperationsInput | number | null
     activity?: ActivityUncheckedUpdateManyWithoutPersonNestedInput
   }
 
@@ -11852,7 +10280,6 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     surname?: StringFieldUpdateOperationsInput | string
     photo?: StringFieldUpdateOperationsInput | string
-    hierarchyID?: NullableIntFieldUpdateOperationsInput | number | null
   }
 
   export type DeviceUpdateWithoutInstitutionInput = {
@@ -11893,39 +10320,6 @@ export namespace Prisma {
     dateTime_in?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     dateTime_out?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     personID?: IntFieldUpdateOperationsInput | number
-  }
-
-  export type PersonCreateManyHierarchyInput = {
-    person_ID?: number
-    name: string
-    surname: string
-    photo: string
-    institutionID: string
-  }
-
-  export type PersonUpdateWithoutHierarchyInput = {
-    name?: StringFieldUpdateOperationsInput | string
-    surname?: StringFieldUpdateOperationsInput | string
-    photo?: StringFieldUpdateOperationsInput | string
-    institution?: InstitutionUpdateOneRequiredWithoutPersonsNestedInput
-    activity?: ActivityUpdateManyWithoutPersonNestedInput
-  }
-
-  export type PersonUncheckedUpdateWithoutHierarchyInput = {
-    person_ID?: IntFieldUpdateOperationsInput | number
-    name?: StringFieldUpdateOperationsInput | string
-    surname?: StringFieldUpdateOperationsInput | string
-    photo?: StringFieldUpdateOperationsInput | string
-    institutionID?: StringFieldUpdateOperationsInput | string
-    activity?: ActivityUncheckedUpdateManyWithoutPersonNestedInput
-  }
-
-  export type PersonUncheckedUpdateManyWithoutHierarchyInput = {
-    person_ID?: IntFieldUpdateOperationsInput | number
-    name?: StringFieldUpdateOperationsInput | string
-    surname?: StringFieldUpdateOperationsInput | string
-    photo?: StringFieldUpdateOperationsInput | string
-    institutionID?: StringFieldUpdateOperationsInput | string
   }
 
   export type ActivityCreateManyPersonInput = {

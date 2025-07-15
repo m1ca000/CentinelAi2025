@@ -132,18 +132,12 @@ exports.Prisma.AdminScalarFieldEnum = {
   institutionID: 'institutionID'
 };
 
-exports.Prisma.HierarchyScalarFieldEnum = {
-  hier_ID: 'hier_ID',
-  name: 'name'
-};
-
 exports.Prisma.PersonScalarFieldEnum = {
   person_ID: 'person_ID',
   name: 'name',
   surname: 'surname',
   photo: 'photo',
-  institutionID: 'institutionID',
-  hierarchyID: 'hierarchyID'
+  institutionID: 'institutionID'
 };
 
 exports.Prisma.Type_DevicesScalarFieldEnum = {
@@ -186,7 +180,6 @@ exports.Prisma.NullsOrder = {
 exports.Prisma.ModelName = {
   Institution: 'Institution',
   Admin: 'Admin',
-  Hierarchy: 'Hierarchy',
   Person: 'Person',
   Type_Devices: 'Type_Devices',
   Device: 'Device',

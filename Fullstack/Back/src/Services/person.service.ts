@@ -1,15 +1,13 @@
 import { PrismaClient } from '../generated/prisma/client.js';
 const prisma = new PrismaClient();
-import cloudinary from 'cloudinary'
 import dotenv from 'dotenv';
 
-export const savePersonRegister = async (name: string, surname: string, photo: string, institutionID: string, hierarchyID: number) => {
+export const savePersonRegister = async (name: string, surname: string, photo: string, institutionID: string) => {
   return await prisma.person.create({
     data: {
       name,
       surname,
       photo,
-      hierarchyID: 1,
       institutionID
     }
   });
