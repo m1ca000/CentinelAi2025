@@ -30,6 +30,9 @@ app.use('/admin', adminRoutes)
 import personRoutes from './Routes/person.routes'
 app.use('/person', personRoutes)
 
+import activityRoutes from './Routes/activity.routes';
+app.use('/activity', activityRoutes);
+
 let ledState: number = 0
 
 app.get('/led', (req, res) => {
