@@ -1,34 +1,36 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { ActivityCard } from '../components/ActivityCard';
 import type { ActivityEntry } from '../types';
+import axios from 'axios';
 
 export const Activity: React.FC = () => {
-  const [historyEntries] = useState<ActivityEntry[]>([
-    {
-      id: 1,
-      personName: 'persona 1',
-      timestamp: new Date(Date.now() - 2 * 60 * 1000), // 2 minutes ago
-      action: 'entry'
-    },
-    {
-      id: 2,
-      personName: 'persona 2',
-      timestamp: new Date(Date.now() - 60 * 60 * 1000), // 1 hour ago
-      action: 'entry'
-    },
-    {
-      id: 3,
-      personName: 'persona 3',
-      timestamp: new Date(Date.now() - 3 * 60 * 60 * 1000), // 3 hours ago
-      action: 'exit'
-    },
-    {
-      id: 4,
-      personName: 'persona 4',
-      timestamp: new Date(Date.now() - 24 * 60 * 60 * 1000), // 1 day ago
-      action: 'entry'
-    }
-  ]);
+  const [historyEntries, setHistoryEntries] = useState<ActivityEntry[]>([]);
+  const [loading, setLoading] = useState(true);
+  const institutionID = '0mrcyLbA';
+
+  useEffect(() => {
+    const fetchActivities = async () => {
+      try {
+        const res = await axios.get(`http://centinel-ai2025.vercel.app/activity/${institutionID}`);
+        const data = res.data;
+
+        const formatted: ActivityEntry[] = data.map((activity: any) => ({
+          id: activity.activity_ID,
+          personName: `${activity.person.name} ${activity.person.surname}`, // ajustalo si solo tenés `name`
+          timestamp: new Date(activity.dateTime_in),
+          action: activity.dateTime_out ? 'exit' : 'entry', // o lo que tenga sentido en tu lógica
+        }));
+
+        setHistoryEntries(formatted);
+      } catch (err) {
+        console.error('Error fetching activity data:', err);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchActivities();
+  }, [institutionID]);
 
   return (
     <div className="p-6">
@@ -37,11 +39,11 @@ export const Activity: React.FC = () => {
       </div>
 
       <div className="max-w-2xl">
-        {historyEntries.map((entry) => (
-          <ActivityCard key={entry.id} entry={entry} />
-        ))}
-        
-        {historyEntries.length === 0 && (
+        {loading ? (
+          <p className="text-gray-500">Cargando...</p>
+        ) : historyEntries.length > 0 ? (
+          historyEntries.map((entry) => <ActivityCard key={entry.id} entry={entry} />)
+        ) : (
           <div className="text-center py-8">
             <p className="text-gray-500">No hay entradas en el historial</p>
           </div>
