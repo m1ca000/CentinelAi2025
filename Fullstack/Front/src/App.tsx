@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { Sidebar } from './components/Sidebar';
 import { DeviceControl } from './pages/DeviceControl';
 import { Activity } from './pages/Activity';
+import { Users } from './pages/Users';
 
 type ActiveView = 'devices' | 'activity' | 'users' | 'home';
 
@@ -15,12 +16,7 @@ function App() {
       case 'activity':
         return <Activity />;
       case 'users':
-        return (
-          <div className="p-6">
-            <h1 className="text-2xl font-bold text-gray-800">Usuarios</h1>
-            <p className="text-gray-600 mt-4">Página de usuarios en desarrollo</p>
-          </div>
-        );
+        return <Users />;
       case 'home':
         return (
           <div className="p-6">

@@ -7,7 +7,7 @@ export const getAdminByEmailService = async (email: string) => {
     });
 }
 
-export const createAdminService = async (email: string, name: string, password:string) => {
+export const registerAdminService = async (email: string, name: string, password:string) => {
     return await prisma.admin.create({
         data: {
             email,

@@ -11,3 +11,9 @@ export interface ActivityEntry {
   timestamp: Date;
   action: 'entry' | 'exit';
 }
+
+export interface User {
+  id: number;
+  name: string;
+  status: 'active' | 'restricted';
+}
