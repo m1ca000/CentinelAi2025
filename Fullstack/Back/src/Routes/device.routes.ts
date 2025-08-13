@@ -4,7 +4,7 @@ import authMidd from '../Middleware/auth';
 
 const router = express.Router();
 
-router.get('/:institutionID', authMidd.verifyToken, getDevicesByInstitution);
+router.get('/', authMidd.verifyToken, getDevicesByInstitution);
 router.post('/', authMidd.verifyToken, createDevice);
 
 export default router;

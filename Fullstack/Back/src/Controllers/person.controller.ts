@@ -17,7 +17,7 @@ export const uploadPerson = async (req: Request, res: Response) => {
 
 export const getPersonsControllers = async (req: Request, res: Response) => {
     try {
-        const Persons = getPersonsByInstitution(String(req.institutionID))
+        const Persons = await getPersonsByInstitution(String(req.institutionID))
         res.json(Persons);
     } catch(err) {
         res.status(500).json({ error: 'Error al obtener las personas' });

@@ -10,6 +10,6 @@ const storage = multer.memoryStorage();
 const upload = multer({ storage: storage });
 
 router.post('/subirFoto', upload.single('photo'), authMidd.verifyToken, uploadPerson);
-router.get('/:institutionID', authMidd.verifyToken, getPersonsControllers);
+router.get('/', authMidd.verifyToken, getPersonsControllers);
 
 export default router;
