@@ -36,13 +36,12 @@ export const loginAdminController = async (req: Request, res: Response) => {
         }
 
         const admin = await getAdminByEmailService(req.body.email);
+        console.log(admin[0])
         if (admin.length === 0) {
             return res.status(400).json({ error: 'Credenciales inválidas' });
         }
         const hashedPassword = admin[0].password;
-        console.log(hashedPassword);
         const isPasswordMatch = await bcrypt.compare(req.body.password, hashedPassword);
-        console.log(isPasswordMatch);
         if(isPasswordMatch){
             const token = jwt.sign({ email: admin[0].email, institutionID: admin[0].institutionID }, process.env.JWT_SECRET as string);
             return res.status(200).json({ message: 'Login exitoso', token }); 

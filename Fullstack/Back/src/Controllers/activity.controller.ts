@@ -3,11 +3,12 @@ import { Request, Response } from "express";
 
 export const uploadActivityController = async (req: Request, res: Response) => {
     try {
-        const { institutionID, personID } = req.body;
-        if (!institutionID || !personID) {
+        const inst = req.institutionID
+        const { personID } = req.body;
+        if (!inst || !personID) {
             return res.status(400).json({ error: 'Faltan datos requeridos' });
         }
-        const activity = await uploadActivityService(institutionID, personID);
+        const activity = await uploadActivityService(inst, personID);
         return res.status(201).json({ message: 'Actividad registrada con éxito', activity });
     } catch (err) {
         res.status(500).json({ error: 'Error de db'});
@@ -31,11 +32,11 @@ export const updateActivityController = async (req: Request, res: Response) => {
 
 export const getActivitiesController = async (req: Request, res: Response) => {
     try {
-        const { institutionID } = req.params;
-        if (!institutionID) {
+        const inst = req.institutionID;
+        if (!inst) {
             return res.status(400).json({ error: 'Falta el ID de la institución' });
         }
-        const activities = await getActivitiesService(institutionID);
+        const activities = await getActivitiesService(inst);
         return res.status(200).json(activities);
     } catch (err) {
         res.status(500).json({ error: 'Error al obtener las actividades' });

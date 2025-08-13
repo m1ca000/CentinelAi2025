@@ -3,7 +3,7 @@ import { Request, Response } from 'express';
 
 export const getDevicesByInstitution = async (req: Request, res: Response) => {
   try {
-    const devices = await getDevicesService(req.params.institutionID);
+    const devices = await getDevicesService(String(req.institutionID));
     res.json(devices);
   } catch (err) {
     res.status(500).json({ error: 'Error al obtener los dispositivos' });
@@ -13,8 +13,8 @@ export const getDevicesByInstitution = async (req: Request, res: Response) => {
 
 export const createDevice = async (req: Request, res: Response) => {
   try {
-    const { name, typeID, institutionID, state } = req.body;
-    const device = await createDeviceService(name, typeID, institutionID, state);
+    const { name, typeID, state } = req.body;
+    const device = await createDeviceService(name, typeID, String(req.institutionID), state);
     res.status(201).json(device);
   } catch (err) {
     res.status(500).json({ error: 'Error al crear el dispositivo' });

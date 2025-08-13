@@ -28,10 +28,10 @@ export const verifyToken = async (req: Request, res: Response, next: NextFunctio
   const jwtSecret = process.env.JWT_SECRET;
 
   try {
-    const decoded = jwt.verify(token, jwtSecret as string) as { email: string; institutionID: string; name?: string };
+    const decoded = jwt.verify(token, jwtSecret as string) as { email: string; institutionID: string };
     console.log(decoded);
-    if (!decoded.email || !decoded.institutionID) {
-      return res.status(401).send({ error: 'Token invalido: Usuario sin email o institutionID' });
+    if (!decoded.email ) {
+      return res.status(401).send({ error: 'Token invalido: Usuario sin email' });
     }
     req.email = decoded.email;
     req.institutionID = decoded.institutionID;

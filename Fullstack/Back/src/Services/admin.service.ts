@@ -17,3 +17,10 @@ export const registerAdminService = async (email: string, name: string, password
         }
     });
 };
+
+export const updateInstAdminService = async (email: string, institutionID: string) => {
+    return await prisma.admin.update({
+        where: { email },
+        data: { institutionID }
+    })
+}
