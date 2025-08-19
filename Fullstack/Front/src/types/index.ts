@@ -17,3 +17,18 @@ export interface User {
   name: string;
   status: 'active' | 'restricted';
 }
+
+export interface AuthUser {
+  id: number;
+  name: string;
+  email: string;
+  role: 'admin' | 'user';
+}
+
+export interface AuthContextType {
+  user: AuthUser | null;
+  login: (email: string, password: string) => Promise<boolean>;
+  register: (name: string, email: string, password: string) => Promise<boolean>;
+  logout: () => void;
+  isAuthenticated: boolean;
+}

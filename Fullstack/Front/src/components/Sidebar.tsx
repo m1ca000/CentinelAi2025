@@ -1,23 +1,25 @@
 import React from 'react';
+import { useNavigate, useLocation } from 'react-router-dom';
 import { Home, Layers, ClipboardList, Users } from 'lucide-react';
-
-type ActiveView = 'devices' | 'activity' | 'users' | 'home';
+import { useAuth } from '../contexts/AuthContext';
 
 interface NavItemProps {
   icon: React.ReactNode;
   label: string;
   active?: boolean;
-  onClick: () => void;
+  path: string;
 }
 
-const NavItem: React.FC<NavItemProps> = ({ icon, label, active, onClick }) => {
+const NavItem: React.FC<NavItemProps> = ({ icon, label, active, path }) => {
+  const navigate = useNavigate();
+  
   return (
     <div 
       className={`flex items-center p-3 mb-2 rounded-lg cursor-pointer transition-colors
         ${active 
           ? 'bg-indigo-100 text-indigo-800' 
           : 'text-gray-700 hover:bg-gray-200'}`}
-      onClick={onClick}
+      onClick={() => navigate(path)}
     >
       <div className="mr-3">{icon}</div>
       <span>{label}</span>
@@ -25,12 +27,10 @@ const NavItem: React.FC<NavItemProps> = ({ icon, label, active, onClick }) => {
   );
 };
 
-interface SidebarProps {
-  activeView: ActiveView;
-  onViewChange: (view: ActiveView) => void;
-}
-
-export const Sidebar: React.FC<SidebarProps> = ({ activeView, onViewChange }) => {
+export const Sidebar: React.FC = () => {
+  const { user, logout } = useAuth();
+  const location = useLocation();
+  
   return (
     <div className="w-56 bg-white border-r border-gray-200 flex flex-col">
       <div className="p-4 border-b border-gray-200">
@@ -41,39 +41,45 @@ export const Sidebar: React.FC<SidebarProps> = ({ activeView, onViewChange }) =>
         <NavItem 
           icon={<Home size={20} />} 
           label="Home" 
-          active={activeView === 'home'}
-          onClick={() => onViewChange('home')}
+          active={location.pathname === '/dashboard'}
+          path="/dashboard"
         />
         <NavItem 
           icon={<Layers size={20} />} 
           label="Control dispositivos" 
-          active={activeView === 'devices'}
-          onClick={() => onViewChange('devices')}
+          active={location.pathname === '/dashboard/devices'}
+          path="/dashboard/devices"
         />
         <NavItem 
           icon={<ClipboardList size={20} />} 
-          label="Actividad" 
-          active={activeView === 'activity'}
-          onClick={() => onViewChange('activity')}
+          label="Historial" 
+          active={location.pathname === '/dashboard/history'}
+          path="/dashboard/history"
         />
         <NavItem 
           icon={<Users size={20} />} 
           label="Usuarios" 
-          active={activeView === 'users'}
-          onClick={() => onViewChange('users')}
+          active={location.pathname === '/dashboard/users'}
+          path="/dashboard/users"
         />
       </div>
       
       <div className="p-4 border-t border-gray-200">
-        <div className="flex items-center">
+        <div className="flex items-center mb-3">
           <div className="w-10 h-10 rounded-full bg-gray-300 flex items-center justify-center text-gray-600 font-medium">
-            NC
+            {user?.name.split(' ').map(n => n[0]).join('').toUpperCase()}
           </div>
           <div className="ml-3">
-            <div className="text-sm font-medium">Nahuel Chirino Mizrahi</div>
-            <div className="text-xs text-gray-500">Admin</div>
+            <div className="text-sm font-medium">{user?.name}</div>
+            <div className="text-xs text-gray-500 capitalize">{user?.role}</div>
           </div>
         </div>
+        <button
+          onClick={logout}
+          className="w-full text-left text-sm text-gray-600 hover:text-red-600 transition-colors"
+        >
+          Cerrar Sesión
+        </button>
       </div>
     </div>
   );
