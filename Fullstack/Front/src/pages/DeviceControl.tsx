@@ -13,7 +13,7 @@ export const DeviceControl: React.FC = () => {
   useEffect(() => {
     const fetchDevices = async () => {
       try {
-        const response = await axios.get(`https://centinel-ai2025.vercel.app/devices/${institutionID}`);
+        const response = await axios.get(`https://centinel-ai2025.vercel.app/devices/`);
         const formattedDevices: Device[] = response.data.map((device: any) => ({
         id: device.device_ID,
         name: device.name,

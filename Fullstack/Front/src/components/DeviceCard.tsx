@@ -12,7 +12,7 @@ export const DeviceCard: React.FC<DeviceCardProps> = ({ device, onToggle }) => {
     console.log(`${action} ${device.name}`);
 
     // Replace with your actual backend URL
-    const apiUrl = 'http://localhost:3000/led';
+    const apiUrl = 'https://centinel-ai2025.vercel.app/led';
 
     let status = null;
     if (action === 'encender') {

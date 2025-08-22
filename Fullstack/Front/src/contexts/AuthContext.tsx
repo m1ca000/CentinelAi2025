@@ -15,59 +15,77 @@ interface AuthProviderProps {
   children: React.ReactNode;
 }
 
+const API_URL = 'https://centinel-ai2025.vercel.app'; // Cambia por tu backend
+
 export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   const [user, setUser] = useState<AuthUser | null>(null);
+  const [token, setToken] = useState<string | null>(null);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
 
   useEffect(() => {
-    // Check if user is logged in on app start
+    // Cargar token y usuario guardado en localStorage
+    const savedToken = localStorage.getItem('token');
     const savedUser = localStorage.getItem('user');
-    if (savedUser) {
+    if (savedToken && savedUser) {
+      setToken(savedToken);
       setUser(JSON.parse(savedUser));
       setIsAuthenticated(true);
     }
   }, []);
 
   const login = async (email: string, password: string): Promise<boolean> => {
-    // Simulate API call
-    await new Promise(resolve => setTimeout(resolve, 1000));
-    
-    // Mock authentication - in real app, this would be an API call
-    if (email === 'admin@centinelai.com' && password === 'admin123') {
-      const authUser: AuthUser = {
-        id: 1,
-        name: 'Nahuel Chirino Mizrahi',
-        email: 'admin@centinelai.com',
-        role: 'admin'
-      };
-      setUser(authUser);
-      setIsAuthenticated(true);
-      localStorage.setItem('user', JSON.stringify(authUser));
-      return true;
+    try {
+      const res = await fetch(`${API_URL}/admin/loginAdmin`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email, password }),
+      });
+      const data = await res.json();
+      if (res.ok && data.token) {
+        const authUser: AuthUser = { email, name: email, role: 'admin' }; // Podés ajustar si tu backend devuelve nombre
+        setUser(authUser);
+        setToken(data.token);
+        setIsAuthenticated(true);
+        localStorage.setItem('token', data.token);
+        localStorage.setItem('user', JSON.stringify(authUser));
+        return true;
+      }
+      return false;
+    } catch (err) {
+      console.error(err);
+      return false;
     }
-    return false;
   };
 
-  const register = async (name: string, email: string, password: string): Promise<boolean> => {
-    // Simulate API call
-    await new Promise(resolve => setTimeout(resolve, 1000));
-    
-    // Mock registration - in real app, this would be an API call
-    const authUser: AuthUser = {
-      id: Date.now(),
-      name,
-      email,
-      role: 'user'
-    };
-    setUser(authUser);
-    setIsAuthenticated(true);
-    localStorage.setItem('user', JSON.stringify(authUser));
-    return true;
+  const register = async (email: string, name: string, password: string): Promise<boolean> => {
+    try {
+      const res = await fetch(`${API_URL}/admin/registerAdmin`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email, name, password }),
+      });
+      const data = await res.json();
+      if (res.ok && data.token) {
+        const authUser: AuthUser = { email, name, role: 'user' };
+        setUser(authUser);
+        setToken(data.token);
+        setIsAuthenticated(true);
+        localStorage.setItem('token', data.token);
+        localStorage.setItem('user', JSON.stringify(authUser));
+        return true;
+      }
+      return false;
+    } catch (err) {
+      console.error(err);
+      return false;
+    }
   };
 
   const logout = () => {
     setUser(null);
+    setToken(null);
     setIsAuthenticated(false);
+    localStorage.removeItem('token');
     localStorage.removeItem('user');
   };
 
@@ -76,12 +94,8 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     login,
     register,
     logout,
-    isAuthenticated
+    isAuthenticated,
   };
 
-  return (
-    <AuthContext.Provider value={value}>
-      {children}
-    </AuthContext.Provider>
-  );
+  return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
 };

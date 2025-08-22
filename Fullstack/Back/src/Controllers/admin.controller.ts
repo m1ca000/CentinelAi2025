@@ -18,7 +18,8 @@ export const registerAdminController = async (req: Request, res: Response) => {
             const hashedPassword = await bcrypt.hash(password, saltRounds);
 
             const newAdmin = await registerAdminService(email, name, hashedPassword)
-            return res.status(201).json({ message: 'Usuario registrado con éxito.'});
+            const token = jwt.sign({ email: newAdmin.email, institutionID: newAdmin.institutionID }, process.env.JWT_SECRET as string);
+            return res.status(201).json({ message: 'Usuario registrado con éxito.', token });
         }
         else {
             return res.status(400).json({ error: 'Este email ya se encuentra en uso' });

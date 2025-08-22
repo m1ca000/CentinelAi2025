@@ -34,17 +34,17 @@ export const RegisterPage: React.FC = () => {
     }
 
     try {
-      const success = await register(name, email, password);
-      if (success) {
-        navigate('/dashboard');
-      } else {
-        setError('Error al crear la cuenta. Intenta nuevamente.');
-      }
-    } catch (err) {
-      setError('Error al registrarse. Intenta nuevamente.');
-    } finally {
-      setIsLoading(false);
+    const success = await register(email, name, password); // <--- aquí llamamos al AuthContext
+    if (success) {
+      navigate('/dashboard'); // redirige al dashboard si se crea y loguea
+    } else {
+      setError('Error al crear la cuenta. Intenta nuevamente.');
     }
+  } catch (err) {
+    setError('Error al registrarse. Intenta nuevamente.');
+  } finally {
+    setIsLoading(false);
+  }
   };
 
   return (
@@ -167,23 +167,6 @@ export const RegisterPage: React.FC = () => {
                 </button>
               </div>
             </div>
-
-            <div className="flex items-center">
-              <input
-                id="terms"
-                name="terms"
-                type="checkbox"
-                required
-                className="h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-gray-300 rounded"
-              />
-              <label htmlFor="terms" className="ml-2 block text-sm text-gray-900">
-                Acepto los{' '}
-                <a href="#" className="text-indigo-600 hover:text-indigo-500">
-                  términos y condiciones
-                </a>
-              </label>
-            </div>
-
             <div>
               <button
                 type="submit"
