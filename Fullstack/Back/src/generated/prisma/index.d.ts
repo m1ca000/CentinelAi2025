@@ -60,7 +60,7 @@ export type Activity = $Result.DefaultSelection<Prisma.$ActivityPayload>
  */
 export class PrismaClient<
   ClientOptions extends Prisma.PrismaClientOptions = Prisma.PrismaClientOptions,
-  U = 'log' extends keyof ClientOptions ? ClientOptions['log'] extends Array<Prisma.LogLevel | Prisma.LogDefinition> ? Prisma.GetEvents<ClientOptions['log']> : never : never,
+  const U = 'log' extends keyof ClientOptions ? ClientOptions['log'] extends Array<Prisma.LogLevel | Prisma.LogDefinition> ? Prisma.GetEvents<ClientOptions['log']> : never : never,
   ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs
 > {
   [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['other'] }
@@ -92,13 +92,6 @@ export class PrismaClient<
    * Disconnect from the database
    */
   $disconnect(): $Utils.JsPromise<void>;
-
-  /**
-   * Add a middleware
-   * @deprecated since 4.16.0. For new code, prefer client extensions instead.
-   * @see https://pris.ly/d/extensions
-   */
-  $use(cb: Prisma.Middleware): void
 
 /**
    * Executes a prepared raw query and returns the number of affected rows.
@@ -286,8 +279,8 @@ export namespace Prisma {
   export import Exact = $Public.Exact
 
   /**
-   * Prisma Client JS version: 6.9.0
-   * Query Engine version: 81e4af48011447c3cc503a190e86995b66d2a28e
+   * Prisma Client JS version: 6.14.0
+   * Query Engine version: 717184b7b35ea05dfa71a3236b7af656013e1e49
    */
   export type PrismaVersion = {
     client: string
@@ -1183,16 +1176,24 @@ export namespace Prisma {
     /**
      * @example
      * ```
-     * // Defaults to stdout
+     * // Shorthand for `emit: 'stdout'`
      * log: ['query', 'info', 'warn', 'error']
      * 
-     * // Emit as events
+     * // Emit as events only
      * log: [
-     *   { emit: 'stdout', level: 'query' },
-     *   { emit: 'stdout', level: 'info' },
-     *   { emit: 'stdout', level: 'warn' }
-     *   { emit: 'stdout', level: 'error' }
+     *   { emit: 'event', level: 'query' },
+     *   { emit: 'event', level: 'info' },
+     *   { emit: 'event', level: 'warn' }
+     *   { emit: 'event', level: 'error' }
      * ]
+     * 
+     * / Emit as events and log to stdout
+     * og: [
+     *  { emit: 'stdout', level: 'query' },
+     *  { emit: 'stdout', level: 'info' },
+     *  { emit: 'stdout', level: 'warn' }
+     *  { emit: 'stdout', level: 'error' }
+     * 
      * ```
      * Read more in our [docs](https://www.prisma.io/docs/reference/tools-and-interfaces/prisma-client/logging#the-log-option).
      */
@@ -1239,10 +1240,15 @@ export namespace Prisma {
     emit: 'stdout' | 'event'
   }
 
-  export type GetLogType<T extends LogLevel | LogDefinition> = T extends LogDefinition ? T['emit'] extends 'event' ? T['level'] : never : never
-  export type GetEvents<T extends any> = T extends Array<LogLevel | LogDefinition> ?
-    GetLogType<T[0]> | GetLogType<T[1]> | GetLogType<T[2]> | GetLogType<T[3]>
-    : never
+  export type CheckIsLogLevel<T> = T extends LogLevel ? T : never;
+
+  export type GetLogType<T> = CheckIsLogLevel<
+    T extends LogDefinition ? T['level'] : T
+  >;
+
+  export type GetEvents<T extends any[]> = T extends Array<LogLevel | LogDefinition>
+    ? GetLogType<T[number]>
+    : never;
 
   export type QueryEvent = {
     timestamp: Date
@@ -1282,25 +1288,6 @@ export namespace Prisma {
     | 'runCommandRaw'
     | 'findRaw'
     | 'groupBy'
-
-  /**
-   * These options are being passed into the middleware as "params"
-   */
-  export type MiddlewareParams = {
-    model?: ModelName
-    action: PrismaAction
-    args: any
-    dataPath: string[]
-    runInTransaction: boolean
-  }
-
-  /**
-   * The `T` type makes sure, that the `return proceed` is not forgotten in the middleware implementation
-   */
-  export type Middleware<T = any> = (
-    params: MiddlewareParams,
-    next: (params: MiddlewareParams) => $Utils.JsPromise<T>,
-  ) => $Utils.JsPromise<T>
 
   // tested in getLogLevel.test.ts
   export function getLogLevel(log: Array<LogLevel | LogDefinition>): LogLevel | undefined;
@@ -1456,16 +1443,25 @@ export namespace Prisma {
   export type InstitutionMinAggregateOutputType = {
     inst_ID: string | null
     name: string | null
+    address: string | null
+    phone: string | null
+    type: string | null
   }
 
   export type InstitutionMaxAggregateOutputType = {
     inst_ID: string | null
     name: string | null
+    address: string | null
+    phone: string | null
+    type: string | null
   }
 
   export type InstitutionCountAggregateOutputType = {
     inst_ID: number
     name: number
+    address: number
+    phone: number
+    type: number
     _all: number
   }
 
@@ -1473,16 +1469,25 @@ export namespace Prisma {
   export type InstitutionMinAggregateInputType = {
     inst_ID?: true
     name?: true
+    address?: true
+    phone?: true
+    type?: true
   }
 
   export type InstitutionMaxAggregateInputType = {
     inst_ID?: true
     name?: true
+    address?: true
+    phone?: true
+    type?: true
   }
 
   export type InstitutionCountAggregateInputType = {
     inst_ID?: true
     name?: true
+    address?: true
+    phone?: true
+    type?: true
     _all?: true
   }
 
@@ -1561,6 +1566,9 @@ export namespace Prisma {
   export type InstitutionGroupByOutputType = {
     inst_ID: string
     name: string
+    address: string
+    phone: string
+    type: string
     _count: InstitutionCountAggregateOutputType | null
     _min: InstitutionMinAggregateOutputType | null
     _max: InstitutionMaxAggregateOutputType | null
@@ -1583,6 +1591,9 @@ export namespace Prisma {
   export type InstitutionSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     inst_ID?: boolean
     name?: boolean
+    address?: boolean
+    phone?: boolean
+    type?: boolean
     admins?: boolean | Institution$adminsArgs<ExtArgs>
     persons?: boolean | Institution$personsArgs<ExtArgs>
     devices?: boolean | Institution$devicesArgs<ExtArgs>
@@ -1593,19 +1604,28 @@ export namespace Prisma {
   export type InstitutionSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     inst_ID?: boolean
     name?: boolean
+    address?: boolean
+    phone?: boolean
+    type?: boolean
   }, ExtArgs["result"]["institution"]>
 
   export type InstitutionSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     inst_ID?: boolean
     name?: boolean
+    address?: boolean
+    phone?: boolean
+    type?: boolean
   }, ExtArgs["result"]["institution"]>
 
   export type InstitutionSelectScalar = {
     inst_ID?: boolean
     name?: boolean
+    address?: boolean
+    phone?: boolean
+    type?: boolean
   }
 
-  export type InstitutionOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"inst_ID" | "name", ExtArgs["result"]["institution"]>
+  export type InstitutionOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"inst_ID" | "name" | "address" | "phone" | "type", ExtArgs["result"]["institution"]>
   export type InstitutionInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     admins?: boolean | Institution$adminsArgs<ExtArgs>
     persons?: boolean | Institution$personsArgs<ExtArgs>
@@ -1627,6 +1647,9 @@ export namespace Prisma {
     scalars: $Extensions.GetPayloadResult<{
       inst_ID: string
       name: string
+      address: string
+      phone: string
+      type: string
     }, ExtArgs["result"]["institution"]>
     composites: {}
   }
@@ -2056,6 +2079,9 @@ export namespace Prisma {
   interface InstitutionFieldRefs {
     readonly inst_ID: FieldRef<"Institution", 'String'>
     readonly name: FieldRef<"Institution", 'String'>
+    readonly address: FieldRef<"Institution", 'String'>
+    readonly phone: FieldRef<"Institution", 'String'>
+    readonly type: FieldRef<"Institution", 'String'>
   }
     
 
@@ -8033,7 +8059,10 @@ export namespace Prisma {
 
   export const InstitutionScalarFieldEnum: {
     inst_ID: 'inst_ID',
-    name: 'name'
+    name: 'name',
+    address: 'address',
+    phone: 'phone',
+    type: 'type'
   };
 
   export type InstitutionScalarFieldEnum = (typeof InstitutionScalarFieldEnum)[keyof typeof InstitutionScalarFieldEnum]
@@ -8191,6 +8220,9 @@ export namespace Prisma {
     NOT?: InstitutionWhereInput | InstitutionWhereInput[]
     inst_ID?: StringFilter<"Institution"> | string
     name?: StringFilter<"Institution"> | string
+    address?: StringFilter<"Institution"> | string
+    phone?: StringFilter<"Institution"> | string
+    type?: StringFilter<"Institution"> | string
     admins?: AdminListRelationFilter
     persons?: PersonListRelationFilter
     devices?: DeviceListRelationFilter
@@ -8200,6 +8232,9 @@ export namespace Prisma {
   export type InstitutionOrderByWithRelationInput = {
     inst_ID?: SortOrder
     name?: SortOrder
+    address?: SortOrder
+    phone?: SortOrder
+    type?: SortOrder
     admins?: AdminOrderByRelationAggregateInput
     persons?: PersonOrderByRelationAggregateInput
     devices?: DeviceOrderByRelationAggregateInput
@@ -8212,6 +8247,9 @@ export namespace Prisma {
     OR?: InstitutionWhereInput[]
     NOT?: InstitutionWhereInput | InstitutionWhereInput[]
     name?: StringFilter<"Institution"> | string
+    address?: StringFilter<"Institution"> | string
+    phone?: StringFilter<"Institution"> | string
+    type?: StringFilter<"Institution"> | string
     admins?: AdminListRelationFilter
     persons?: PersonListRelationFilter
     devices?: DeviceListRelationFilter
@@ -8221,6 +8259,9 @@ export namespace Prisma {
   export type InstitutionOrderByWithAggregationInput = {
     inst_ID?: SortOrder
     name?: SortOrder
+    address?: SortOrder
+    phone?: SortOrder
+    type?: SortOrder
     _count?: InstitutionCountOrderByAggregateInput
     _max?: InstitutionMaxOrderByAggregateInput
     _min?: InstitutionMinOrderByAggregateInput
@@ -8232,6 +8273,9 @@ export namespace Prisma {
     NOT?: InstitutionScalarWhereWithAggregatesInput | InstitutionScalarWhereWithAggregatesInput[]
     inst_ID?: StringWithAggregatesFilter<"Institution"> | string
     name?: StringWithAggregatesFilter<"Institution"> | string
+    address?: StringWithAggregatesFilter<"Institution"> | string
+    phone?: StringWithAggregatesFilter<"Institution"> | string
+    type?: StringWithAggregatesFilter<"Institution"> | string
   }
 
   export type AdminWhereInput = {
@@ -8509,6 +8553,9 @@ export namespace Prisma {
   export type InstitutionCreateInput = {
     inst_ID: string
     name: string
+    address: string
+    phone: string
+    type: string
     admins?: AdminCreateNestedManyWithoutInstitutionInput
     persons?: PersonCreateNestedManyWithoutInstitutionInput
     devices?: DeviceCreateNestedManyWithoutInstitutionInput
@@ -8518,6 +8565,9 @@ export namespace Prisma {
   export type InstitutionUncheckedCreateInput = {
     inst_ID: string
     name: string
+    address: string
+    phone: string
+    type: string
     admins?: AdminUncheckedCreateNestedManyWithoutInstitutionInput
     persons?: PersonUncheckedCreateNestedManyWithoutInstitutionInput
     devices?: DeviceUncheckedCreateNestedManyWithoutInstitutionInput
@@ -8527,6 +8577,9 @@ export namespace Prisma {
   export type InstitutionUpdateInput = {
     inst_ID?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
+    address?: StringFieldUpdateOperationsInput | string
+    phone?: StringFieldUpdateOperationsInput | string
+    type?: StringFieldUpdateOperationsInput | string
     admins?: AdminUpdateManyWithoutInstitutionNestedInput
     persons?: PersonUpdateManyWithoutInstitutionNestedInput
     devices?: DeviceUpdateManyWithoutInstitutionNestedInput
@@ -8536,6 +8589,9 @@ export namespace Prisma {
   export type InstitutionUncheckedUpdateInput = {
     inst_ID?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
+    address?: StringFieldUpdateOperationsInput | string
+    phone?: StringFieldUpdateOperationsInput | string
+    type?: StringFieldUpdateOperationsInput | string
     admins?: AdminUncheckedUpdateManyWithoutInstitutionNestedInput
     persons?: PersonUncheckedUpdateManyWithoutInstitutionNestedInput
     devices?: DeviceUncheckedUpdateManyWithoutInstitutionNestedInput
@@ -8545,16 +8601,25 @@ export namespace Prisma {
   export type InstitutionCreateManyInput = {
     inst_ID: string
     name: string
+    address: string
+    phone: string
+    type: string
   }
 
   export type InstitutionUpdateManyMutationInput = {
     inst_ID?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
+    address?: StringFieldUpdateOperationsInput | string
+    phone?: StringFieldUpdateOperationsInput | string
+    type?: StringFieldUpdateOperationsInput | string
   }
 
   export type InstitutionUncheckedUpdateManyInput = {
     inst_ID?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
+    address?: StringFieldUpdateOperationsInput | string
+    phone?: StringFieldUpdateOperationsInput | string
+    type?: StringFieldUpdateOperationsInput | string
   }
 
   export type AdminCreateInput = {
@@ -8857,16 +8922,25 @@ export namespace Prisma {
   export type InstitutionCountOrderByAggregateInput = {
     inst_ID?: SortOrder
     name?: SortOrder
+    address?: SortOrder
+    phone?: SortOrder
+    type?: SortOrder
   }
 
   export type InstitutionMaxOrderByAggregateInput = {
     inst_ID?: SortOrder
     name?: SortOrder
+    address?: SortOrder
+    phone?: SortOrder
+    type?: SortOrder
   }
 
   export type InstitutionMinOrderByAggregateInput = {
     inst_ID?: SortOrder
     name?: SortOrder
+    address?: SortOrder
+    phone?: SortOrder
+    type?: SortOrder
   }
 
   export type StringWithAggregatesFilter<$PrismaModel = never> = {
@@ -9868,6 +9942,9 @@ export namespace Prisma {
   export type InstitutionCreateWithoutAdminsInput = {
     inst_ID: string
     name: string
+    address: string
+    phone: string
+    type: string
     persons?: PersonCreateNestedManyWithoutInstitutionInput
     devices?: DeviceCreateNestedManyWithoutInstitutionInput
     activity?: ActivityCreateNestedManyWithoutInstitutionInput
@@ -9876,6 +9953,9 @@ export namespace Prisma {
   export type InstitutionUncheckedCreateWithoutAdminsInput = {
     inst_ID: string
     name: string
+    address: string
+    phone: string
+    type: string
     persons?: PersonUncheckedCreateNestedManyWithoutInstitutionInput
     devices?: DeviceUncheckedCreateNestedManyWithoutInstitutionInput
     activity?: ActivityUncheckedCreateNestedManyWithoutInstitutionInput
@@ -9900,6 +9980,9 @@ export namespace Prisma {
   export type InstitutionUpdateWithoutAdminsInput = {
     inst_ID?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
+    address?: StringFieldUpdateOperationsInput | string
+    phone?: StringFieldUpdateOperationsInput | string
+    type?: StringFieldUpdateOperationsInput | string
     persons?: PersonUpdateManyWithoutInstitutionNestedInput
     devices?: DeviceUpdateManyWithoutInstitutionNestedInput
     activity?: ActivityUpdateManyWithoutInstitutionNestedInput
@@ -9908,6 +9991,9 @@ export namespace Prisma {
   export type InstitutionUncheckedUpdateWithoutAdminsInput = {
     inst_ID?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
+    address?: StringFieldUpdateOperationsInput | string
+    phone?: StringFieldUpdateOperationsInput | string
+    type?: StringFieldUpdateOperationsInput | string
     persons?: PersonUncheckedUpdateManyWithoutInstitutionNestedInput
     devices?: DeviceUncheckedUpdateManyWithoutInstitutionNestedInput
     activity?: ActivityUncheckedUpdateManyWithoutInstitutionNestedInput
@@ -9916,6 +10002,9 @@ export namespace Prisma {
   export type InstitutionCreateWithoutPersonsInput = {
     inst_ID: string
     name: string
+    address: string
+    phone: string
+    type: string
     admins?: AdminCreateNestedManyWithoutInstitutionInput
     devices?: DeviceCreateNestedManyWithoutInstitutionInput
     activity?: ActivityCreateNestedManyWithoutInstitutionInput
@@ -9924,6 +10013,9 @@ export namespace Prisma {
   export type InstitutionUncheckedCreateWithoutPersonsInput = {
     inst_ID: string
     name: string
+    address: string
+    phone: string
+    type: string
     admins?: AdminUncheckedCreateNestedManyWithoutInstitutionInput
     devices?: DeviceUncheckedCreateNestedManyWithoutInstitutionInput
     activity?: ActivityUncheckedCreateNestedManyWithoutInstitutionInput
@@ -9971,6 +10063,9 @@ export namespace Prisma {
   export type InstitutionUpdateWithoutPersonsInput = {
     inst_ID?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
+    address?: StringFieldUpdateOperationsInput | string
+    phone?: StringFieldUpdateOperationsInput | string
+    type?: StringFieldUpdateOperationsInput | string
     admins?: AdminUpdateManyWithoutInstitutionNestedInput
     devices?: DeviceUpdateManyWithoutInstitutionNestedInput
     activity?: ActivityUpdateManyWithoutInstitutionNestedInput
@@ -9979,6 +10074,9 @@ export namespace Prisma {
   export type InstitutionUncheckedUpdateWithoutPersonsInput = {
     inst_ID?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
+    address?: StringFieldUpdateOperationsInput | string
+    phone?: StringFieldUpdateOperationsInput | string
+    type?: StringFieldUpdateOperationsInput | string
     admins?: AdminUncheckedUpdateManyWithoutInstitutionNestedInput
     devices?: DeviceUncheckedUpdateManyWithoutInstitutionNestedInput
     activity?: ActivityUncheckedUpdateManyWithoutInstitutionNestedInput
@@ -10056,6 +10154,9 @@ export namespace Prisma {
   export type InstitutionCreateWithoutDevicesInput = {
     inst_ID: string
     name: string
+    address: string
+    phone: string
+    type: string
     admins?: AdminCreateNestedManyWithoutInstitutionInput
     persons?: PersonCreateNestedManyWithoutInstitutionInput
     activity?: ActivityCreateNestedManyWithoutInstitutionInput
@@ -10064,6 +10165,9 @@ export namespace Prisma {
   export type InstitutionUncheckedCreateWithoutDevicesInput = {
     inst_ID: string
     name: string
+    address: string
+    phone: string
+    type: string
     admins?: AdminUncheckedCreateNestedManyWithoutInstitutionInput
     persons?: PersonUncheckedCreateNestedManyWithoutInstitutionInput
     activity?: ActivityUncheckedCreateNestedManyWithoutInstitutionInput
@@ -10108,6 +10212,9 @@ export namespace Prisma {
   export type InstitutionUpdateWithoutDevicesInput = {
     inst_ID?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
+    address?: StringFieldUpdateOperationsInput | string
+    phone?: StringFieldUpdateOperationsInput | string
+    type?: StringFieldUpdateOperationsInput | string
     admins?: AdminUpdateManyWithoutInstitutionNestedInput
     persons?: PersonUpdateManyWithoutInstitutionNestedInput
     activity?: ActivityUpdateManyWithoutInstitutionNestedInput
@@ -10116,6 +10223,9 @@ export namespace Prisma {
   export type InstitutionUncheckedUpdateWithoutDevicesInput = {
     inst_ID?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
+    address?: StringFieldUpdateOperationsInput | string
+    phone?: StringFieldUpdateOperationsInput | string
+    type?: StringFieldUpdateOperationsInput | string
     admins?: AdminUncheckedUpdateManyWithoutInstitutionNestedInput
     persons?: PersonUncheckedUpdateManyWithoutInstitutionNestedInput
     activity?: ActivityUncheckedUpdateManyWithoutInstitutionNestedInput
@@ -10124,6 +10234,9 @@ export namespace Prisma {
   export type InstitutionCreateWithoutActivityInput = {
     inst_ID: string
     name: string
+    address: string
+    phone: string
+    type: string
     admins?: AdminCreateNestedManyWithoutInstitutionInput
     persons?: PersonCreateNestedManyWithoutInstitutionInput
     devices?: DeviceCreateNestedManyWithoutInstitutionInput
@@ -10132,6 +10245,9 @@ export namespace Prisma {
   export type InstitutionUncheckedCreateWithoutActivityInput = {
     inst_ID: string
     name: string
+    address: string
+    phone: string
+    type: string
     admins?: AdminUncheckedCreateNestedManyWithoutInstitutionInput
     persons?: PersonUncheckedCreateNestedManyWithoutInstitutionInput
     devices?: DeviceUncheckedCreateNestedManyWithoutInstitutionInput
@@ -10176,6 +10292,9 @@ export namespace Prisma {
   export type InstitutionUpdateWithoutActivityInput = {
     inst_ID?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
+    address?: StringFieldUpdateOperationsInput | string
+    phone?: StringFieldUpdateOperationsInput | string
+    type?: StringFieldUpdateOperationsInput | string
     admins?: AdminUpdateManyWithoutInstitutionNestedInput
     persons?: PersonUpdateManyWithoutInstitutionNestedInput
     devices?: DeviceUpdateManyWithoutInstitutionNestedInput
@@ -10184,6 +10303,9 @@ export namespace Prisma {
   export type InstitutionUncheckedUpdateWithoutActivityInput = {
     inst_ID?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
+    address?: StringFieldUpdateOperationsInput | string
+    phone?: StringFieldUpdateOperationsInput | string
+    type?: StringFieldUpdateOperationsInput | string
     admins?: AdminUncheckedUpdateManyWithoutInstitutionNestedInput
     persons?: PersonUncheckedUpdateManyWithoutInstitutionNestedInput
     devices?: DeviceUncheckedUpdateManyWithoutInstitutionNestedInput

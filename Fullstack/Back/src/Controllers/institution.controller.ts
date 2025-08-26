@@ -14,9 +14,9 @@ export const getInstitutionController = async (req: Request, res: Response) => {
 };
 export const createInstitution = async (req: Request, res: Response) => {
   try {
-    const {name} = req.body
+    const {name, address, phone, type} = req.body
 
-    const createInst = await createInstitutionService(name)
+    const createInst = await createInstitutionService(name, address, phone, type)
 
     const updateAdmin = await updateInstAdminService(String(req.email), createInst.inst_ID)
 

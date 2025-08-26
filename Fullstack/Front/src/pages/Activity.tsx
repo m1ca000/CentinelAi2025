@@ -2,16 +2,27 @@ import React, { useEffect, useState } from 'react';
 import { ActivityCard } from '../components/ActivityCard';
 import type { ActivityEntry } from '../types';
 import axios from 'axios';
+import { useAuth } from '../contexts/AuthContext';
+
+const API_URL_LOCAL = import.meta.env.VITE_API_URL_LOCAL;
+const API_URL = import.meta.env.VITE_API_URL_DEPLOY;
 
 export const Activity: React.FC = () => {
   const [historyEntries, setHistoryEntries] = useState<ActivityEntry[]>([]);
   const [loading, setLoading] = useState(true);
-  const institutionID = '0mrcyLbA';
+  const { user, token } = useAuth();
+    const institutionID = user?.institutionID;
 
   useEffect(() => {
     const fetchActivities = async () => {
       try {
-        const res = await axios.get(`http://centinel-ai2025.vercel.app/activity/${institutionID}`);
+        const res = await axios.get(`${API_URL_LOCAL}/activity/`,
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        );
         const data = res.data;
 
         const formatted: ActivityEntry[] = data.map((activity: any) => ({

@@ -19,7 +19,7 @@ export const registerAdminController = async (req: Request, res: Response) => {
 
             const newAdmin = await registerAdminService(email, name, hashedPassword)
             const token = jwt.sign({ email: newAdmin.email, institutionID: newAdmin.institutionID }, process.env.JWT_SECRET as string);
-            return res.status(201).json({ message: 'Usuario registrado con éxito.', token });
+            return res.status(201).json({ message: 'Usuario registrado con éxito.', token, user: { email: newAdmin.email, name: newAdmin.name  } });
         }
         else {
             return res.status(400).json({ error: 'Este email ya se encuentra en uso' });
@@ -45,7 +45,7 @@ export const loginAdminController = async (req: Request, res: Response) => {
         const isPasswordMatch = await bcrypt.compare(req.body.password, hashedPassword);
         if(isPasswordMatch){
             const token = jwt.sign({ email: admin[0].email, institutionID: admin[0].institutionID }, process.env.JWT_SECRET as string);
-            return res.status(200).json({ message: 'Login exitoso', token }); 
+            return res.status(200).json({ message: 'Login exitoso', token, user: admin[0] }); 
         }
         else {
             return res.status(400).json({ error: 'Credenciales inválidas' });

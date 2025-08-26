@@ -6,6 +6,6 @@ const router = express.Router();
 
 router.post('/upload', authMidd.verifyToken, uploadActivityController);
 router.put('/:activityID', authMidd.verifyToken, updateActivityController);
-router.get('/:institutionID', authMidd.verifyToken, getActivitiesController);
+router.get('/', authMidd.verifyToken, getActivitiesController);
 
 export default router;

@@ -23,7 +23,7 @@ export const LoginPage: React.FC = () => {
       if (success) {
         navigate('/dashboard');
       } else {
-        setError('Credenciales incorrectas. Intenta con admin@centinelai.com / admin123');
+        setError('Credenciales incorrectas');
       }
     } catch (err) {
       setError('Error al iniciar sesión. Intenta nuevamente.');

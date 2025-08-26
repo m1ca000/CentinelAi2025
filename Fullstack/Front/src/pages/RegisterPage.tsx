@@ -36,7 +36,7 @@ export const RegisterPage: React.FC = () => {
     try {
     const success = await register(email, name, password); // <--- aquí llamamos al AuthContext
     if (success) {
-      navigate('/dashboard'); // redirige al dashboard si se crea y loguea
+      navigate('/institucion'); // redirige a la página de creación de institución si se crea y loguea
     } else {
       setError('Error al crear la cuenta. Intenta nuevamente.');
     }

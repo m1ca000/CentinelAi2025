@@ -52,15 +52,15 @@ export const Sidebar: React.FC = () => {
         />
         <NavItem 
           icon={<ClipboardList size={20} />} 
-          label="Historial" 
-          active={location.pathname === '/dashboard/history'}
-          path="/dashboard/history"
+          label="Actividad" 
+          active={location.pathname === '/dashboard/activity'}
+          path="/dashboard/activity"
         />
         <NavItem 
           icon={<Users size={20} />} 
           label="Usuarios" 
           active={location.pathname === '/dashboard/users'}
-          path="/dashboard/users"
+          path="/dashboard/users" 
         />
       </div>
       
@@ -71,7 +71,6 @@ export const Sidebar: React.FC = () => {
           </div>
           <div className="ml-3">
             <div className="text-sm font-medium">{user?.name}</div>
-            <div className="text-xs text-gray-500 capitalize">{user?.role}</div>
           </div>
         </div>
         <button

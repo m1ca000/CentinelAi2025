@@ -21,13 +21,21 @@ export interface User {
 export interface AuthUser {
   name: string;
   email: string;
-  role: 'admin' | 'user';
+  hasInstitution: boolean;
+  institutionID?: string;
+}
+
+export interface Institution {
+  id: number;
+  name: string;
 }
 
 export interface AuthContextType {
   user: AuthUser | null;
+  token: string | null;
   login: (email: string, password: string) => Promise<boolean>;
   register: (name: string, email: string, password: string) => Promise<boolean>;
   logout: () => void;
   isAuthenticated: boolean;
+  createInstitution: (institution: { name: string; address: string; phone: string; type: string; }) => Promise<boolean>;
 }

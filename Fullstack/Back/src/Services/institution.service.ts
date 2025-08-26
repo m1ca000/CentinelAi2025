@@ -14,12 +14,15 @@ function institutionID (longitud = 8) {
     return codigo;
 };
 
-export const createInstitutionService = async (name: string) => {
+export const createInstitutionService = async (name: string, address: string, phone: string, type: string) => {
   const inst_ID = institutionID();
   return await prisma.institution.create({
     data: {
       inst_ID,
-      name
+      name,
+      address,
+      phone,
+      type
     }
   });
 };

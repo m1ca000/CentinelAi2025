@@ -9,6 +9,7 @@ import { LandingPage } from './pages/LandingPage';
 import { LoginPage } from './pages/LoginPage';
 import { RegisterPage } from './pages/RegisterPage';
 import { HomePage } from './pages/HomePage';
+import { InstitutionSetupPage } from './pages/InstitutionSetupPage';
 
 function App() {
   return (
@@ -19,6 +20,7 @@ function App() {
           <Route path="/" element={<LandingPage />} />
           <Route path="/login" element={<LoginPage />} />
           <Route path="/register" element={<RegisterPage />} />
+          <Route path="/institucion" element={<InstitutionSetupPage />} />
           
           {/* Protected Dashboard Routes */}
           <Route path="/dashboard" element={
@@ -28,7 +30,7 @@ function App() {
           }>
             <Route index element={<HomePage />} />
             <Route path="devices" element={<DeviceControl />} />
-            <Route path="history" element={<Activity />} />
+            <Route path="activity" element={<Activity />} />
             <Route path="users" element={<Users />} />
           </Route>
           

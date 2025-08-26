@@ -4,10 +4,19 @@ import { useAuth } from '../contexts/AuthContext';
 
 interface ProtectedRouteProps {
   children: React.ReactNode;
+  requiresInstitution?: boolean;
 }
 
-export const ProtectedRoute: React.FC<ProtectedRouteProps> = ({ children }) => {
-  const { isAuthenticated } = useAuth();
+export const ProtectedRoute: React.FC<ProtectedRouteProps> = ({ children, requiresInstitution = true }) => {
+  const { isAuthenticated, user } = useAuth();
   
-  return isAuthenticated ? <>{children}</> : <Navigate to="/login" replace />;
+  if (!isAuthenticated) {
+    return <Navigate to="/login" replace />;
+  }
+  
+  if (requiresInstitution && user && !user.hasInstitution) {
+    return <Navigate to="/setup-institution" replace />;
+  }
+  
+  return <>{children}</>;
 };

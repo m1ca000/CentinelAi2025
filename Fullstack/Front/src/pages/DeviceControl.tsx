@@ -4,16 +4,27 @@ import { DeviceCard } from '../components/DeviceCard';
 import { AddDeviceModal } from '../components/AddDeviceModal';
 import type { Device } from '../types/index';
 import axios from 'axios'
+import { useAuth } from '../contexts/AuthContext';
+
+const API_URL_LOCAL = import.meta.env.VITE_API_URL_LOCAL;
+const API_URL = import.meta.env.VITE_API_URL_DEPLOY;
 
 export const DeviceControl: React.FC = () => {
   const [showModal, setShowModal] = useState(false);
   const [devices, setDevices] = useState<Device[]>([]);
-  const institutionID = "0mrcyLbA"; // Cambia esto según tu lógica para obtener el ID de la institución
+  const { user, token } = useAuth();
+  const institutionID = user?.institutionID; // Cambia esto según tu lógica para obtener el ID de la institución
   // useEffect para obtener dispositivos al montar el componente
   useEffect(() => {
     const fetchDevices = async () => {
       try {
-        const response = await axios.get(`https://centinel-ai2025.vercel.app/devices/`);
+        const response = await axios.get(`${API_URL_LOCAL}/devices/`,
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        );
         const formattedDevices: Device[] = response.data.map((device: any) => ({
         id: device.device_ID,
         name: device.name,
