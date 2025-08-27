@@ -24,7 +24,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   const [user, setUser] = useState<AuthUser | null>(null);
   const [token, setToken] = useState<string | null>(null);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
-
+  const [loadingAuth, setLoadingAuth] = useState(true);
   useEffect(() => {
     const savedToken = localStorage.getItem('token');
     const savedUser = localStorage.getItem('user');
@@ -33,6 +33,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
       setUser(JSON.parse(savedUser));
       setIsAuthenticated(true);
     }
+    setLoadingAuth(false);
   }, []);
 
   const login = async (email: string, password: string): Promise<boolean> => {
@@ -153,7 +154,8 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     register,
     logout,
     isAuthenticated,
-    createInstitution
+    createInstitution,
+    loadingAuth
   };
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;

@@ -1,5 +1,5 @@
 import express from 'express';
-import { getPersonsControllers, uploadPerson, getLastRecognizedController } from '../Controllers/person.controller'
+import { getPersonsControllers, uploadPerson, getLastRecognizedController, updatePersonStateController } from '../Controllers/person.controller'
 import multer from 'multer'
 import authMidd from '../Middleware/auth';
 
@@ -12,5 +12,6 @@ const upload = multer({ storage: storage });
 router.post('/subirFoto', upload.single('photo'), authMidd.verifyToken, uploadPerson);
 router.get('/', authMidd.verifyToken, getPersonsControllers);
 router.get('/lastRecognized', authMidd.verifyToken, getLastRecognizedController);
+router.put('/updateState', authMidd.verifyToken, updatePersonStateController);
 
 export default router;

@@ -1,43 +1,101 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Plus } from 'lucide-react';
 import { UserCard } from '../components/UserCard';
 import { AddUserModal } from '../components/AddUserModal';
 import type { User } from '../types';
+import axios from 'axios';
+import { useAuth } from '../contexts/AuthContext';
+
+const API_URL_LOCAL = import.meta.env.VITE_API_URL_LOCAL;
+const API_URL = import.meta.env.VITE_API_URL_DEPLOY;
 
 export const Users: React.FC = () => {
   const [showModal, setShowModal] = useState(false);
-  const [users, setUsers] = useState<User[]>([
-    { id: 1, name: 'persona 1', status: 'active' },
-    { id: 2, name: 'persona 2', status: 'active' },
-  ]);
+  const [users, setUsers] = useState<User[]>([]);
+  const [loading, setLoading] = useState(true);
+  const { user, token } = useAuth();
+  const institutionID = user?.institutionID;
 
-  const handleAddUser = (user: Omit<User, 'id'>) => {
-    const newUser: User = {
-      ...user,
-      id: Math.max(0, ...users.map((u) => u.id)) + 1,
-    };
-    setUsers([...users, newUser]);
-    setShowModal(false);
+ useEffect(() => {
+  const fetchUsers = async () => {
+    try {
+      const res = await axios.get(`${API_URL_LOCAL}/person/`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+
+      const data = res.data;
+
+      const formatted: User[] = data.map((u: any) => ({
+        id: u.person_ID,
+        name: u.name,
+        surname: u.surname,
+        status: u.status,
+        photo: u.photo,
+        institutionID: u.institutionID,
+      }));
+
+      setUsers(formatted);
+    } catch (err) {
+      console.error('Error fetching users:', err);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  fetchUsers();
+}, [institutionID]);
+
+
+  const handleAddUser = async (user: Omit<User, 'id'>) => {
+    try {
+      const res = await axios.post(`${API_URL_LOCAL}/person`, user, {
+        headers: { Authorization: `Bearer ${token}` },
+      });
+      setUsers([...users, res.data]);
+      setShowModal(false);
+    } catch (err) {
+      console.error("Error adding user:", err);
+    }
   };
 
   const handleInfo = (user: User) => {
-    console.log('Info for user:', user.name);
-    // Implement info functionality
+    alert(`
+      ID: ${user.id}
+      Nombre: ${user.name} ${user.surname}
+      Estado: ${user.status}
+      Foto: ${user.photo ?? "-"}
+    `);
   };
 
-  const handleRestrict = (user: User) => {
-    console.log('Restrict user:', user.name);
-    setUsers(users.map(u => 
-      u.id === user.id 
-        ? { ...u, status: u.status === 'active' ? 'restricted' : 'active' }
-        : u
-    ));
+  const handleRestrict = async (user: User) => {
+    try {
+      const newStatus = user.status === 'authorized' ? 'restricted' : 'authorized';
+
+      await axios.put(
+        `${API_URL_LOCAL}/person/updateState`,
+        { person_ID: user.id, status: newStatus },
+        { headers: { Authorization: `Bearer ${token}` } }
+      );
+
+      setUsers(users.map(u => u.id === user.id ? { ...u, status: newStatus } : u));
+    } catch (err) {
+      console.error("Error updating user:", err);
+    }
   };
 
-  const handleDelete = (user: User) => {
-    console.log('Delete user:', user.name);
-    if (window.confirm(`¿Estás seguro de que quieres eliminar a ${user.name}?`)) {
-      setUsers(users.filter(u => u.id !== user.id));
+  const handleDelete = async (user: User) => {
+    if (window.confirm(`¿Seguro que querés eliminar a ${user.name} ${user.surname}?`)) {
+      try {
+        await axios.delete(`${API_URL_LOCAL}/person/${user.id}`, {
+          headers: { Authorization: `Bearer ${token}` },
+        });
+
+        setUsers(users.filter(u => u.id !== user.id));
+      } catch (err) {
+        console.error("Error deleting user:", err);
+      }
     }
   };
 

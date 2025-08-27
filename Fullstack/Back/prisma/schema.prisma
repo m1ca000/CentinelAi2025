@@ -43,6 +43,7 @@ model Person {
   photo           String
   institution     Institution @relation(fields: [institutionID], references: [inst_ID])
   institutionID   String
+  status          String
 
   activity        Activity[]
 }
@@ -61,7 +62,7 @@ model Device {
   typeID          Int
   institution     Institution @relation(fields: [institutionID], references: [inst_ID])
   institutionID   String
-  state           Boolean
+  state           String
 }
 
 model Activity {

@@ -140,7 +140,8 @@ exports.Prisma.PersonScalarFieldEnum = {
   name: 'name',
   surname: 'surname',
   photo: 'photo',
-  institutionID: 'institutionID'
+  institutionID: 'institutionID',
+  status: 'status'
 };
 
 exports.Prisma.Type_DevicesScalarFieldEnum = {

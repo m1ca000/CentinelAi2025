@@ -4,13 +4,14 @@ import type { Device } from '../types';
 
 interface DeviceCardProps {
   device: Device;
-  onToggle: () => void;
+  onToggle: (id: number, desiredState: 'active' | 'inactive') => void;
 }
 
 export const DeviceCard: React.FC<DeviceCardProps> = ({ device, onToggle }) => {
   const handleAction = async (action: string) => {
-    console.log(`${action} ${device.name}`);
-
+    const newState = device.active === 'active' ? 'inactive' : 'active';
+    onToggle(device.id, newState);
+     /*
     // Replace with your actual backend URL
     const apiUrl = 'https://centinel-ai2025.vercel.app/led';
 
@@ -34,6 +35,7 @@ export const DeviceCard: React.FC<DeviceCardProps> = ({ device, onToggle }) => {
         console.error('Error sending LED status:', error);
       }
     }
+    */
   };
 
   
@@ -41,11 +43,10 @@ export const DeviceCard: React.FC<DeviceCardProps> = ({ device, onToggle }) => {
     <div className="bg-gray-200 rounded-lg overflow-hidden">
       <div className="flex justify-between items-center p-4">
         <div className="font-medium">{device.name}</div>
-        <div className={`text-sm ${device.active ? 'text-green-600' : 'text-gray-500'}`}>
-          {device.active ? 'Activo' : 'Inactivo'}
+        <div className={`text-sm ${device.active === 'active' ? 'text-green-600' : 'text-gray-500'}`}>
+          {device.active === 'active' ? 'Activo' : 'Inactivo'}
         </div>
       </div>
-      
       <div className="flex bg-gray-200 p-2">
         <button
           onClick={() => handleAction('encender')}

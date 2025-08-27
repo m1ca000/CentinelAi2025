@@ -2,7 +2,7 @@ export interface Device {
   id: number;
   name: string;
   type: 'camera' | 'turnstile';
-  active: boolean;
+  active:  'active' | 'inactive';
 }
 
 export interface ActivityEntry {
@@ -15,7 +15,9 @@ export interface ActivityEntry {
 export interface User {
   id: number;
   name: string;
-  status: 'active' | 'restricted';
+  surname: string;
+  status: 'authorized' | 'restricted';
+  photo?: string;
 }
 
 export interface AuthUser {
@@ -38,4 +40,5 @@ export interface AuthContextType {
   logout: () => void;
   isAuthenticated: boolean;
   createInstitution: (institution: { name: string; address: string; phone: string; type: string; }) => Promise<boolean>;
+  loadingAuth: boolean;
 }

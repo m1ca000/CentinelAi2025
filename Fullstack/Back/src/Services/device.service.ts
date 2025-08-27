@@ -8,7 +8,7 @@ export const getDevicesService = async (institutionID: string) => {
   });
 };
 
-export const createDeviceService = async ( name: string, typeID: number, institutionID: string, state: boolean ) => {
+export const createDeviceService = async ( name: string, typeID: number, institutionID: string, state: string ) => {
   return await prisma.device.create({
     data: {
       name,
@@ -18,3 +18,12 @@ export const createDeviceService = async ( name: string, typeID: number, institu
     }
   });
 };
+
+export const updateDeviceStateService = async (device_ID: number, state: string) => {
+    return await prisma.device.update({
+        where: { device_ID },
+        data: {
+          state,
+        }
+    });
+}

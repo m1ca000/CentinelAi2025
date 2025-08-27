@@ -3674,6 +3674,7 @@ export namespace Prisma {
     surname: string | null
     photo: string | null
     institutionID: string | null
+    status: string | null
   }
 
   export type PersonMaxAggregateOutputType = {
@@ -3682,6 +3683,7 @@ export namespace Prisma {
     surname: string | null
     photo: string | null
     institutionID: string | null
+    status: string | null
   }
 
   export type PersonCountAggregateOutputType = {
@@ -3690,6 +3692,7 @@ export namespace Prisma {
     surname: number
     photo: number
     institutionID: number
+    status: number
     _all: number
   }
 
@@ -3708,6 +3711,7 @@ export namespace Prisma {
     surname?: true
     photo?: true
     institutionID?: true
+    status?: true
   }
 
   export type PersonMaxAggregateInputType = {
@@ -3716,6 +3720,7 @@ export namespace Prisma {
     surname?: true
     photo?: true
     institutionID?: true
+    status?: true
   }
 
   export type PersonCountAggregateInputType = {
@@ -3724,6 +3729,7 @@ export namespace Prisma {
     surname?: true
     photo?: true
     institutionID?: true
+    status?: true
     _all?: true
   }
 
@@ -3819,6 +3825,7 @@ export namespace Prisma {
     surname: string
     photo: string
     institutionID: string
+    status: string
     _count: PersonCountAggregateOutputType | null
     _avg: PersonAvgAggregateOutputType | null
     _sum: PersonSumAggregateOutputType | null
@@ -3846,6 +3853,7 @@ export namespace Prisma {
     surname?: boolean
     photo?: boolean
     institutionID?: boolean
+    status?: boolean
     institution?: boolean | InstitutionDefaultArgs<ExtArgs>
     activity?: boolean | Person$activityArgs<ExtArgs>
     _count?: boolean | PersonCountOutputTypeDefaultArgs<ExtArgs>
@@ -3857,6 +3865,7 @@ export namespace Prisma {
     surname?: boolean
     photo?: boolean
     institutionID?: boolean
+    status?: boolean
     institution?: boolean | InstitutionDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["person"]>
 
@@ -3866,6 +3875,7 @@ export namespace Prisma {
     surname?: boolean
     photo?: boolean
     institutionID?: boolean
+    status?: boolean
     institution?: boolean | InstitutionDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["person"]>
 
@@ -3875,9 +3885,10 @@ export namespace Prisma {
     surname?: boolean
     photo?: boolean
     institutionID?: boolean
+    status?: boolean
   }
 
-  export type PersonOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"person_ID" | "name" | "surname" | "photo" | "institutionID", ExtArgs["result"]["person"]>
+  export type PersonOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"person_ID" | "name" | "surname" | "photo" | "institutionID" | "status", ExtArgs["result"]["person"]>
   export type PersonInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     institution?: boolean | InstitutionDefaultArgs<ExtArgs>
     activity?: boolean | Person$activityArgs<ExtArgs>
@@ -3902,6 +3913,7 @@ export namespace Prisma {
       surname: string
       photo: string
       institutionID: string
+      status: string
     }, ExtArgs["result"]["person"]>
     composites: {}
   }
@@ -4332,6 +4344,7 @@ export namespace Prisma {
     readonly surname: FieldRef<"Person", 'String'>
     readonly photo: FieldRef<"Person", 'String'>
     readonly institutionID: FieldRef<"Person", 'String'>
+    readonly status: FieldRef<"Person", 'String'>
   }
     
 
@@ -5862,7 +5875,7 @@ export namespace Prisma {
     name: string | null
     typeID: number | null
     institutionID: string | null
-    state: boolean | null
+    state: string | null
   }
 
   export type DeviceMaxAggregateOutputType = {
@@ -5870,7 +5883,7 @@ export namespace Prisma {
     name: string | null
     typeID: number | null
     institutionID: string | null
-    state: boolean | null
+    state: string | null
   }
 
   export type DeviceCountAggregateOutputType = {
@@ -6009,7 +6022,7 @@ export namespace Prisma {
     name: string
     typeID: number
     institutionID: string
-    state: boolean
+    state: string
     _count: DeviceCountAggregateOutputType | null
     _avg: DeviceAvgAggregateOutputType | null
     _sum: DeviceSumAggregateOutputType | null
@@ -6094,7 +6107,7 @@ export namespace Prisma {
       name: string
       typeID: number
       institutionID: string
-      state: boolean
+      state: string
     }, ExtArgs["result"]["device"]>
     composites: {}
   }
@@ -6524,7 +6537,7 @@ export namespace Prisma {
     readonly name: FieldRef<"Device", 'String'>
     readonly typeID: FieldRef<"Device", 'Int'>
     readonly institutionID: FieldRef<"Device", 'String'>
-    readonly state: FieldRef<"Device", 'Boolean'>
+    readonly state: FieldRef<"Device", 'String'>
   }
     
 
@@ -8083,7 +8096,8 @@ export namespace Prisma {
     name: 'name',
     surname: 'surname',
     photo: 'photo',
-    institutionID: 'institutionID'
+    institutionID: 'institutionID',
+    status: 'status'
   };
 
   export type PersonScalarFieldEnum = (typeof PersonScalarFieldEnum)[keyof typeof PersonScalarFieldEnum]
@@ -8173,13 +8187,6 @@ export namespace Prisma {
    * Reference to a field of type 'Int[]'
    */
   export type ListIntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Int[]'>
-    
-
-
-  /**
-   * Reference to a field of type 'Boolean'
-   */
-  export type BooleanFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Boolean'>
     
 
 
@@ -8337,6 +8344,7 @@ export namespace Prisma {
     surname?: StringFilter<"Person"> | string
     photo?: StringFilter<"Person"> | string
     institutionID?: StringFilter<"Person"> | string
+    status?: StringFilter<"Person"> | string
     institution?: XOR<InstitutionScalarRelationFilter, InstitutionWhereInput>
     activity?: ActivityListRelationFilter
   }
@@ -8347,6 +8355,7 @@ export namespace Prisma {
     surname?: SortOrder
     photo?: SortOrder
     institutionID?: SortOrder
+    status?: SortOrder
     institution?: InstitutionOrderByWithRelationInput
     activity?: ActivityOrderByRelationAggregateInput
   }
@@ -8360,6 +8369,7 @@ export namespace Prisma {
     surname?: StringFilter<"Person"> | string
     photo?: StringFilter<"Person"> | string
     institutionID?: StringFilter<"Person"> | string
+    status?: StringFilter<"Person"> | string
     institution?: XOR<InstitutionScalarRelationFilter, InstitutionWhereInput>
     activity?: ActivityListRelationFilter
   }, "person_ID">
@@ -8370,6 +8380,7 @@ export namespace Prisma {
     surname?: SortOrder
     photo?: SortOrder
     institutionID?: SortOrder
+    status?: SortOrder
     _count?: PersonCountOrderByAggregateInput
     _avg?: PersonAvgOrderByAggregateInput
     _max?: PersonMaxOrderByAggregateInput
@@ -8386,6 +8397,7 @@ export namespace Prisma {
     surname?: StringWithAggregatesFilter<"Person"> | string
     photo?: StringWithAggregatesFilter<"Person"> | string
     institutionID?: StringWithAggregatesFilter<"Person"> | string
+    status?: StringWithAggregatesFilter<"Person"> | string
   }
 
   export type Type_DevicesWhereInput = {
@@ -8438,7 +8450,7 @@ export namespace Prisma {
     name?: StringFilter<"Device"> | string
     typeID?: IntFilter<"Device"> | number
     institutionID?: StringFilter<"Device"> | string
-    state?: BoolFilter<"Device"> | boolean
+    state?: StringFilter<"Device"> | string
     type?: XOR<Type_DevicesScalarRelationFilter, Type_DevicesWhereInput>
     institution?: XOR<InstitutionScalarRelationFilter, InstitutionWhereInput>
   }
@@ -8461,7 +8473,7 @@ export namespace Prisma {
     name?: StringFilter<"Device"> | string
     typeID?: IntFilter<"Device"> | number
     institutionID?: StringFilter<"Device"> | string
-    state?: BoolFilter<"Device"> | boolean
+    state?: StringFilter<"Device"> | string
     type?: XOR<Type_DevicesScalarRelationFilter, Type_DevicesWhereInput>
     institution?: XOR<InstitutionScalarRelationFilter, InstitutionWhereInput>
   }, "device_ID">
@@ -8487,7 +8499,7 @@ export namespace Prisma {
     name?: StringWithAggregatesFilter<"Device"> | string
     typeID?: IntWithAggregatesFilter<"Device"> | number
     institutionID?: StringWithAggregatesFilter<"Device"> | string
-    state?: BoolWithAggregatesFilter<"Device"> | boolean
+    state?: StringWithAggregatesFilter<"Device"> | string
   }
 
   export type ActivityWhereInput = {
@@ -8674,6 +8686,7 @@ export namespace Prisma {
     name: string
     surname: string
     photo: string
+    status: string
     institution: InstitutionCreateNestedOneWithoutPersonsInput
     activity?: ActivityCreateNestedManyWithoutPersonInput
   }
@@ -8684,6 +8697,7 @@ export namespace Prisma {
     surname: string
     photo: string
     institutionID: string
+    status: string
     activity?: ActivityUncheckedCreateNestedManyWithoutPersonInput
   }
 
@@ -8691,6 +8705,7 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     surname?: StringFieldUpdateOperationsInput | string
     photo?: StringFieldUpdateOperationsInput | string
+    status?: StringFieldUpdateOperationsInput | string
     institution?: InstitutionUpdateOneRequiredWithoutPersonsNestedInput
     activity?: ActivityUpdateManyWithoutPersonNestedInput
   }
@@ -8701,6 +8716,7 @@ export namespace Prisma {
     surname?: StringFieldUpdateOperationsInput | string
     photo?: StringFieldUpdateOperationsInput | string
     institutionID?: StringFieldUpdateOperationsInput | string
+    status?: StringFieldUpdateOperationsInput | string
     activity?: ActivityUncheckedUpdateManyWithoutPersonNestedInput
   }
 
@@ -8710,12 +8726,14 @@ export namespace Prisma {
     surname: string
     photo: string
     institutionID: string
+    status: string
   }
 
   export type PersonUpdateManyMutationInput = {
     name?: StringFieldUpdateOperationsInput | string
     surname?: StringFieldUpdateOperationsInput | string
     photo?: StringFieldUpdateOperationsInput | string
+    status?: StringFieldUpdateOperationsInput | string
   }
 
   export type PersonUncheckedUpdateManyInput = {
@@ -8724,6 +8742,7 @@ export namespace Prisma {
     surname?: StringFieldUpdateOperationsInput | string
     photo?: StringFieldUpdateOperationsInput | string
     institutionID?: StringFieldUpdateOperationsInput | string
+    status?: StringFieldUpdateOperationsInput | string
   }
 
   export type Type_DevicesCreateInput = {
@@ -8764,7 +8783,7 @@ export namespace Prisma {
 
   export type DeviceCreateInput = {
     name: string
-    state: boolean
+    state: string
     type: Type_DevicesCreateNestedOneWithoutDevicesInput
     institution: InstitutionCreateNestedOneWithoutDevicesInput
   }
@@ -8774,12 +8793,12 @@ export namespace Prisma {
     name: string
     typeID: number
     institutionID: string
-    state: boolean
+    state: string
   }
 
   export type DeviceUpdateInput = {
     name?: StringFieldUpdateOperationsInput | string
-    state?: BoolFieldUpdateOperationsInput | boolean
+    state?: StringFieldUpdateOperationsInput | string
     type?: Type_DevicesUpdateOneRequiredWithoutDevicesNestedInput
     institution?: InstitutionUpdateOneRequiredWithoutDevicesNestedInput
   }
@@ -8789,7 +8808,7 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     typeID?: IntFieldUpdateOperationsInput | number
     institutionID?: StringFieldUpdateOperationsInput | string
-    state?: BoolFieldUpdateOperationsInput | boolean
+    state?: StringFieldUpdateOperationsInput | string
   }
 
   export type DeviceCreateManyInput = {
@@ -8797,12 +8816,12 @@ export namespace Prisma {
     name: string
     typeID: number
     institutionID: string
-    state: boolean
+    state: string
   }
 
   export type DeviceUpdateManyMutationInput = {
     name?: StringFieldUpdateOperationsInput | string
-    state?: BoolFieldUpdateOperationsInput | boolean
+    state?: StringFieldUpdateOperationsInput | string
   }
 
   export type DeviceUncheckedUpdateManyInput = {
@@ -8810,7 +8829,7 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     typeID?: IntFieldUpdateOperationsInput | number
     institutionID?: StringFieldUpdateOperationsInput | string
-    state?: BoolFieldUpdateOperationsInput | boolean
+    state?: StringFieldUpdateOperationsInput | string
   }
 
   export type ActivityCreateInput = {
@@ -9047,6 +9066,7 @@ export namespace Prisma {
     surname?: SortOrder
     photo?: SortOrder
     institutionID?: SortOrder
+    status?: SortOrder
   }
 
   export type PersonAvgOrderByAggregateInput = {
@@ -9059,6 +9079,7 @@ export namespace Prisma {
     surname?: SortOrder
     photo?: SortOrder
     institutionID?: SortOrder
+    status?: SortOrder
   }
 
   export type PersonMinOrderByAggregateInput = {
@@ -9067,6 +9088,7 @@ export namespace Prisma {
     surname?: SortOrder
     photo?: SortOrder
     institutionID?: SortOrder
+    status?: SortOrder
   }
 
   export type PersonSumOrderByAggregateInput = {
@@ -9112,11 +9134,6 @@ export namespace Prisma {
     type_ID?: SortOrder
   }
 
-  export type BoolFilter<$PrismaModel = never> = {
-    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
-    not?: NestedBoolFilter<$PrismaModel> | boolean
-  }
-
   export type Type_DevicesScalarRelationFilter = {
     is?: Type_DevicesWhereInput
     isNot?: Type_DevicesWhereInput
@@ -9154,14 +9171,6 @@ export namespace Prisma {
   export type DeviceSumOrderByAggregateInput = {
     device_ID?: SortOrder
     typeID?: SortOrder
-  }
-
-  export type BoolWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
-    not?: NestedBoolWithAggregatesFilter<$PrismaModel> | boolean
-    _count?: NestedIntFilter<$PrismaModel>
-    _min?: NestedBoolFilter<$PrismaModel>
-    _max?: NestedBoolFilter<$PrismaModel>
   }
 
   export type DateTimeNullableFilter<$PrismaModel = never> = {
@@ -9538,10 +9547,6 @@ export namespace Prisma {
     connect?: InstitutionWhereUniqueInput
   }
 
-  export type BoolFieldUpdateOperationsInput = {
-    set?: boolean
-  }
-
   export type Type_DevicesUpdateOneRequiredWithoutDevicesNestedInput = {
     create?: XOR<Type_DevicesCreateWithoutDevicesInput, Type_DevicesUncheckedCreateWithoutDevicesInput>
     connectOrCreate?: Type_DevicesCreateOrConnectWithoutDevicesInput
@@ -9701,19 +9706,6 @@ export namespace Prisma {
     not?: NestedFloatFilter<$PrismaModel> | number
   }
 
-  export type NestedBoolFilter<$PrismaModel = never> = {
-    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
-    not?: NestedBoolFilter<$PrismaModel> | boolean
-  }
-
-  export type NestedBoolWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
-    not?: NestedBoolWithAggregatesFilter<$PrismaModel> | boolean
-    _count?: NestedIntFilter<$PrismaModel>
-    _min?: NestedBoolFilter<$PrismaModel>
-    _max?: NestedBoolFilter<$PrismaModel>
-  }
-
   export type NestedDateTimeNullableFilter<$PrismaModel = never> = {
     equals?: Date | string | DateTimeFieldRefInput<$PrismaModel> | null
     in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
@@ -9765,6 +9757,7 @@ export namespace Prisma {
     name: string
     surname: string
     photo: string
+    status: string
     activity?: ActivityCreateNestedManyWithoutPersonInput
   }
 
@@ -9773,6 +9766,7 @@ export namespace Prisma {
     name: string
     surname: string
     photo: string
+    status: string
     activity?: ActivityUncheckedCreateNestedManyWithoutPersonInput
   }
 
@@ -9788,7 +9782,7 @@ export namespace Prisma {
 
   export type DeviceCreateWithoutInstitutionInput = {
     name: string
-    state: boolean
+    state: string
     type: Type_DevicesCreateNestedOneWithoutDevicesInput
   }
 
@@ -9796,7 +9790,7 @@ export namespace Prisma {
     device_ID?: number
     name: string
     typeID: number
-    state: boolean
+    state: string
   }
 
   export type DeviceCreateOrConnectWithoutInstitutionInput = {
@@ -9883,6 +9877,7 @@ export namespace Prisma {
     surname?: StringFilter<"Person"> | string
     photo?: StringFilter<"Person"> | string
     institutionID?: StringFilter<"Person"> | string
+    status?: StringFilter<"Person"> | string
   }
 
   export type DeviceUpsertWithWhereUniqueWithoutInstitutionInput = {
@@ -9909,7 +9904,7 @@ export namespace Prisma {
     name?: StringFilter<"Device"> | string
     typeID?: IntFilter<"Device"> | number
     institutionID?: StringFilter<"Device"> | string
-    state?: BoolFilter<"Device"> | boolean
+    state?: StringFilter<"Device"> | string
   }
 
   export type ActivityUpsertWithWhereUniqueWithoutInstitutionInput = {
@@ -10100,7 +10095,7 @@ export namespace Prisma {
 
   export type DeviceCreateWithoutTypeInput = {
     name: string
-    state: boolean
+    state: string
     institution: InstitutionCreateNestedOneWithoutDevicesInput
   }
 
@@ -10108,7 +10103,7 @@ export namespace Prisma {
     device_ID?: number
     name: string
     institutionID: string
-    state: boolean
+    state: string
   }
 
   export type DeviceCreateOrConnectWithoutTypeInput = {
@@ -10262,6 +10257,7 @@ export namespace Prisma {
     name: string
     surname: string
     photo: string
+    status: string
     institution: InstitutionCreateNestedOneWithoutPersonsInput
   }
 
@@ -10271,6 +10267,7 @@ export namespace Prisma {
     surname: string
     photo: string
     institutionID: string
+    status: string
   }
 
   export type PersonCreateOrConnectWithoutActivityInput = {
@@ -10326,6 +10323,7 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     surname?: StringFieldUpdateOperationsInput | string
     photo?: StringFieldUpdateOperationsInput | string
+    status?: StringFieldUpdateOperationsInput | string
     institution?: InstitutionUpdateOneRequiredWithoutPersonsNestedInput
   }
 
@@ -10335,6 +10333,7 @@ export namespace Prisma {
     surname?: StringFieldUpdateOperationsInput | string
     photo?: StringFieldUpdateOperationsInput | string
     institutionID?: StringFieldUpdateOperationsInput | string
+    status?: StringFieldUpdateOperationsInput | string
   }
 
   export type AdminCreateManyInstitutionInput = {
@@ -10348,13 +10347,14 @@ export namespace Prisma {
     name: string
     surname: string
     photo: string
+    status: string
   }
 
   export type DeviceCreateManyInstitutionInput = {
     device_ID?: number
     name: string
     typeID: number
-    state: boolean
+    state: string
   }
 
   export type ActivityCreateManyInstitutionInput = {
@@ -10386,6 +10386,7 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     surname?: StringFieldUpdateOperationsInput | string
     photo?: StringFieldUpdateOperationsInput | string
+    status?: StringFieldUpdateOperationsInput | string
     activity?: ActivityUpdateManyWithoutPersonNestedInput
   }
 
@@ -10394,6 +10395,7 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     surname?: StringFieldUpdateOperationsInput | string
     photo?: StringFieldUpdateOperationsInput | string
+    status?: StringFieldUpdateOperationsInput | string
     activity?: ActivityUncheckedUpdateManyWithoutPersonNestedInput
   }
 
@@ -10402,11 +10404,12 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     surname?: StringFieldUpdateOperationsInput | string
     photo?: StringFieldUpdateOperationsInput | string
+    status?: StringFieldUpdateOperationsInput | string
   }
 
   export type DeviceUpdateWithoutInstitutionInput = {
     name?: StringFieldUpdateOperationsInput | string
-    state?: BoolFieldUpdateOperationsInput | boolean
+    state?: StringFieldUpdateOperationsInput | string
     type?: Type_DevicesUpdateOneRequiredWithoutDevicesNestedInput
   }
 
@@ -10414,14 +10417,14 @@ export namespace Prisma {
     device_ID?: IntFieldUpdateOperationsInput | number
     name?: StringFieldUpdateOperationsInput | string
     typeID?: IntFieldUpdateOperationsInput | number
-    state?: BoolFieldUpdateOperationsInput | boolean
+    state?: StringFieldUpdateOperationsInput | string
   }
 
   export type DeviceUncheckedUpdateManyWithoutInstitutionInput = {
     device_ID?: IntFieldUpdateOperationsInput | number
     name?: StringFieldUpdateOperationsInput | string
     typeID?: IntFieldUpdateOperationsInput | number
-    state?: BoolFieldUpdateOperationsInput | boolean
+    state?: StringFieldUpdateOperationsInput | string
   }
 
   export type ActivityUpdateWithoutInstitutionInput = {
@@ -10475,12 +10478,12 @@ export namespace Prisma {
     device_ID?: number
     name: string
     institutionID: string
-    state: boolean
+    state: string
   }
 
   export type DeviceUpdateWithoutTypeInput = {
     name?: StringFieldUpdateOperationsInput | string
-    state?: BoolFieldUpdateOperationsInput | boolean
+    state?: StringFieldUpdateOperationsInput | string
     institution?: InstitutionUpdateOneRequiredWithoutDevicesNestedInput
   }
 
@@ -10488,14 +10491,14 @@ export namespace Prisma {
     device_ID?: IntFieldUpdateOperationsInput | number
     name?: StringFieldUpdateOperationsInput | string
     institutionID?: StringFieldUpdateOperationsInput | string
-    state?: BoolFieldUpdateOperationsInput | boolean
+    state?: StringFieldUpdateOperationsInput | string
   }
 
   export type DeviceUncheckedUpdateManyWithoutTypeInput = {
     device_ID?: IntFieldUpdateOperationsInput | number
     name?: StringFieldUpdateOperationsInput | string
     institutionID?: StringFieldUpdateOperationsInput | string
-    state?: BoolFieldUpdateOperationsInput | boolean
+    state?: StringFieldUpdateOperationsInput | string
   }
 
 

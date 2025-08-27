@@ -43,26 +43,45 @@ export const DeviceControl: React.FC = () => {
 
   
 
-  const toggleDeviceStatus = (id: number) => {
-    setDevices(
-      devices.map((device) =>
-        device.id === id ? { ...device, active: !device.active } : device
+  const toggleDeviceStatus = async (id: number, ) => {
+  const deviceToUpdate = devices.find(d => d.id === id);
+  if (!deviceToUpdate) return;
+
+  const newState = deviceToUpdate.active === 'active' ? 'inactive' : 'active';
+
+  try {
+    const response =await axios.put(
+      `${API_URL_LOCAL}/devices/updateState`,
+      { device_ID: id, state: newState },
+      { headers: { Authorization: `Bearer ${token}` } }
+    );
+
+    const updatedState = response.data.state;
+
+    // Actualizo el estado de React con lo real de la BD
+    setDevices((prevDevices) =>
+      prevDevices.map((device) =>
+        device.id === id ? { ...device, active: updatedState } : device
       )
     );
-  };
+  } catch (err) {
+    console.error('Error al actualizar dispositivo:', err);
+  }
+};
+
 
   const handleAddDevice = async (device: Omit<Device, 'id'>) => {
     try {
       const payload = {
         name: device.name,
         typeID: device.type === 'camera' ? 1 : 2, 
-        institutionID: "0mrcyLbA",
         state: device.active, 
       };
       
       // Realiza la solicitud POST al backend
-      const response = await axios.post('https://centinel-ai2025.vercel.app/devices/', payload);
-      
+      const response = await axios.post(`${API_URL_LOCAL}/devices/`, payload,
+        { headers: { Authorization: `Bearer ${token}` } }
+      );
       const newDevice: Device = {
         id: response.data.device_ID,
         name: response.data.name,

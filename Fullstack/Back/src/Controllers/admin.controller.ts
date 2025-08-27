@@ -37,7 +37,6 @@ export const loginAdminController = async (req: Request, res: Response) => {
         }
 
         const admin = await getAdminByEmailService(req.body.email);
-        console.log(admin[0])
         if (admin.length === 0) {
             return res.status(400).json({ error: 'Credenciales inválidas' });
         }

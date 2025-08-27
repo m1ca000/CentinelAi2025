@@ -59,10 +59,6 @@ export const LoginPage: React.FC = () => {
               </div>
             )}
 
-            <div className="bg-blue-50 border border-blue-200 text-blue-700 px-4 py-3 rounded-lg text-sm">
-              <strong>Demo:</strong> admin@centinelai.com / admin123
-            </div>
-
             <div>
               <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-2">
                 Correo Electrónico

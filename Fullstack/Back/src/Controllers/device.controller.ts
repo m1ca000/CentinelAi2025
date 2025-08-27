@@ -1,4 +1,4 @@
-import { getDevicesService, createDeviceService } from '../Services/device.service';
+import { getDevicesService, createDeviceService, updateDeviceStateService } from '../Services/device.service';
 import { Request, Response } from 'express';
 
 export const getDevicesByInstitution = async (req: Request, res: Response) => {
@@ -18,6 +18,17 @@ export const createDevice = async (req: Request, res: Response) => {
     res.status(201).json(device);
   } catch (err) {
     res.status(500).json({ error: 'Error al crear el dispositivo' });
+    throw err;
+  }
+};
+
+export const updateDeviceState = async (req: Request, res: Response) => {
+  try {
+    const { device_ID, state } = req.body;
+    const updatedDevice = await updateDeviceStateService(device_ID, state);
+    res.json({ message: 'Estado del dispositivo actualizado con éxito', device: updatedDevice });
+  } catch (err) {
+    res.status(500).json({ error: 'Error al actualizar el estado del dispositivo' });
     throw err;
   }
 };

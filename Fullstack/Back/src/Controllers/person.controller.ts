@@ -1,4 +1,4 @@
-import { savePersonRegister, getPersonsByInstitution, uploadImage } from "../Services/person.service";
+import { savePersonRegister, getPersonsByInstitution, uploadImage, updatePersonStateService } from "../Services/person.service";
 import { Request, Response } from "express";
 import axios from "axios";
 
@@ -10,15 +10,15 @@ export const uploadPerson = async (req: Request, res: Response) => {
             return res.status(400).json({ error: 'No se proporcionó ninguna imagen' });
         }
         const imageUrl = await uploadImage(req.file.buffer);
-        const person = await savePersonRegister(req.body.name, req.body.surname, imageUrl, String(req.institutionID));
-        
+        const person = await savePersonRegister(req.body.name, req.body.surname, imageUrl, String(req.institutionID), req.body.status);
+
         return res.status(201).json({ message: 'Persona registrada con exito' });
     } catch(err) {
         throw err
     }
 }
 
-export const getPersonsControllers = async (req: Request, res: Response) => {
+export const getPersonsIAControllers = async (req: Request, res: Response) => {
     try {
         const Persons = await getPersonsByInstitution(String(req.institutionID))
         // Mandar a IA (ngrok)
@@ -41,3 +41,28 @@ export const getLastRecognizedController = async (req: Request, res: Response) =
         res.status(500).json({ error: "Error al consultar el último reconocido" });
     }
 };
+
+export const getPersonsControllers = async (req: Request, res: Response) => {
+    try {
+        const Persons = await getPersonsByInstitution(String(req.institutionID));
+        res.json(Persons);
+    } catch(err) {
+        res.status(500).json({ error: 'Error al obtener las personas' });
+        throw err
+    }
+}
+
+export const updatePersonStateController = async (req: Request, res: Response) => {
+    try {
+        const { person_ID, status } = req.body;
+        if (!person_ID || !status) {
+            return res.status(400).json({ error: 'Todos los campos son obligatorios' });
+        }
+
+        await updatePersonStateService(person_ID, status);
+        res.json({ message: 'Estado de la persona actualizado con éxito' });
+    } catch (err) {
+        res.status(500).json({ error: 'Error al actualizar el estado de la persona' });
+        throw err;
+    }
+};  

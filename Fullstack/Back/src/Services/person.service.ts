@@ -18,13 +18,14 @@ export const uploadImage = (fileBuffer: Buffer): Promise<string> => {
   });
 };
 
-export const savePersonRegister = async (name: string, surname: string, photo: string, institutionID: string) => {
+export const savePersonRegister = async (name: string, surname: string, photo: string, institutionID: string, status: string) => {
   return await prisma.person.create({
     data: {
       name,
       surname,
       photo,
-      institutionID
+      institutionID,
+      status
     }
   });
 }
@@ -33,4 +34,13 @@ export const getPersonsByInstitution = async (institutionID: string) => {
   return await prisma.person.findMany({
     where: { institutionID },
   })
+}
+
+export const updatePersonStateService = async (person_ID: number, status: string) => {
+    return await prisma.person.update({
+        where: { person_ID },
+        data: {
+          status,
+        }
+    });
 }

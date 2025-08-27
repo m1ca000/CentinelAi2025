@@ -12,7 +12,27 @@ export const UserCard: React.FC<UserCardProps> = ({ user, onInfo, onRestrict, on
   return (
     <div className="bg-gray-200 rounded-lg p-4 mb-3">
       <div className="flex justify-between items-center mb-3">
-        <div className="font-medium text-gray-800">{user.name}</div>
+        <div className="font-medium text-gray-800">
+          {user.photo && (
+            <img
+              src={user.photo}
+              alt={`${user.name} ${user.surname}`}
+              className="w-10 h-10 rounded-full object-cover border border-gray-400"
+            />
+          )}
+          <div className="font-medium text-gray-800">
+            {user.name} {user.surname}
+          </div>
+          <div
+              className={`text-xs font-semibold px-2 py-1 rounded inline-block ${
+                user.status === 'authorized'
+                  ? 'bg-green-200 text-green-800'
+                  : 'bg-red-200 text-red-800'
+              }`}
+            >
+              {user.status === 'authorized' ? 'Autorizado' : 'Restringido'}
+            </div>
+        </div>
       </div>
       
       <div className="flex space-x-2">
@@ -26,7 +46,7 @@ export const UserCard: React.FC<UserCardProps> = ({ user, onInfo, onRestrict, on
           onClick={() => onRestrict(user)}
           className="bg-gray-500 hover:bg-gray-600 text-white px-4 py-1 rounded text-sm transition-colors"
         >
-          Restringir
+          {user.status === 'authorized' ? 'Restringir' : 'Autorizar'}
         </button>
         <button 
           onClick={() => onDelete(user)}

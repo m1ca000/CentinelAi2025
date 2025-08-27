@@ -11,7 +11,7 @@ export const Activity: React.FC = () => {
   const [historyEntries, setHistoryEntries] = useState<ActivityEntry[]>([]);
   const [loading, setLoading] = useState(true);
   const { user, token } = useAuth();
-    const institutionID = user?.institutionID;
+  const institutionID = user?.institutionID;
 
   useEffect(() => {
     const fetchActivities = async () => {
