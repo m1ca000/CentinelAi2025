@@ -25,6 +25,12 @@ export const InstitutionSetupPage: React.FC = () => {
       return;
     }
 
+    if (phone.length < 10) {
+      setError('El número de teléfono debe tener al menos 10 caracteres');
+      setIsLoading(false);
+      return;
+    }
+
     try {
       const success = await createInstitution({
         name: institutionName,
