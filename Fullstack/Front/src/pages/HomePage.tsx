@@ -1,44 +1,18 @@
 import React from 'react';
 import { useAuth } from '../contexts/AuthContext';
 import { BarChart3, Users, Camera, Shield, TrendingUp, Activity } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
+
+const API_URL_LOCAL = import.meta.env.VITE_API_URL_LOCAL;
+const API_URL = import.meta.env.VITE_API_URL_DEPLOY;
 
 export const HomePage: React.FC = () => {
   const { user } = useAuth();
-
-  const stats = [
-    {
-      name: 'Dispositivos Activos',
-      value: '12',
-      change: '+2.1%',
-      changeType: 'positive',
-      icon: Camera,
-      color: 'bg-blue-500'
-    },
-    {
-      name: 'Usuarios Registrados',
-      value: '48',
-      change: '+5.4%',
-      changeType: 'positive',
-      icon: Users,
-      color: 'bg-green-500'
-    },
-    {
-      name: 'Eventos Hoy',
-      value: '127',
-      change: '+12.5%',
-      changeType: 'positive',
-      icon: Activity,
-      color: 'bg-purple-500'
-    },
-    {
-      name: 'Alertas Activas',
-      value: '3',
-      change: '-1.2%',
-      changeType: 'negative',
-      icon: Shield,
-      color: 'bg-orange-500'
-    }
-  ];
+  const [activeDevices, setActiveDevices] = React.useState<any[]>([]);
+  const [todayActivities, setTodayActivities] = React.useState<any[]>([]);
+  const [loading, setLoading] = React.useState(true);
+  const institutionID = user?.institutionID;
+  const navigate = useNavigate();
 
   const recentActivity = [
     { id: 1, user: 'Juan Pérez', action: 'Acceso autorizado', time: '2 min', type: 'success' },
@@ -46,6 +20,78 @@ export const HomePage: React.FC = () => {
     { id: 3, user: 'Carlos López', action: 'Salida registrada', time: '8 min', type: 'info' },
     { id: 4, user: 'Ana Martín', action: 'Acceso autorizado', time: '12 min', type: 'success' },
     { id: 5, user: 'Sistema', action: 'Cámara 3 desconectada', time: '15 min', type: 'error' }
+  ];
+  
+  React.useEffect(() => {
+  const fetchHomeData = async () => {
+    try {
+      const token = localStorage.getItem('token');
+      const institutionId = user?.institutionID; // asumimos que está en el token/contexto
+
+      if (!institutionId) return;
+
+      // Dispositivos activos
+      const devicesRes = await fetch(`${API_URL_LOCAL}/devices/active`, {
+        headers: { Authorization: `Bearer ${token}` }
+      });
+      const devicesData = await devicesRes.json();
+      setActiveDevices(devicesData);
+      console.log(devicesData)
+
+      // Actividad del día
+      const activityRes = await fetch(`${API_URL_LOCAL}/activity/day`, {
+        headers: { Authorization: `Bearer ${token}` }
+      });
+      const activityData = await activityRes.json();
+      setTodayActivities(activityData);
+
+    } catch (err) {
+      console.error('Error cargando datos de home:', err);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+    fetchHomeData();
+  }, [institutionID]);
+
+  if (loading) {
+    return <p className="text-center mt-10">Cargando datos...</p>;
+  }
+
+  const stats = [
+    {
+      name: 'Dispositivos Activos',
+      value: activeDevices.length,
+      change: '+2.1%',
+      changeType: 'positive',
+      icon: Camera,
+      color: 'bg-blue-500'
+    },
+    {
+      name: 'Usuarios Registrados',
+      value: 48, // <-- después podés reemplazarlo con un endpoint de usuarios
+      change: '+5.4%',
+      changeType: 'positive',
+      icon: Users,
+      color: 'bg-green-500'
+    },
+    {
+      name: 'Eventos Hoy',
+      value: todayActivities.length, // <-- la longitud del array del back
+      change: '+12.5%',
+      changeType: 'positive',
+      icon: Activity,
+      color: 'bg-purple-500'
+    },
+    {
+      name: 'Alertas Activas',
+      value: 3,
+      change: '-1.2%',
+      changeType: 'negative',
+      icon: Shield,
+      color: 'bg-orange-500'
+    }
   ];
 
   return (
@@ -96,50 +142,71 @@ export const HomePage: React.FC = () => {
           </div>
           <div className="p-6">
             <div className="space-y-4">
-              {recentActivity.map((activity) => (
-                <div key={activity.id} className="flex items-center justify-between py-3 border-b border-gray-100 last:border-b-0">
-                  <div className="flex items-center">
-                    <div className={`w-3 h-3 rounded-full mr-3 ${
-                      activity.type === 'success' ? 'bg-green-500' :
-                      activity.type === 'warning' ? 'bg-yellow-500' :
-                      activity.type === 'error' ? 'bg-red-500' : 'bg-blue-500'
-                    }`}></div>
-                    <div>
-                      <p className="text-sm font-medium text-gray-900">{activity.user}</p>
-                      <p className="text-sm text-gray-600">{activity.action}</p>
+              {todayActivities.length === 0 ? (
+                <p className="text-gray-500 text-sm">No hay actividad registrada hoy</p>
+              ) : (
+                todayActivities.map((activity: any) => (
+                  <div key={activity.activity_ID} className="flex items-center justify-between py-3 border-b border-gray-100 last:border-b-0">
+                    <div className="flex items-center">
+                      <div className="w-3 h-3 rounded-full mr-3 bg-green-500"></div>
+                      <div>
+                        <p className="text-sm font-medium text-gray-900">
+                          {activity.person?.name} {activity.person?.surname}
+                        </p>
+                        <p className="text-sm text-gray-600">
+                          Ingreso registrado
+                        </p>
+                      </div>
                     </div>
+                    <span className="text-sm text-gray-500">
+                      {new Date(activity.dateTime_in).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
+                    </span>
                   </div>
-                  <span className="text-sm text-gray-500">{activity.time}</span>
-                </div>
-              ))}
+                ))
+              )}
             </div>
           </div>
         </div>
 
         {/* Quick Actions */}
         <div className="bg-white rounded-xl shadow-sm border border-gray-200">
-          <div className="p-6 border-b border-gray-200">
-            <h2 className="text-xl font-semibold text-gray-900">Acciones Rápidas</h2>
-          </div>
-          <div className="p-6 space-y-4">
-            <button className="w-full bg-indigo-600 hover:bg-indigo-700 text-white py-3 px-4 rounded-lg font-medium transition-colors flex items-center justify-center">
-              <Camera className="h-5 w-5 mr-2" />
-              Ver Cámaras
-            </button>
-            <button className="w-full bg-green-600 hover:bg-green-700 text-white py-3 px-4 rounded-lg font-medium transition-colors flex items-center justify-center">
-              <Users className="h-5 w-5 mr-2" />
-              Gestionar Usuarios
-            </button>
-            <button className="w-full bg-purple-600 hover:bg-purple-700 text-white py-3 px-4 rounded-lg font-medium transition-colors flex items-center justify-center">
-              <BarChart3 className="h-5 w-5 mr-2" />
-              Ver Reportes
-            </button>
-            <button className="w-full bg-orange-600 hover:bg-orange-700 text-white py-3 px-4 rounded-lg font-medium transition-colors flex items-center justify-center">
-              <Shield className="h-5 w-5 mr-2" />
-              Configuración
-            </button>
-          </div>
+        <div className="p-6 border-b border-gray-200">
+          <h2 className="text-xl font-semibold text-gray-900">Acciones Rápidas</h2>
         </div>
+        <div className="p-6 space-y-4">
+          <button
+            onClick={() => navigate('/dashboard/devices')}
+            className="w-full bg-indigo-600 hover:bg-indigo-700 text-white py-3 px-4 rounded-lg font-medium transition-colors flex items-center justify-center"
+          >
+            <Camera className="h-5 w-5 mr-2" />
+            Ver Cámaras
+          </button>
+
+          <button
+            onClick={() => navigate('/dashboard/users')}
+            className="w-full bg-green-600 hover:bg-green-700 text-white py-3 px-4 rounded-lg font-medium transition-colors flex items-center justify-center"
+          >
+            <Users className="h-5 w-5 mr-2" />
+            Gestionar Usuarios
+          </button>
+
+          <button
+            onClick={() => navigate('/dashboard/activity')}
+            className="w-full bg-purple-600 hover:bg-purple-700 text-white py-3 px-4 rounded-lg font-medium transition-colors flex items-center justify-center"
+          >
+            <BarChart3 className="h-5 w-5 mr-2" />
+            Ver Actividad
+          </button>
+
+          <button
+            onClick={() => navigate('')}
+            className="w-full bg-orange-600 hover:bg-orange-700 text-white py-3 px-4 rounded-lg font-medium transition-colors flex items-center justify-center"
+          >
+            <Shield className="h-5 w-5 mr-2" />
+            Configuración
+          </button>
+        </div>
+      </div>
       </div>
 
       {/* System Status */}

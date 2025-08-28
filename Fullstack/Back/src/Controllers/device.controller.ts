@@ -1,4 +1,4 @@
-import { getDevicesService, createDeviceService, updateDeviceStateService, deleteDeviceService } from '../Services/device.service';
+import { getDevicesService, createDeviceService, updateDeviceStateService, deleteDeviceService, getActiveDevicesService } from '../Services/device.service';
 import { Request, Response } from 'express';
 
 export const getDevicesByInstitution = async (req: Request, res: Response) => {
@@ -42,4 +42,18 @@ export const deleteDevice = async (req: Request, res: Response) => {
     res.status(500).json({ error: 'Error al eliminar el dispositivo' });
     throw err;
   }
+};
+
+export const getActiveDevicesController = async (req: Request, res: Response) => {
+    try {
+        const inst = req.institutionID;
+        if (!inst) {
+            return res.status(400).json({ error: 'Faltan datos requeridos' });
+        }
+        const activeDevices = await getActiveDevicesService(inst);
+        return res.status(200).json(activeDevices);
+    } catch (err) {
+        res.status(500).json({ error: 'Error al obtener los dispositivos' });
+        throw err;
+    }
 };

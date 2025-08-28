@@ -33,3 +33,15 @@ export const deleteDeviceService = async (device_ID: number) => {
         where: { device_ID }
     });
 };
+
+export const getActiveDevicesService = async (institutionID: string) => {
+    return await prisma.device.findMany({
+        where: {
+            institutionID,
+            state: 'active',
+        },
+        orderBy: {
+            state: 'desc', // las más recientes primero
+        },
+    });
+};

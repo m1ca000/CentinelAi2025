@@ -1,4 +1,4 @@
-import { uploadActivityService, updateActivityService, getActivitiesService } from "../Services/activity.service";
+import { uploadActivityService, updateActivityService, getActivitiesService, getActivityDayService } from "../Services/activity.service";
 import { Request, Response } from "express";
 
 export const uploadActivityController = async (req: Request, res: Response) => {
@@ -42,4 +42,19 @@ export const getActivitiesController = async (req: Request, res: Response) => {
         res.status(500).json({ error: 'Error al obtener las actividades' });
         throw err;
     }
-}   
+}
+
+export const getActivityDayController = async (req: Request, res: Response) => {
+    try {
+        const inst = req.institutionID;
+        const date = new Date(req.query.date as string);
+        if (!inst || !date) {
+            return res.status(400).json({ error: 'Faltan datos requeridos' });
+        }
+        const activities = await getActivityDayService(inst, date);
+        return res.status(200).json(activities);
+    } catch (err) {
+        res.status(500).json({ error: 'Error al obtener las actividades del día' });
+        throw err;
+    }
+};
