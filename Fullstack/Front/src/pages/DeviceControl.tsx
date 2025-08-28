@@ -14,6 +14,22 @@ export const DeviceControl: React.FC = () => {
   const [devices, setDevices] = useState<Device[]>([]);
   const { user, token } = useAuth();
   const institutionID = user?.institutionID; // Cambia esto según tu lógica para obtener el ID de la institución
+  
+  const handleRestrict = async (device: Device) => {
+    try {
+      const newStatus = device.active === 'active' ? 'inactive' : 'active';
+
+      await axios.put(
+        `${API_URL_LOCAL}/devices/updateState`,
+        { device_ID: device.id, state: newStatus },
+        { headers: { Authorization: `Bearer ${token}` } }
+      );
+
+      setDevices(devices.map(d => d.id === device.id ? { ...d, active: newStatus } : d));
+    } catch (err) {
+      console.error("Error updating device:", err);
+    }
+  };
   // useEffect para obtener dispositivos al montar el componente
   useEffect(() => {
     const fetchDevices = async () => {
@@ -120,7 +136,7 @@ export const DeviceControl: React.FC = () => {
               <DeviceCard
                 key={device.id}
                 device={device}
-                onToggle={() => toggleDeviceStatus(device.id)}
+                onRestrict={handleRestrict}
               />
             ))}
             {cameras.length === 0 && (
@@ -136,7 +152,7 @@ export const DeviceControl: React.FC = () => {
               <DeviceCard
                 key={device.id}
                 device={device}
-                onToggle={() => toggleDeviceStatus(device.id)}
+                onRestrict={handleRestrict}
               />
             ))}
             {turnstiles.length === 0 && (

@@ -4,14 +4,11 @@ import type { Device } from '../types';
 
 interface DeviceCardProps {
   device: Device;
-  onToggle: (id: number, desiredState: 'active' | 'inactive') => void;
+  onRestrict: (device: Device) => void;
 }
 
-export const DeviceCard: React.FC<DeviceCardProps> = ({ device, onToggle }) => {
-  const handleAction = async (action: string) => {
-    const newState = device.active === 'active' ? 'inactive' : 'active';
-    onToggle(device.id, newState);
-     /*
+export const DeviceCard: React.FC<DeviceCardProps> = ({ device, onRestrict }) => {
+  /*
     // Replace with your actual backend URL
     const apiUrl = 'https://centinel-ai2025.vercel.app/led';
 
@@ -36,8 +33,6 @@ export const DeviceCard: React.FC<DeviceCardProps> = ({ device, onToggle }) => {
       }
     }
     */
-  };
-
   
   return (
     <div className="bg-gray-200 rounded-lg overflow-hidden">
@@ -49,24 +44,18 @@ export const DeviceCard: React.FC<DeviceCardProps> = ({ device, onToggle }) => {
       </div>
       <div className="flex bg-gray-200 p-2">
         <button
-          onClick={() => handleAction('encender')}
-          className="flex items-center justify-center bg-indigo-500 hover:bg-indigo-600 text-white rounded py-1 px-3 text-sm mr-2 transition-colors"
+          onClick={() => onRestrict(device)}
+          className={`flex items-center justify-center ${
+            device.active === 'active' ? 'bg-red-500 hover:bg-red-600' : 'bg-indigo-500 hover:bg-indigo-600'
+          } text-white rounded py-1 px-3 text-sm mr-2 transition-colors`}
         >
-          <Play size={16} className="mr-1" />
-          Prender
+          {device.active === 'active' ? 'Apagar' : 'Prender'}
         </button>
-        
+
         <button
-          onClick={() => handleAction('apagar')}
-          className="flex items-center justify-center bg-red-500 hover:bg-red-600 text-white rounded py-1 px-3 text-sm mr-2 transition-colors"
-        >
-          <Square size={16} className="mr-1" />
-          Apagar
-        </button>
-        
-        <button
-          onClick={() => handleAction('eliminar')}
+          onClick={() => console.log('Eliminar', device.id)}
           className="flex items-center justify-center bg-gray-500 hover:bg-gray-600 text-white rounded py-1 px-3 text-sm transition-colors"
+
         >
           <RotateCw size={16} className="mr-1" />
           Eliminar
