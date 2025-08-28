@@ -27,8 +27,33 @@ export const RegisterPage: React.FC = () => {
       return;
     }
 
-    if (password.length < 6) {
-      setError('La contraseña debe tener al menos 6 caracteres');
+    if (password.length < 12) {
+      setError('La contraseña debe tener al menos 12 caracteres');
+      setIsLoading(false);
+      return;
+    }
+
+    
+    if (!/[!@#$%^&*(),.?":{}|<>]/.test(password)) {
+      setError('La contraseña debe incluir al menos un caracter especial');
+      setIsLoading(false);
+      return;
+    }
+
+    if (!/[A-Z]/.test(password)) {
+      setError('La contraseña debe incluir al menos una letra mayúscula');
+      setIsLoading(false);
+      return;
+    }
+
+    if (!/[0-9]/.test(password)) {
+      setError('La contraseña debe incluir al menos un número');
+      setIsLoading(false);
+      return;
+    }
+
+    if (!/^[^@]+@[^@]+\.[^@]+$/.test(email)) {
+      setError('El email debe contener al menos un @ y un punto');
       setIsLoading(false);
       return;
     }
