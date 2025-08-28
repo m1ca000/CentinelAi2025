@@ -26,3 +26,9 @@ export const getActivitiesService = async (institutionID: string) => {
         include: { person: true }
     });
 };
+
+export const deleteActivityService = async (personID: number) => {
+    return await prisma.activity.deleteMany({
+        where: { personID }
+    });
+};

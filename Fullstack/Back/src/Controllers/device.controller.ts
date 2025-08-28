@@ -1,4 +1,4 @@
-import { getDevicesService, createDeviceService, updateDeviceStateService } from '../Services/device.service';
+import { getDevicesService, createDeviceService, updateDeviceStateService, deleteDeviceService } from '../Services/device.service';
 import { Request, Response } from 'express';
 
 export const getDevicesByInstitution = async (req: Request, res: Response) => {
@@ -29,6 +29,17 @@ export const updateDeviceState = async (req: Request, res: Response) => {
     res.json({ message: 'Estado del dispositivo actualizado con éxito', device: updatedDevice });
   } catch (err) {
     res.status(500).json({ error: 'Error al actualizar el estado del dispositivo' });
+    throw err;
+  }
+};
+
+export const deleteDevice = async (req: Request, res: Response) => {
+  try {
+    const { device_ID } = req.body;
+    await deleteDeviceService(device_ID);
+    res.json({ message: 'Dispositivo eliminado con éxito' });
+  } catch (err) {
+    res.status(500).json({ error: 'Error al eliminar el dispositivo' });
     throw err;
   }
 };

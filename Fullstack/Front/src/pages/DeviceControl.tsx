@@ -30,6 +30,22 @@ export const DeviceControl: React.FC = () => {
       console.error("Error updating device:", err);
     }
   };
+
+  const handleDelete = async (device: Device) => {
+    if (window.confirm(`¿Seguro que querés eliminar a ${device.name}?`)) {
+      try {
+        await axios.delete(`${API_URL_LOCAL}/devices/deleteDevice`, {
+          headers: { Authorization: `Bearer ${token}` },
+          data: { device_ID: device.id },
+        });
+
+        setDevices(devices.filter(d => d.id !== device.id));
+      } catch (err) {
+        console.error("Error deleting device:", err);
+      }
+    }
+  };
+
   // useEffect para obtener dispositivos al montar el componente
   useEffect(() => {
     const fetchDevices = async () => {
@@ -56,35 +72,6 @@ export const DeviceControl: React.FC = () => {
     };
     fetchDevices();
   }, [institutionID]);
-
-  
-
-  const toggleDeviceStatus = async (id: number, ) => {
-  const deviceToUpdate = devices.find(d => d.id === id);
-  if (!deviceToUpdate) return;
-
-  const newState = deviceToUpdate.active === 'active' ? 'inactive' : 'active';
-
-  try {
-    const response =await axios.put(
-      `${API_URL_LOCAL}/devices/updateState`,
-      { device_ID: id, state: newState },
-      { headers: { Authorization: `Bearer ${token}` } }
-    );
-
-    const updatedState = response.data.state;
-
-    // Actualizo el estado de React con lo real de la BD
-    setDevices((prevDevices) =>
-      prevDevices.map((device) =>
-        device.id === id ? { ...device, active: updatedState } : device
-      )
-    );
-  } catch (err) {
-    console.error('Error al actualizar dispositivo:', err);
-  }
-};
-
 
   const handleAddDevice = async (device: Omit<Device, 'id'>) => {
     try {
@@ -137,6 +124,7 @@ export const DeviceControl: React.FC = () => {
                 key={device.id}
                 device={device}
                 onRestrict={handleRestrict}
+                onDelete={handleDelete}
               />
             ))}
             {cameras.length === 0 && (
@@ -153,6 +141,7 @@ export const DeviceControl: React.FC = () => {
                 key={device.id}
                 device={device}
                 onRestrict={handleRestrict}
+                onDelete={handleDelete}
               />
             ))}
             {turnstiles.length === 0 && (

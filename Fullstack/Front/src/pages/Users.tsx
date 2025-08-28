@@ -62,7 +62,6 @@ export const Users: React.FC = () => {
 
   const handleInfo = (user: User) => {
     alert(`
-      ID: ${user.id}
       Nombre: ${user.name} ${user.surname}
       Estado: ${user.status}
       Foto: ${user.photo ?? "-"}
@@ -88,8 +87,9 @@ export const Users: React.FC = () => {
   const handleDelete = async (user: User) => {
     if (window.confirm(`¿Seguro que querés eliminar a ${user.name} ${user.surname}?`)) {
       try {
-        await axios.delete(`${API_URL_LOCAL}/person/${user.id}`, {
+        await axios.delete(`${API_URL_LOCAL}/person/deletePerson`, {
           headers: { Authorization: `Bearer ${token}` },
+          data: { person_ID: user.id },
         });
 
         setUsers(users.filter(u => u.id !== user.id));

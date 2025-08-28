@@ -44,3 +44,9 @@ export const updatePersonStateService = async (person_ID: number, status: string
         }
     });
 }
+
+export const deletePersonService = async (person_ID: number) => {
+    return await prisma.person.delete({
+        where: { person_ID }
+    });
+};

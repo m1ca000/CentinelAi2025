@@ -1,6 +1,7 @@
-import { savePersonRegister, getPersonsByInstitution, uploadImage, updatePersonStateService } from "../Services/person.service";
+import { savePersonRegister, getPersonsByInstitution, uploadImage, updatePersonStateService, deletePersonService } from "../Services/person.service";
 import { Request, Response } from "express";
 import axios from "axios";
+import { deleteActivityService } from "../Services/activity.service";
 
 const AI_URL = process.env.AI_URL || "http://127.0.0.1:8000";
 
@@ -65,4 +66,18 @@ export const updatePersonStateController = async (req: Request, res: Response) =
         res.status(500).json({ error: 'Error al actualizar el estado de la persona' });
         throw err;
     }
-};  
+}; 
+
+export const deletePerson = async (req: Request, res: Response) => {
+  try {
+    const { person_ID } = req.body;
+
+    await deleteActivityService(person_ID);
+    await deletePersonService(person_ID);
+    
+    res.json({ message: 'Persona eliminada con éxito' });
+  } catch (err) {
+    res.status(500).json({ error: 'Error al eliminar la persona' });
+    throw err;
+  }
+};

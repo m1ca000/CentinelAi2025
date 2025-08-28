@@ -27,3 +27,9 @@ export const updateDeviceStateService = async (device_ID: number, state: string)
         }
     });
 }
+
+export const deleteDeviceService = async (device_ID: number) => {
+    return await prisma.device.delete({
+        where: { device_ID }
+    });
+};

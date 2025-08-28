@@ -17,7 +17,7 @@ export const AddDeviceModal: React.FC<AddDeviceModalProps> = ({ onAdd, onClose }
       onAdd({
         name: deviceName,
         type: deviceType,
-        active: false,
+        active: 'active',
       });
     }
   };

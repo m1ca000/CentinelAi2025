@@ -5,9 +5,10 @@ import type { Device } from '../types';
 interface DeviceCardProps {
   device: Device;
   onRestrict: (device: Device) => void;
+  onDelete: (device: Device) => void;
 }
 
-export const DeviceCard: React.FC<DeviceCardProps> = ({ device, onRestrict }) => {
+export const DeviceCard: React.FC<DeviceCardProps> = ({ device, onRestrict, onDelete }) => {
   /*
     // Replace with your actual backend URL
     const apiUrl = 'https://centinel-ai2025.vercel.app/led';
@@ -53,7 +54,7 @@ export const DeviceCard: React.FC<DeviceCardProps> = ({ device, onRestrict }) =>
         </button>
 
         <button
-          onClick={() => console.log('Eliminar', device.id)}
+          onClick={() => onDelete(device)}
           className="flex items-center justify-center bg-gray-500 hover:bg-gray-600 text-white rounded py-1 px-3 text-sm transition-colors"
 
         >
