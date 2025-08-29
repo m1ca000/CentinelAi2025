@@ -34,12 +34,17 @@ export const deleteActivityService = async (personID: number) => {
 };
 
 export const getActivityDayService = async (institutionID: string, date: Date) => {
+    const startOfDay = new Date();
+    startOfDay.setHours(0, 0, 0, 0);
+
+    const endOfDay = new Date();
+    endOfDay.setHours(23, 59, 59, 999);
     return await prisma.activity.findMany({
         where: {
             institutionID,
             dateTime_in: {
-                gte: new Date(date.setHours(0, 0, 0, 0)),
-                lt: new Date(date.setHours(23, 59, 59, 999))
+                gte: startOfDay,
+                lt: endOfDay
             }
         },
         orderBy: {

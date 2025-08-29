@@ -7,9 +7,10 @@ const API_URL_LOCAL = import.meta.env.VITE_API_URL_LOCAL;
 const API_URL = import.meta.env.VITE_API_URL_DEPLOY;
 
 export const HomePage: React.FC = () => {
-  const { user } = useAuth();
+  const { user, token } = useAuth();
   const [activeDevices, setActiveDevices] = React.useState<any[]>([]);
   const [todayActivities, setTodayActivities] = React.useState<any[]>([]);
+  const [persons, setPersons] = React.useState<any[]>([]);
   const [loading, setLoading] = React.useState(true);
   const institutionID = user?.institutionID;
   const navigate = useNavigate();
@@ -24,19 +25,13 @@ export const HomePage: React.FC = () => {
   
   React.useEffect(() => {
   const fetchHomeData = async () => {
-    try {
-      const token = localStorage.getItem('token');
-      const institutionId = user?.institutionID; // asumimos que está en el token/contexto
-
-      if (!institutionId) return;
-
+    try { 
       // Dispositivos activos
       const devicesRes = await fetch(`${API_URL_LOCAL}/devices/active`, {
         headers: { Authorization: `Bearer ${token}` }
       });
       const devicesData = await devicesRes.json();
       setActiveDevices(devicesData);
-      console.log(devicesData)
 
       // Actividad del día
       const activityRes = await fetch(`${API_URL_LOCAL}/activity/day`, {
@@ -44,6 +39,12 @@ export const HomePage: React.FC = () => {
       });
       const activityData = await activityRes.json();
       setTodayActivities(activityData);
+
+      const personRes = await fetch(`${API_URL_LOCAL}/person/`, {
+        headers: { Authorization: `Bearer ${token}` }
+      });
+      const personData = await personRes.json();
+      setPersons(personData);
 
     } catch (err) {
       console.error('Error cargando datos de home:', err);
@@ -63,23 +64,20 @@ export const HomePage: React.FC = () => {
     {
       name: 'Dispositivos Activos',
       value: activeDevices.length,
-      change: '+2.1%',
       changeType: 'positive',
       icon: Camera,
       color: 'bg-blue-500'
     },
     {
       name: 'Usuarios Registrados',
-      value: 48, // <-- después podés reemplazarlo con un endpoint de usuarios
-      change: '+5.4%',
+      value: persons.length,
       changeType: 'positive',
       icon: Users,
       color: 'bg-green-500'
     },
     {
       name: 'Eventos Hoy',
-      value: todayActivities.length, // <-- la longitud del array del back
-      change: '+12.5%',
+      value: todayActivities.length,
       changeType: 'positive',
       icon: Activity,
       color: 'bg-purple-500'
@@ -87,7 +85,6 @@ export const HomePage: React.FC = () => {
     {
       name: 'Alertas Activas',
       value: 3,
-      change: '-1.2%',
       changeType: 'negative',
       icon: Shield,
       color: 'bg-orange-500'
@@ -122,12 +119,6 @@ export const HomePage: React.FC = () => {
                 </div>
               </div>
               <div className="mt-4 flex items-center">
-                <span className={`text-sm font-medium ${
-                  stat.changeType === 'positive' ? 'text-green-600' : 'text-red-600'
-                }`}>
-                  {stat.change}
-                </span>
-                <span className="text-sm text-gray-500 ml-2">vs mes anterior</span>
               </div>
             </div>
           );
