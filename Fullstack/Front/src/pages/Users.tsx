@@ -87,7 +87,7 @@ export const Users: React.FC = () => {
   const handleDelete = async (user: User) => {
     if (window.confirm(`¿Seguro que querés eliminar a ${user.name} ${user.surname}?`)) {
       try {
-        await axios.delete(`${API_URL_LOCAL}/person/deletePerson`, {
+        await axios.delete(`${API_URL}/person/deletePerson`, {
           headers: { Authorization: `Bearer ${token}` },
           data: { person_ID: user.id },
         });

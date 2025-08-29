@@ -16,7 +16,7 @@ export const Activity: React.FC = () => {
   useEffect(() => {
     const fetchActivities = async () => {
       try {
-        const res = await axios.get(`${API_URL_LOCAL}/activity/`,
+        const res = await axios.get(`${API_URL}/activity/`,
           {
             headers: {
               Authorization: `Bearer ${token}`,

@@ -29,7 +29,7 @@ export const AddUserModal: React.FC<AddUserModalProps> = ({ onAdd, onClose }) =>
         formData.append("photo", photo);
       }
 
-      const res = await axios.post(`${API_URL_LOCAL}/person/subirFoto`, formData, {
+      const res = await axios.post(`${API_URL}/person/subirFoto`, formData, {
         headers: {
           Authorization: `Bearer ${token}`,
           "Content-Type": "multipart/form-data",

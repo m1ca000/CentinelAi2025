@@ -38,7 +38,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
 
   const login = async (email: string, password: string): Promise<boolean> => {
     try {
-      const res = await axios.post(`${API_URL_LOCAL}/admin/loginAdmin`, {
+      const res = await axios.post(`${API_URL}/admin/loginAdmin`, {
         email,
         password,
       });
@@ -71,7 +71,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
 
   const register = async (email: string, name: string, password: string): Promise<boolean> => {
     try {
-      const res = await axios.post(`${API_URL_LOCAL}/admin/registerAdmin`, {
+      const res = await axios.post(`${API_URL}/admin/registerAdmin`, {
         email,
         name,
         password,
@@ -114,7 +114,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   const createInstitution = async (institution: { name: string; address: string; phone: string; type: string; }): Promise<boolean> => {
     try {
       const res = await axios.post(
-        `${API_URL_LOCAL}/institution/`,
+        `${API_URL}/institution/`,
         institution,
         {
           headers: { Authorization: `Bearer ${token}` },

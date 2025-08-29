@@ -27,20 +27,20 @@ export const HomePage: React.FC = () => {
   const fetchHomeData = async () => {
     try { 
       // Dispositivos activos
-      const devicesRes = await fetch(`${API_URL_LOCAL}/devices/active`, {
+      const devicesRes = await fetch(`${API_URL}/devices/active`, {
         headers: { Authorization: `Bearer ${token}` }
       });
       const devicesData = await devicesRes.json();
       setActiveDevices(devicesData);
 
       // Actividad del día
-      const activityRes = await fetch(`${API_URL_LOCAL}/activity/day`, {
+      const activityRes = await fetch(`${API_URL}/activity/day`, {
         headers: { Authorization: `Bearer ${token}` }
       });
       const activityData = await activityRes.json();
       setTodayActivities(activityData);
 
-      const personRes = await fetch(`${API_URL_LOCAL}/person/`, {
+      const personRes = await fetch(`${API_URL}/person/`, {
         headers: { Authorization: `Bearer ${token}` }
       });
       const personData = await personRes.json();
