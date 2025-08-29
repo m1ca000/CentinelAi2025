@@ -20,7 +20,7 @@ export const DeviceControl: React.FC = () => {
       const newStatus = device.active === 'active' ? 'inactive' : 'active';
 
       await axios.put(
-        `${API_URL_LOCAL}/devices/updateState`,
+        `${API_URL}/devices/updateState`,
         { device_ID: device.id, state: newStatus },
         { headers: { Authorization: `Bearer ${token}` } }
       );
@@ -34,7 +34,7 @@ export const DeviceControl: React.FC = () => {
   const handleDelete = async (device: Device) => {
     if (window.confirm(`¿Seguro que querés eliminar a ${device.name}?`)) {
       try {
-        await axios.delete(`${API_URL_LOCAL}/devices/deleteDevice`, {
+        await axios.delete(`${API_URL}/devices/deleteDevice`, {
           headers: { Authorization: `Bearer ${token}` },
           data: { device_ID: device.id },
         });
@@ -50,7 +50,7 @@ export const DeviceControl: React.FC = () => {
   useEffect(() => {
     const fetchDevices = async () => {
       try {
-        const response = await axios.get(`${API_URL_LOCAL}/devices/`,
+        const response = await axios.get(`${API_URL}/devices/`,
           {
             headers: {
               Authorization: `Bearer ${token}`,
@@ -82,7 +82,7 @@ export const DeviceControl: React.FC = () => {
       };
       
       // Realiza la solicitud POST al backend
-      const response = await axios.post(`${API_URL_LOCAL}/devices/`, payload,
+      const response = await axios.post(`${API_URL}/devices/`, payload,
         { headers: { Authorization: `Bearer ${token}` } }
       );
       const newDevice: Device = {
