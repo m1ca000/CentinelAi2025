@@ -14,14 +14,6 @@ export const HomePage: React.FC = () => {
   const [loading, setLoading] = React.useState(true);
   const institutionID = user?.institutionID;
   const navigate = useNavigate();
-
-  const recentActivity = [
-    { id: 1, user: 'Juan Pérez', action: 'Acceso autorizado', time: '2 min', type: 'success' },
-    { id: 2, user: 'María García', action: 'Intento de acceso', time: '5 min', type: 'warning' },
-    { id: 3, user: 'Carlos López', action: 'Salida registrada', time: '8 min', type: 'info' },
-    { id: 4, user: 'Ana Martín', action: 'Acceso autorizado', time: '12 min', type: 'success' },
-    { id: 5, user: 'Sistema', action: 'Cámara 3 desconectada', time: '15 min', type: 'error' }
-  ];
   
   React.useEffect(() => {
   const fetchHomeData = async () => {
@@ -76,7 +68,7 @@ export const HomePage: React.FC = () => {
       color: 'bg-green-500'
     },
     {
-      name: 'Eventos Hoy',
+      name: 'Ingresos Hoy',
       value: todayActivities.length,
       changeType: 'positive',
       icon: Activity,
@@ -84,7 +76,7 @@ export const HomePage: React.FC = () => {
     },
     {
       name: 'Alertas Activas',
-      value: 3,
+      value: 0,
       changeType: 'negative',
       icon: Shield,
       color: 'bg-orange-500'
@@ -199,8 +191,8 @@ export const HomePage: React.FC = () => {
         </div>
       </div>
       </div>
-
-      {/* System Status */}
+      {/*
+      System Status
       <div className="mt-6 bg-white rounded-xl shadow-sm border border-gray-200">
         <div className="p-6 border-b border-gray-200">
           <h2 className="text-xl font-semibold text-gray-900">Estado del Sistema</h2>
@@ -242,6 +234,7 @@ export const HomePage: React.FC = () => {
           </div>
         </div>
       </div>
+      */}
     </div>
   );
 };

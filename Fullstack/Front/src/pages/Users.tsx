@@ -19,7 +19,7 @@ export const Users: React.FC = () => {
  useEffect(() => {
   const fetchUsers = async () => {
     try {
-      const res = await axios.get(`${API_URL_LOCAL}/person/`, {
+      const res = await axios.get(`${API_URL}/person/`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -50,7 +50,7 @@ export const Users: React.FC = () => {
 
   const handleAddUser = async (user: Omit<User, 'id'>) => {
     try {
-      const res = await axios.post(`${API_URL_LOCAL}/person`, user, {
+      const res = await axios.post(`${API_URL}/person`, user, {
         headers: { Authorization: `Bearer ${token}` },
       });
       setUsers([...users, res.data]);
@@ -73,7 +73,7 @@ export const Users: React.FC = () => {
       const newStatus = user.status === 'authorized' ? 'restricted' : 'authorized';
 
       await axios.put(
-        `${API_URL_LOCAL}/person/updateState`,
+        `${API_URL}/person/updateState`,
         { person_ID: user.id, status: newStatus },
         { headers: { Authorization: `Bearer ${token}` } }
       );
