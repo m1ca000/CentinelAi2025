@@ -8,6 +8,11 @@ const router = express.Router();
 //Configuración multer
 const storage = multer.memoryStorage();
 const upload = multer({ storage: storage });
+export const config = {
+  api: {
+    bodyParser: false,
+  },
+};
 
 router.post('/subirFoto', upload.single('photo'), authMidd.verifyToken, uploadPerson);
 router.get('/', authMidd.verifyToken, getPersonsControllers);
