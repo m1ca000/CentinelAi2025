@@ -10,10 +10,6 @@ const corsOptions = {
     methods: ['GET', 'POST', 'PUT', 'DELETE'], // permitir métodos HTTP
     allowedHeaders: ['Content-Type', 'Authorization'], // permitir headers
   };
-//Ruta que usa multer
-import personRoutes from './Routes/person.routes'
-app.use('/person', personRoutes)
-
 app.use(cors(corsOptions));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
@@ -31,7 +27,8 @@ app.use('/institution', institutionRoutes);
 import adminRoutes from './Routes/admin.routes';
 app.use('/admin', adminRoutes)
 
-
+import personRoutes from './Routes/person.routes'
+app.use('/person', personRoutes)
 
 import activityRoutes from './Routes/activity.routes';
 app.use('/activity', activityRoutes);
