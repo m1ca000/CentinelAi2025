@@ -50,10 +50,23 @@ export const Users: React.FC = () => {
 
   const handleAddUser = async (user: Omit<User, 'id'>) => {
     try {
-      const res = await axios.post(`${API_URL}/person`, user, {
+      const payload = {
+        name: user.name,
+        surname: user.surname,
+        photo: user.photo,
+        status: user.status,
+      };
+      const res = await axios.post(`${API_URL}/person/subirFoto`, payload, {
         headers: { Authorization: `Bearer ${token}` },
       });
-      setUsers([...users, res.data]);
+      const newUser: User = { 
+        id: res.data.person_ID,
+        name: res.data.name,
+        surname: res.data.surname,
+        photo: res.data.photo,
+        status: res.data.status,
+      };
+      setUsers([...users, newUser]);
       setShowModal(false);
     } catch (err) {
       console.error("Error adding user:", err);

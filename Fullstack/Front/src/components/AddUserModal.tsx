@@ -17,29 +17,16 @@ export const AddUserModal: React.FC<AddUserModalProps> = ({ onAdd, onClose }) =>
   const [surname, setSurname] = useState("");
   const [status, setStatus] = useState<"authorized" | "restricted">("authorized");
   const [photo, setPhoto] = useState<File | null>(null);
-  const { user, token } = useAuth();
 
-  const handleSubmit = async (e: React.FormEvent) => {
-    try {
-      const formData = new FormData();
-      formData.append("name", name);
-      formData.append("surname", surname);
-      formData.append("status", status);
-      if (photo) {
-        formData.append("photo", photo);
-      }
-
-      const res = await axios.post(`${API_URL}/person/subirFoto`, formData, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-          "Content-Type": "multipart/form-data",
-        },
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (name.trim()) {
+      onAdd({
+        name: name,
+        surname: surname,
+        status: status,
+        photo: photo ? URL.createObjectURL(photo) : undefined,
       });
-
-      onAdd(res.data); // agregar el usuario devuelto por el backend
-      onClose();
-    } catch (err) {
-      console.error("Error al registrar persona:", err);
     }
   };
 
