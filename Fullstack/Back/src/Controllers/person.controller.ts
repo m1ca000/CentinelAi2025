@@ -13,7 +13,7 @@ export const uploadPerson = async (req: Request, res: Response) => {
         const imageUrl = await uploadImage(req.file.buffer);
         const person = await savePersonRegister(req.body.name, req.body.surname, imageUrl, String(req.institutionID), req.body.status);
 
-        return res.status(201).json({ message: 'Persona registrada con exito' });
+        return res.status(201).json({ message: 'Persona registrada con exito', person });
     } catch(err) {
         throw err
     }
