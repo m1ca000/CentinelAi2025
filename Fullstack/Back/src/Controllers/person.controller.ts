@@ -1,4 +1,4 @@
-import { savePersonRegister, getPersonsByInstitution, uploadImage, updatePersonStateService, deletePersonService } from "../Services/person.service";
+import { savePersonRegister, getPersonsByInstitution, uploadImage, updatePersonStateService, deletePersonService, getPersonsIA } from "../Services/person.service";
 import { Request, Response } from "express";
 import axios from "axios";
 import { deleteActivityService } from "../Services/activity.service";
@@ -19,12 +19,9 @@ export const uploadPerson = async (req: Request, res: Response) => {
     }
 }
 
-export const getPersonsIAControllers = async (req: Request, res: Response) => {
+export const getPersonsControllersIA = async (req: Request, res: Response) => {
     try {
-        const Persons = await getPersonsByInstitution(String(req.institutionID))
-        // Mandar a IA (ngrok)
-        await axios.post(`${AI_URL}/update_faces`, Persons );
-
+        const Persons = await getPersonsIA();
         res.json(Persons);
     } catch(err) {
         res.status(500).json({ error: 'Error al obtener las personas' });

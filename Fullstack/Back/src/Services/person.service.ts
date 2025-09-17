@@ -50,3 +50,7 @@ export const deletePersonService = async (person_ID: number) => {
         where: { person_ID }
     });
 };
+
+export const getPersonsIA = async () => {
+  return await prisma.person.findMany({})
+}

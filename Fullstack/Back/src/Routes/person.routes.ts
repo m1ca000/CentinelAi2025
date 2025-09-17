@@ -1,5 +1,5 @@
 import express from 'express';
-import { getPersonsControllers, uploadPerson, getLastRecognizedController, updatePersonStateController, deletePerson } from '../Controllers/person.controller'
+import { getPersonsControllers, uploadPerson, getLastRecognizedController, updatePersonStateController, deletePerson, getPersonsControllersIA } from '../Controllers/person.controller'
 import multer from 'multer'
 import authMidd from '../Middleware/auth';
 
@@ -19,5 +19,6 @@ router.get('/', authMidd.verifyToken, getPersonsControllers);
 router.get('/lastRecognized', authMidd.verifyToken, getLastRecognizedController);
 router.put('/updateState', authMidd.verifyToken, updatePersonStateController);
 router.delete('/deletePerson', authMidd.verifyToken, deletePerson);
+router.get('/getPersonsIA', getPersonsControllersIA);
 
 export default router;
