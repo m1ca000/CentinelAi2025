@@ -16,7 +16,7 @@ export const config = {
 
 router.post('/subirFoto', upload.single('photo'), authMidd.verifyToken, uploadPerson);
 router.get('/', authMidd.verifyToken, getPersonsControllers);
-router.get('/lastRecognized', authMidd.verifyToken, getLastRecognizedController);
+router.get('/lastRecognized', getLastRecognizedController);
 router.put('/updateState', authMidd.verifyToken, updatePersonStateController);
 router.delete('/deletePerson', authMidd.verifyToken, deletePerson);
 router.get('/getPersonsIA', getPersonsControllersIA);

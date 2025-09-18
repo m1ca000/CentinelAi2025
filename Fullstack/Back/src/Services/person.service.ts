@@ -54,3 +54,9 @@ export const deletePersonService = async (person_ID: number) => {
 export const getPersonsIA = async () => {
   return await prisma.person.findMany({})
 }
+
+export const getPersonsById = async (person_ID: number) => {
+  return await prisma.person.findMany({
+    where: { person_ID },
+  })
+}

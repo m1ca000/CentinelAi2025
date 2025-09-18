@@ -1,4 +1,4 @@
-import { savePersonRegister, getPersonsByInstitution, uploadImage, updatePersonStateService, deletePersonService, getPersonsIA } from "../Services/person.service";
+import { savePersonRegister, getPersonsByInstitution, uploadImage, updatePersonStateService, deletePersonService, getPersonsIA, getPersonsById } from "../Services/person.service";
 import { Request, Response } from "express";
 import axios from "axios";
 import { deleteActivityService } from "../Services/activity.service";
@@ -31,9 +31,11 @@ export const getPersonsControllersIA = async (req: Request, res: Response) => {
 
 export const getLastRecognizedController = async (req: Request, res: Response) => {
     try {
-        const response = await axios.get("http://127.0.0.1:8000/last_recognized");
-
-        res.json(response.data);
+        const Person = await getPersonsById(req.body.person_ID);
+        if (Person.length === 0) {
+            return res.status(404).json({ error: "Persona no encontrada" });
+        }
+        res.json(Person[0]);
     } catch (err) {
         console.error("Error en getLastRecognizedController:", err);
         res.status(500).json({ error: "Error al consultar el último reconocido" });
