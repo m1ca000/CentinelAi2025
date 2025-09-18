@@ -8,7 +8,13 @@ const API_URL_LOCAL = import.meta.env.VITE_API_URL_LOCAL;
 const API_URL = import.meta.env.VITE_API_URL_DEPLOY;
 
 interface AddUserModalProps {
-  onAdd: (user: Omit<User, 'id'>) => void;
+  // Define un nuevo tipo para el objeto que se pasará a onAdd
+  onAdd: (user: {
+    name: string;
+    surname: string;
+    status: 'authorized' | 'restricted';
+    photo?: File | null; // El tipo correcto es File | null
+  }) => void;
   onClose: () => void;
 }
 
@@ -17,7 +23,7 @@ export const AddUserModal: React.FC<AddUserModalProps> = ({ onAdd, onClose }) =>
   const [surname, setSurname] = useState("");
   const [status, setStatus] = useState<"authorized" | "restricted">("authorized");
   const [photo, setPhoto] = useState<File | null>(null);
-
+  
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (name.trim()) {
@@ -25,7 +31,7 @@ export const AddUserModal: React.FC<AddUserModalProps> = ({ onAdd, onClose }) =>
         name: name,
         surname: surname,
         status: status,
-        photo: photo ? URL.createObjectURL(photo) : undefined,
+        photo: photo,
       });
     }
   };

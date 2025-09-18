@@ -48,24 +48,36 @@ export const Users: React.FC = () => {
 }, [institutionID]);
 
 
-  const handleAddUser = async (user: Omit<User, 'id'>) => {
+  const handleAddUser = async (user: Omit<User, 'id'> & { photo?: File | null }) => {
+    const { name, surname, status, photo } = user;
+    
+    // Create a FormData object
+    const formData = new FormData();
+    formData.append('name', name);
+    formData.append('surname', surname);
+    formData.append('status', status);
+
+    if (photo) {
+      formData.append('photo', photo); // Append the actual File object
+    }
+
     try {
-      const payload = {
-        name: user.name,
-        surname: user.surname,
-        photo: user.photo,
-        status: user.status,
-      };
-      const res = await axios.post(`${API_URL}/person/subirFoto`, payload, {
-        headers: { Authorization: `Bearer ${token}` },
+      const res = await axios.post(`${API_URL}/person/subirFoto`, formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data', // Crucial for file uploads
+          Authorization: `Bearer ${token}`,
+        },
       });
+
+      // Assuming the backend returns the full user object including the photo URL
       const newUser: User = { 
-        id: res.data.person_ID,
-        name: res.data.name,
-        surname: res.data.surname,
-        photo: res.data.photo,
-        status: res.data.status,
+        id: res.data.person.person_ID,
+        name: res.data.person.name,
+        surname: res.data.person.surname,
+        photo: res.data.person.photo,
+        status: res.data.person.status,
       };
+      
       setUsers([...users, newUser]);
       setShowModal(false);
     } catch (err) {
