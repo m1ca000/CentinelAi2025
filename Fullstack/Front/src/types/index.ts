@@ -20,6 +20,13 @@ export interface User {
   photo?: string;
 }
 
+export interface NewUser {
+  name: string;
+  surname: string;
+  status: 'authorized' | 'restricted';
+  photo?: File | null;
+}
+
 export interface AuthUser {
   name: string;
   email: string;

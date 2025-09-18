@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Plus } from 'lucide-react';
 import { UserCard } from '../components/UserCard';
 import { AddUserModal } from '../components/AddUserModal';
-import type { User } from '../types';
+import type { User, NewUser } from '../types';
 import axios from 'axios';
 import { useAuth } from '../contexts/AuthContext';
 
@@ -48,7 +48,7 @@ export const Users: React.FC = () => {
 }, [institutionID]);
 
 
-  const handleAddUser = async (user: Omit<User, 'id'> & { photo?: File | null }) => {
+  const handleAddUser = async (user: NewUser) => { // Usa el tipo NewUser aquí
     const { name, surname, status, photo } = user;
     
     // Create a FormData object
@@ -69,7 +69,6 @@ export const Users: React.FC = () => {
         },
       });
 
-      // Assuming the backend returns the full user object including the photo URL
       const newUser: User = { 
         id: res.data.person.person_ID,
         name: res.data.person.name,

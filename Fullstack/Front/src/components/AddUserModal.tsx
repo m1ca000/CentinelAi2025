@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { X } from 'lucide-react';
-import type { User } from '../types';
+import type { User, NewUser } from '../types';
 import { useAuth } from '../contexts/AuthContext';
 import axios from 'axios';
 
@@ -8,13 +8,7 @@ const API_URL_LOCAL = import.meta.env.VITE_API_URL_LOCAL;
 const API_URL = import.meta.env.VITE_API_URL_DEPLOY;
 
 interface AddUserModalProps {
-  // Define un nuevo tipo para el objeto que se pasará a onAdd
-  onAdd: (user: {
-    name: string;
-    surname: string;
-    status: 'authorized' | 'restricted';
-    photo?: File | null; // El tipo correcto es File | null
-  }) => void;
+  onAdd: (user: NewUser) => void; // Usa el tipo NewUser aquí
   onClose: () => void;
 }
 
@@ -31,11 +25,10 @@ export const AddUserModal: React.FC<AddUserModalProps> = ({ onAdd, onClose }) =>
         name: name,
         surname: surname,
         status: status,
-        photo: photo,
+        photo: photo, // Pasa el objeto File directamente
       });
     }
   };
-
   return (
     <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
       <div className="bg-white rounded-lg p-6 w-full max-w-md">
