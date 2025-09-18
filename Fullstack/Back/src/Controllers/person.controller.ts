@@ -32,6 +32,9 @@ export const getPersonsControllersIA = async (req: Request, res: Response) => {
 export const getLastRecognizedController = async (req: Request, res: Response) => {
     try {
         const Person = await getPersonsById(req.body.person_ID);
+        if (Person.length === 0) {
+            return res.status(404).json({ error: "Persona no encontrada" });
+        }
         res.json(Person[0]);
     } catch (err) {
         console.error("Error en getLastRecognizedController:", err);
