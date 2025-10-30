@@ -1,17 +1,18 @@
 import { uploadActivityService, updateActivityService, getActivitiesService, getActivityDayService } from "../Services/activity.service";
+import { getPersonsById } from "../Services/person.service";
 import { Request, Response } from "express";
 
-export const uploadActivityController = async (req: Request, res: Response) => {
+export const uploadActivity = async (personID: number) => {
     try {
-        const inst = req.institutionID
-        const { personID } = req.body;
-        if (!inst || !personID) {
-            return res.status(400).json({ error: 'Faltan datos requeridos' });
+        const personFromIA = await getPersonsById(personID);
+        const inst = personFromIA[0].institutionID; 
+        if (!inst || !personFromIA) {
+            return { error: 'Faltan datos requeridos' };
         }
-        const activity = await uploadActivityService(inst, personID);
-        return res.status(201).json({ message: 'Actividad registrada con éxito', activity });
+        const activity = await uploadActivityService(inst, personFromIA[0].person_ID);
+        return { message: 'Actividad registrada con éxito', activity };
     } catch (err) {
-        res.status(500).json({ error: 'Error de db'});
+        return { error: 'Error de db' };
         throw err;
     }
 }

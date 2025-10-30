@@ -2,6 +2,7 @@ import { savePersonRegister, getPersonsByInstitution, uploadImage, updatePersonS
 import { Request, Response } from "express";
 import axios from "axios";
 import { deleteActivityService } from "../Services/activity.service";
+import { uploadActivity } from "../Controllers/activity.controller";
 
 const AI_URL = process.env.AI_URL || "http://127.0.0.1:8000";
 
@@ -35,6 +36,7 @@ export const getLastRecognizedController = async (req: Request, res: Response) =
         if (Person.length === 0) {
             return res.status(404).json({ error: "Persona no encontrada" });
         }
+        const activity = await uploadActivity(req.body.person_ID);
         res.json(Person[0]);
     } catch (err) {
         console.error("Error en getLastRecognizedController:", err);
