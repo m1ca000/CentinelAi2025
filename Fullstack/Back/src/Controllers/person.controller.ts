@@ -37,6 +37,13 @@ export const getLastRecognizedController = async (req: Request, res: Response) =
             return res.status(404).json({ error: "Persona no encontrada" });
         }
         const activity = await uploadActivity(req.body.person_ID);
+        const { state } = req.body;
+        if (state === "1" || state === "0") {
+            let ledState = state;
+            res.send('LED state set')
+        } else {
+            res.status(400).send('Invalid State')
+        }
         res.json(Person[0]);
     } catch (err) {
         console.error("Error en getLastRecognizedController:", err);
