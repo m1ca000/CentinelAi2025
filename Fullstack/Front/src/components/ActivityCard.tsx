@@ -26,15 +26,6 @@ export const ActivityCard: React.FC<HistoryCardProps> = ({ entry }) => {
           {formatTimeAgo(entry.timestamp)}
         </div>
       </div>
-      
-      <div className="flex space-x-2">
-        <button className="bg-indigo-500 hover:bg-indigo-600 text-white px-4 py-1 rounded text-sm transition-colors">
-          Info
-        </button>
-        <button className="bg-gray-500 hover:bg-gray-600 text-white px-4 py-1 rounded text-sm transition-colors">
-          Restringir
-        </button>
-      </div>
     </div>
   );
 };
